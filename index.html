@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cert-Ready Technology Academy, LLC</title>
+    <style>
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    color: #181818;
+    background: #fafbfc;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 32px 16px;
+}
+
+/* Header and Nav */
+header {
+    background: #102654;
+    color: #fff;
+    padding: 16px 0;
+    box-shadow: 0 2px 12px rgba(16,38,84,0.08);
+}
+
+.nav-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.site-title {
+    font-size: 1.45rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+nav a {
+    color: #fff;
+    margin-left: 24px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+nav a:hover {
+    color: #ffb700;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(120deg, #2851a3 50%, #ffb700 120%);
+    color: #fff;
+    text-align: center;
+    padding: 90px 0 64px 0;
+}
+
+.hero h1 {
+    font-size: 2.7rem;
+    font-weight: 800;
+    margin-bottom: 18px;
+    letter-spacing: 1.2px;
+}
+
+.hero p {
+    font-size: 1.23rem;
+    margin-bottom: 32px;
+}
+
+.cta-btn {
+    display: inline-block;
+    background: #ffb700;
+    color: #1c2130;
+    font-size: 1.07rem;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 32px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.22s;
+    box-shadow: 0 2px 12px rgba(40,81,163,0.06);
+}
+
+.cta-btn:hover {
+    background: #ffa600;
+    color: #102654;
+}
+
+/* About Section */
+.about {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 1px 12px rgba(16,38,84,0.07);
+    margin: 48px 0;
+    padding: 42px 0 32px 0;
+    text-align: left;
+}
+
+.about h2 {
+    color: #102654;
+    font-size: 2.1rem;
+    margin-bottom: 14px;
+}
+
+.about .goal {
+    margin-top: 16px;
+    font-size: 1.1rem;
+    color: #3960b6;
+}
+
+/* Flipbook Section */
+.flipbook h2 {
+    color: #2851a3;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+}
+
+.flipbook-embed {
+    margin: 0 0 16px 0;
+    box-shadow: 0 2px 14px rgba(40,81,163,0.09);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.flipbook p {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.flipbook a {
+    color: #2851a3;
+    text-decoration: underline;
+}
+
+.flipbook a:hover {
+    color: #ffb700;
+}
+
+/* Projects Section */
+.projects {
+    margin: 48px 0;
+    padding: 40px 0;
+    background: #f9fafb;
+    border-radius: 16px;
+}
+
+.projects h2 {
+    font-size: 1.5rem;
+    color: #2851a3;
+    margin-bottom: 22px;
+    text-align: left;
+}
+
+.projects-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: flex-start;
+}
+
+.project-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 14px rgba(40,81,163,0.09);
+    padding: 26px 22px 20px 22px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    width: 220px;
+    transition: transform 0.12s, box-shadow 0.18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #e0e4ec;
+}
+
+.project-card:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(40,81,163,0.14);
+    border-color: #ffb700;
+}
+
+.project-logo img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 14px;
+}
+
+
+
+.project-info h3 {
+    margin: 0 0 7px 0;
+    font-size: 1.13rem;
+    color: #102654;
+}
+
+.project-info p {
+    font-size: 1rem;
+    color: #333;
+    margin: 0;
+}
+
+/* Contact Section */
+.contact {
+    background: #f3f6fb;
+    border-radius: 18px;
+    margin: 42px 0;
+    padding: 40px 0 24px 0;
+}
+
+.contact h2 {
+    font-size: 1.55rem;
+    color: #2851a3;
+    margin-bottom: 12px;
+}
+
+.contact-form {
+    max-width: 440px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form label {
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    margin-top: 5px;
+    margin-bottom: 16px;
+    padding: 11px 12px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.contact-form textarea {
+    min-height: 120px;
+}
+
+.contact-form button {
+    align-self: center;
+}
+
+.form-note {
+    margin-top: 10px;
+    text-align: center;
+    color: #888;
+    font-size: 0.96rem;
+}
+
+/* Footer */
+footer {
+    background: #102654;
+    color: #fff;
+    text-align: center;
+    padding: 18px 0;
+    margin-top: 60px;
+    font-size: 1rem;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+    .nav-flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    nav a {
+        margin-left: 0;
+        margin-right: 18px;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .container {
+        padding: 18px 8px;
+    }
+    
+    .projects-grid {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+    
+    .project-card {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-flex">
+            <div class="site-title">Cert-Ready Technology Academy, LLC</div>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#flipbook">Flipbook</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Partner With Us</a>
+            </nav>
+        </div>
+    </header>
+     
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Securing Tomorrow's Tech Careers, Today</h1>
+            <p>Certification-first pathways for middle school, high school, and adult learners. <br>
+            Where mentorship meets methodology.</p>
+            <a href="#contact" class="cta-btn">Partner With Us</a>
+        </div>
+    </section>
+     
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About CRTA</h2>
+            <p>
+                I founded CRTA to expand access to tech careers for middle and high school students, as well as adult learners.
+                Our model is <strong>certification-first</strong>—designed to help students graduate not only with diplomas, but with industry-recognized credentials.
+                From CompTIA to Microsoft tracks, the goal is equity, readiness, and career acceleration. It's where mentorship meets methodology, tailored to your school's culture.
+            </p>
+            <p class="goal"><em>Our goal: plant the seeds of tomorrow's tech field today.</em></p>
+        </div>
+    </section>
+     
+    <!-- Flipbook Section -->
+    <section id="flipbook" class="flipbook">
+        <div class="container">
+            <h2>Interactive Flipbook: FutureReady@TCS Proposal</h2>
+            <div class="flipbook-embed">
+                <iframe src="https://toshon-jennings.github.io/caps-cortex/FutureReady@TCS.html"
+                        title="FutureReady@TCS Flipbook"
+                        width="100%"
+                        height="600"
+                        style="border:1px solid #ccc; border-radius:8px;"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+            </div>
+            <p>
+                <a href="https://toshon-jennings.github.io/caps-cortex/FutureReady@TCS.html" target="_blank" rel="noopener">
+                    Open the flipbook in a new tab
+                </a>
+            </p>
+        </div>
+      <hr>
+    </section>
+   
+   <!-- Projects Section -->
+   <section id="projects" class="projects">
+       <div class="container">
+           <h2>Projects</h2>
+           <div class="projects-grid">
+               <!-- CAps Project Card -->
+               <a class="project-card" href="https://toshon-jennings.github.io/DoubleCapsCorrect/" target="_blank" rel="noopener">
+                   <div class="project-logo">
+                       <img src="caps-logo.png" alt="CAps Logo" />
+                   </div>
+                   <div class="project-info">
+                       <h3>CAps™</h3>
+                       <p>A background executable for keyboard perfectionists.</p>
+                   </div>
+               </a>
+               
+               <!-- City Lights Junior Tech Academy Project Card -->
+               <a class="project-card" href="https://toshon-jennings.github.io/city-lights-jr-TA/" target="_blank" rel="noopener">
+                   <div class="project-logo">
+                       <img src="city-lights-logo.png" alt="City Lights Junior Tech Academy Logo" />
+                   </div>
+                   <div class="project-info">
+                       <h3>City Lights Junior Tech Academy</h3>
+                       <p>Creating digitally literate citizens, one child at a time.</p>
+                   </div>
+               </a>
+           </div>
+       </div>
+   </section>
+      
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Partner With Us</h2>
+            <p>Ready to bring tech career pathways to your school or organization? Let's build the future together!</p>
+            <form action="https://formspree.io/f/mzzvjqgz" method="POST" class="contact-form" autocomplete="off">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+                                
+                <label for="email">Email</label>
+                <input type="email" id="email" name="_replyto" required>
+                                
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+                                
+                <!-- Simple honeypot (invisible to humans) -->
+                <input type="text" name="_gotcha" style="display:none">
+                
+                <!-- Set recipient -->
+                <input type="hidden" name="_to" value="toshon@crta.ltd">
+                
+                <button type="submit" class="cta-btn">Send Message</button>
+            </form>
+            <div class="form-note">
+                <small>Your information will only be used to respond to your inquiry. No spam, ever.</small>
+            </div>
+        </div>
+    </section>
+     
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            &copy; 2025 Cert-Ready Technology Academy, LLC. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>
