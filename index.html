@@ -41,6 +41,109 @@ header {
     border-bottom: 3px solid #f6c443;
 }
 
+/* Subtle train tracks */
+.train-tracks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Track 1 - Top track for express train */
+.train-tracks::before {
+    content: '';
+    position: absolute;
+    top: calc(15% + 12px);
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.1) 10%,
+        rgba(255, 255, 255, 0.1) 90%,
+        transparent 100%);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Track 2 - Middle track */
+.train-tracks::after {
+    content: '';
+    position: absolute;
+    top: calc(45% + 9px);
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.08) 5%,
+        rgba(255, 255, 255, 0.08) 95%,
+        transparent 100%);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+/* Track 3 - Bottom track along yellow border */
+.track-bottom {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(246, 196, 67, 0.2) 8%,
+        rgba(246, 196, 67, 0.2) 92%,
+        transparent 100%);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    z-index: 0;
+}
+
+/* Track ties/sleepers for added realism */
+.track-ties {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.3;
+}
+
+.track-ties::before {
+    content: '';
+    position: absolute;
+    top: calc(15% + 11px);
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: repeating-linear-gradient(90deg,
+        transparent 0px,
+        transparent 28px,
+        rgba(0, 0, 0, 0.1) 28px,
+        rgba(0, 0, 0, 0.1) 30px,
+        transparent 30px,
+        transparent 40px);
+}
+
+.track-ties::after {
+    content: '';
+    position: absolute;
+    top: calc(45% + 8px);
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: repeating-linear-gradient(90deg,
+        transparent 0px,
+        transparent 32px,
+        rgba(0, 0, 0, 0.08) 32px,
+        rgba(0, 0, 0, 0.08) 34px,
+        transparent 34px,
+        transparent 45px);
+}
+
 /* Train Container - holds all trains */
 .train-container {
     position: absolute;
@@ -96,7 +199,7 @@ header {
     border-radius: 2px;
 }
 
-/* Express train logo (CRTA) */
+/* Express train logo (CRTA) - with white background circle */
 .train-express::before {
     content: '';
     position: absolute;
@@ -105,11 +208,10 @@ header {
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
-    background-image: url('/crta/crta-logo-removebg.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    filter: brightness(1.2) contrast(1.1);
+    background: 
+        url('/crta/crta-logo-removebg.png') center/contain no-repeat,
+        radial-gradient(circle, rgba(255, 255, 255, 0.9) 60%, transparent 70%);
+    border-radius: 50%;
     z-index: 2;
 }
 
@@ -156,7 +258,7 @@ header {
     border-radius: 1px;
 }
 
-/* Local train logo (City Lights) - moved to front */
+/* Local train logo (City Lights) - with white background circle */
 .train-local::before {
     content: '';
     position: absolute;
@@ -165,11 +267,10 @@ header {
     transform: translateY(-50%);
     width: 14px;
     height: 14px;
-    background-image: url('city-lights-logo.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    filter: brightness(1.1);
+    background: 
+        url('city-lights-logo.png') center/contain no-repeat,
+        radial-gradient(circle, rgba(255, 255, 255, 0.85) 60%, transparent 70%);
+    border-radius: 50%;
     z-index: 2;
 }
 
@@ -216,7 +317,7 @@ header {
     border-radius: 1px;
 }
 
-/* Medium train logo (CAps) - positioned on front */
+/* Medium train logo (CAps) - keep as is since it works */
 .train-medium::before {
     content: '';
     position: absolute;
@@ -229,7 +330,6 @@ header {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    filter: brightness(1.1);
     z-index: 2;
 }
 
@@ -959,6 +1059,10 @@ section {
 <body>
     <!-- Header & Navigation -->
     <header>
+        <!-- Train tracks layers -->
+        <div class="train-tracks"></div>
+        <div class="track-ties"></div>
+        <div class="track-bottom"></div>
         <!-- Train Container with all three trains -->
         <div class="train-container">
             <div class="train-express"></div>
@@ -1098,4 +1202,4 @@ section {
         </div>
     </footer>
 </body>
-    </html>
+</html>
