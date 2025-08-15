@@ -453,13 +453,15 @@ header {
 }
 
 .logo {
-    max-height: 48px;
+    max-height: clamp(2rem, 3vw, 3.75rem); /* scales from ~32px to 60px */
     width: auto;
     object-fit: contain;
+    margin-top: 2px; /* fine-tune vertical alignment */
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     transition: transform 0.3s ease;
     background: transparent;
 }
+
 
 .logo:hover {
     transform: scale(1.05);
