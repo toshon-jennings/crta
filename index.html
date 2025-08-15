@@ -37,8 +37,23 @@ header {
     padding: 20px 0;
     box-shadow: 0 4px 20px rgba(30, 58, 95, 0.15);
     position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid #f6c443;
 }
 
+/* Add a subtle shadow separator */
+header::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: linear-gradient(to bottom, rgba(30, 58, 95, 0.1) 0%, transparent 100%);
+    z-index: 4;
+}
+
+/* Subway station glass effect */
 header::before {
     content: '';
     position: absolute;
@@ -46,16 +61,182 @@ header::before {
     left: 0;
     right: 0;
     bottom: 0;
+    background: 
+        radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 70%),
+        linear-gradient(90deg, 
+            transparent 0%, 
+            rgba(255,255,255,0.02) 50%, 
+            transparent 100%);
+    backdrop-filter: blur(0.5px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Train 1 - Express going right */
+header::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: -400px;
+    width: 300px;
+    height: 25px;
+    background: linear-gradient(90deg, 
+        rgba(246, 196, 67, 0.15) 0%, 
+        rgba(246, 196, 67, 0.25) 10%, 
+        rgba(255, 255, 255, 0.2) 50%, 
+        rgba(246, 196, 67, 0.25) 90%, 
+        rgba(246, 196, 67, 0.15) 100%);
+    border-radius: 12px;
+    animation: trainExpress 12s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+    box-shadow: 0 0 20px rgba(246, 196, 67, 0.1);
+}
+
+/* Additional trains using pseudo-elements on child divs */
+.train-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.train-2 {
+    position: absolute;
+    top: 60%;
+    right: -350px;
+    width: 250px;
+    height: 20px;
+    background: linear-gradient(90deg, 
+        rgba(30, 58, 95, 0.2) 0%, 
+        rgba(44, 82, 130, 0.3) 20%, 
+        rgba(255, 255, 255, 0.15) 50%, 
+        rgba(44, 82, 130, 0.3) 80%, 
+        rgba(30, 58, 95, 0.2) 100%);
+    border-radius: 10px;
+    animation: trainLocal 16s linear infinite;
+    box-shadow: 0 0 15px rgba(44, 82, 130, 0.08);
+}
+
+.train-3 {
+    position: absolute;
+    top: 40%;
+    left: -500px;
+    width: 400px;
+    height: 18px;
+    background: linear-gradient(90deg, 
+        rgba(246, 196, 67, 0.1) 0%, 
+        rgba(246, 196, 67, 0.2) 15%, 
+        rgba(255, 255, 255, 0.12) 50%, 
+        rgba(246, 196, 67, 0.2) 85%, 
+        rgba(246, 196, 67, 0.1) 100%);
+    border-radius: 9px;
+    animation: trainSlow 20s linear infinite;
+    box-shadow: 0 0 12px rgba(246, 196, 67, 0.06);
+}
+
+/* Train headlights */
+.train-2::before {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    animation: trainLocal 16s linear infinite;
+}
+
+.train-3::after {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: rgba(246, 196, 67, 0.9);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(246, 196, 67, 0.4);
+    animation: trainSlow 20s linear infinite;
+}
+
+@keyframes trainExpress {
+    0% {
+        left: -400px;
+        opacity: 0;
+    }
+    5% {
+        opacity: 1;
+    }
+    95% {
+        opacity: 1;
+    }
+    100% {
+        left: calc(100% + 100px);
+        opacity: 0;
+    }
+}
+
+@keyframes trainLocal {
+    0% {
+        right: -350px;
+        opacity: 0;
+    }
+    8% {
+        opacity: 1;
+    }
+    92% {
+        opacity: 1;
+    }
+    100% {
+        right: calc(100% + 100px);
+        opacity: 0;
+    }
+}
+
+@keyframes trainSlow {
+    0% {
+        left: -500px;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        left: calc(100% + 200px);
+        opacity: 0;
+    }
+}
+
+/* Subtle texture overlay */
+.header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" patternUnits="userSpaceOnUse" width="100" height="100"><circle cx="50" cy="50" r="1" fill="white" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
     pointer-events: none;
+    z-index: 2;
 }
 
 .nav-flex {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    gap: 16px;
     position: relative;
-    z-index: 1;
+    z-index: 3;
 }
 
 .logo-title-container {
@@ -539,7 +720,7 @@ footer {
 @media (max-width: 700px) {
     .nav-flex {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         gap: 16px;
     }
     
@@ -556,7 +737,7 @@ footer {
     }
     
     .site-title {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
     
     nav {
@@ -570,6 +751,7 @@ footer {
     nav a {
         margin-left: 0;
         margin-right: 0;
+        font-size: 0.9rem;
     }
     
     .hero h1 {
@@ -661,6 +843,11 @@ section {
 <body>
     <!-- Header & Navigation -->
     <header>
+        <div class="train-container">
+            <div class="train-2"></div>
+            <div class="train-3"></div>
+        </div>
+        <div class="header-overlay"></div>
         <div class="container nav-flex">
             <div class="logo-title-container">
                 <img src="/crta/crta-logo-removebg.png" alt="CRTA Logo" class="logo">
