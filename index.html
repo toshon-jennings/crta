@@ -56,7 +56,7 @@ header {
 .train-tracks::before {
     content: '';
     position: absolute;
-    top: calc(15% + 12px);
+    top: calc(15% + 24px); /* Moved below the express train (which is 24px tall) */
     left: 0;
     right: 0;
     height: 1px;
@@ -72,7 +72,7 @@ header {
 .train-tracks::after {
     content: '';
     position: absolute;
-    top: calc(45% + 9px);
+    top: calc(45% + 18px); /* Moved below the medium train (which is 18px tall) */
     left: 0;
     right: 0;
     height: 1px;
@@ -84,10 +84,10 @@ header {
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
 }
 
-/* Track 3 - Bottom track along yellow border */
+/* Track 3 - Bottom track */
 .track-bottom {
     position: absolute;
-    bottom: 5px;
+    bottom: 5px; /* Back to original - this was correct, under the local train */
     left: 0;
     right: 0;
     height: 1px;
@@ -115,7 +115,7 @@ header {
 .track-ties::before {
     content: '';
     position: absolute;
-    top: calc(15% + 11px);
+    top: calc(15% + 23px); /* Adjusted to match new track position */
     left: 0;
     right: 0;
     height: 3px;
@@ -131,7 +131,7 @@ header {
 .track-ties::after {
     content: '';
     position: absolute;
-    top: calc(45% + 8px);
+    top: calc(45% + 17px); /* Adjusted to match new track position */
     left: 0;
     right: 0;
     height: 3px;
@@ -171,19 +171,21 @@ header {
     border-radius: 12px;
     border: 1px solid rgba(246, 196, 67, 0.4);
     animation: trainExpress 14s linear infinite;
+    /* Added headlight effect for express train */
     box-shadow: 
         0 0 20px rgba(246, 196, 67, 0.15),
         inset 0 2px 0 rgba(255, 255, 255, 0.2),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+        inset 0 -2px 0 rgba(0, 0, 0, 0.1),
+        8px 0 12px -4px rgba(246, 196, 67, 1);
 }
 
-/* Express train windows */
+/* Express train windows - modified to not show behind logo */
 .train-express::after {
     content: '';
     position: absolute;
     top: 30%;
     left: 0;
-    right: 0;
+    right: 30px; /* Stop windows before logo area */
     height: 40%;
     background: repeating-linear-gradient(90deg,
         transparent 0px,
@@ -199,7 +201,7 @@ header {
     border-radius: 2px;
 }
 
-/* Express train logo (CRTA) - with white background circle */
+/* Express train logo (CAps) - using caps-logo as requested */
 .train-express::before {
     content: '';
     position: absolute;
@@ -208,10 +210,10 @@ header {
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
-    background: 
-        url('caps-logo.png') center/contain no-repeat,
-        radial-gradient(circle, rgba(255, 255, 255, 0.9) 60%, transparent 70%);
-    border-radius: 50%;
+    background-image: url('caps-logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     z-index: 2;
 }
 
@@ -230,18 +232,20 @@ header {
     border-radius: 6px;
     border: 1px solid rgba(44, 82, 130, 0.3);
     animation: trainLocalStop 22s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+    /* Headlight effect for local train */
     box-shadow: 
         0 0 15px rgba(44, 82, 130, 0.12),
         inset 0 2px 0 rgba(255, 255, 255, 0.15),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        -8px 0 8px -4px rgba(255, 255, 255, 0.8);
 }
 
-/* Local train windows */
+/* Local train windows - modified to not show behind logo */
 .train-local::after {
     content: '';
     position: absolute;
     top: 35%;
-    left: 0;
+    left: 30px; /* Start windows after logo area */
     right: 0;
     height: 35%;
     background: repeating-linear-gradient(90deg,
@@ -258,7 +262,7 @@ header {
     border-radius: 1px;
 }
 
-/* Local train logo (City Lights) - with white background circle */
+/* Local train logo (CAps) - using caps-logo as requested */
 .train-local::before {
     content: '';
     position: absolute;
@@ -267,12 +271,12 @@ header {
     transform: translateY(-50%);
     width: 14px;
     height: 14px;
-    background: 
-        url('caps-logo.png') center/contain no-repeat,
-        radial-gradient(circle, rgba(255, 255, 255, 0.85) 60%, transparent 70%);
-    border-radius: 50%;
+    background-image: url('caps-logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     z-index: 2;
-} 
+}
 
 /* Train 3 - Medium speed (middle track) */
 .train-medium {
@@ -289,19 +293,21 @@ header {
     border-radius: 6px;
     border: 1px solid rgba(246, 196, 67, 0.3);
     animation: trainSlowStop 26s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+    /* Headlight effect for medium train */
     box-shadow: 
         0 0 12px rgba(246, 196, 67, 0.1),
         inset 0 2px 0 rgba(255, 255, 255, 0.15),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        8px 0 8px -4px rgba(246, 196, 67, 0.9);
 }
 
-/* Medium train windows */
+/* Medium train windows - modified to not show behind logo */
 .train-medium::after {
     content: '';
     position: absolute;
     top: 33%;
     left: 0;
-    right: 0;
+    right: 30px; /* Stop windows before logo area */
     height: 38%;
     background: repeating-linear-gradient(90deg,
         transparent 0px,
@@ -317,7 +323,7 @@ header {
     border-radius: 1px;
 }
 
-/* Medium train logo (CAps) - keep as is since it works */
+/* Medium train logo (CAps) */
 .train-medium::before {
     content: '';
     position: absolute;
@@ -331,23 +337,6 @@ header {
     background-repeat: no-repeat;
     background-position: center;
     z-index: 2;
-}
-
-/* Add headlights as separate elements since ::before is used for logos */
-.train-local {
-    box-shadow: 
-        0 0 15px rgba(44, 82, 130, 0.12),
-        inset 0 2px 0 rgba(255, 255, 255, 0.15),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-        -8px 0 8px -4px rgba(255, 255, 255, 0.8);
-}
-
-.train-medium {
-    box-shadow: 
-        0 0 12px rgba(246, 196, 67, 0.1),
-        inset 0 2px 0 rgba(255, 255, 255, 0.15),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-        8px 0 8px -4px rgba(246, 196, 67, 0.9);
 }
 
 /* Animation keyframes */
@@ -1094,7 +1083,7 @@ section {
             <div class="particle"></div>
         </div>
         <div class="container">
-            <h1>Training That Moves Students Forward</h1>
+            <h1>Securing Tomorrow's Tech Careers, Today</h1>
             <p>Certification-first pathways for middle school, high school, and adult learners. <br>
             Where mentorship meets methodology.</p>
             <a href="#contact" class="cta-btn">Partner With Us</a>
@@ -1213,4 +1202,4 @@ section {
         </div>
     </footer>
 </body>
-    </html>
+</html>
