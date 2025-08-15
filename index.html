@@ -41,28 +41,25 @@ header {
     border-bottom: 3px solid #f6c443;
 }
 
-/* Add a subtle shadow separator */
-header::after {
-    content: '';
+/* Train Container - holds all trains */
+.train-container {
     position: absolute;
-    bottom: -10px;
+    top: 0;
     left: 0;
-    right: 0;
-    height: 10px;
-    background: linear-gradient(to bottom, rgba(30, 58, 95, 0.1) 0%, transparent 100%);
-    z-index: 4;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
 }
 
-/* Train 1 - Express going right (top track) */
-header::after {
-    content: '';
+/* Train 1 - Express (top track) */
+.train-express {
     position: absolute;
     top: 15%;
     left: -400px;
     width: 320px;
     height: 24px;
     background: 
-        /* Main car body */
         linear-gradient(90deg, 
             rgba(246, 196, 67, 0.25) 0%, 
             rgba(246, 196, 67, 0.35) 15%, 
@@ -71,8 +68,6 @@ header::after {
     border-radius: 12px;
     border: 1px solid rgba(246, 196, 67, 0.4);
     animation: trainExpress 14s linear infinite;
-    pointer-events: none;
-    z-index: 0;
     box-shadow: 
         0 0 20px rgba(246, 196, 67, 0.15),
         inset 0 2px 0 rgba(255, 255, 255, 0.2),
@@ -80,39 +75,46 @@ header::after {
 }
 
 /* Express train windows */
-header::before {
+.train-express::after {
     content: '';
     position: absolute;
-    top: 15%;
-    left: -400px;
-    width: 320px;
-    height: 24px;
+    top: 30%;
+    left: 0;
+    right: 0;
+    height: 40%;
     background: repeating-linear-gradient(90deg,
         transparent 0px,
-        transparent 40px,
-        rgba(135, 206, 235, 0.3) 42px,
-        rgba(135, 206, 235, 0.3) 58px,
-        transparent 60px,
-        transparent 80px);
-    border-radius: 12px;
-    animation: trainExpress 14s linear infinite;
-    pointer-events: none;
-    z-index: 0;
+        transparent 8px,
+        rgba(30, 58, 95, 0.2) 8px,
+        rgba(30, 58, 95, 0.2) 10px,
+        rgba(135, 206, 235, 0.4) 10px,
+        rgba(135, 206, 235, 0.4) 26px,
+        rgba(30, 58, 95, 0.2) 26px,
+        rgba(30, 58, 95, 0.2) 28px,
+        transparent 28px,
+        transparent 40px);
+    border-radius: 2px;
 }
 
-/* Additional trains using pseudo-elements on child divs */
-.train-container {
+/* Express train logo (CRTA) */
+.train-express::before {
+    content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url('/crta/crta-logo-removebg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: brightness(1.2) contrast(1.1);
+    z-index: 2;
 }
 
-/* Local Train - realistic subway car along yellow border */
-.train-2 {
+/* Train 2 - Local (bottom track) */
+.train-local {
     position: absolute;
     bottom: 6px;
     right: -350px;
@@ -133,26 +135,46 @@ header::before {
 }
 
 /* Local train windows */
-.train-2::after {
+.train-local::after {
     content: '';
     position: absolute;
-    top: 0;
+    top: 35%;
     left: 0;
     right: 0;
-    bottom: 0;
+    height: 35%;
     background: repeating-linear-gradient(90deg,
         transparent 0px,
-        transparent 25px,
-        rgba(135, 206, 235, 0.4) 27px,
-        rgba(135, 206, 235, 0.4) 38px,
-        transparent 40px,
-        transparent 55px);
-    border-radius: 6px;
-    animation: doorEffect 22s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+        transparent 6px,
+        rgba(30, 58, 95, 0.2) 6px,
+        rgba(30, 58, 95, 0.2) 7px,
+        rgba(135, 206, 235, 0.5) 7px,
+        rgba(135, 206, 235, 0.5) 18px,
+        rgba(30, 58, 95, 0.2) 18px,
+        rgba(30, 58, 95, 0.2) 19px,
+        transparent 19px,
+        transparent 28px);
+    border-radius: 1px;
 }
 
-/* Medium speed train */
-.train-3 {
+/* Local train logo (City Lights) - moved to front */
+.train-local::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    background-image: url('city-lights-logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: brightness(1.1);
+    z-index: 2;
+}
+
+/* Train 3 - Medium speed (middle track) */
+.train-medium {
     position: absolute;
     top: 45%;
     left: -500px;
@@ -173,53 +195,62 @@ header::before {
 }
 
 /* Medium train windows */
-.train-3::after {
+.train-medium::after {
     content: '';
     position: absolute;
-    top: 0;
+    top: 33%;
     left: 0;
     right: 0;
-    bottom: 0;
+    height: 38%;
     background: repeating-linear-gradient(90deg,
         transparent 0px,
-        transparent 30px,
-        rgba(135, 206, 235, 0.3) 32px,
-        rgba(135, 206, 235, 0.3) 42px,
-        transparent 44px,
-        transparent 60px);
-    border-radius: 6px;
-    animation: trainSlowStop 26s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+        transparent 10px,
+        rgba(246, 196, 67, 0.15) 10px,
+        rgba(246, 196, 67, 0.15) 11px,
+        rgba(135, 206, 235, 0.35) 11px,
+        rgba(135, 206, 235, 0.35) 24px,
+        rgba(246, 196, 67, 0.15) 24px,
+        rgba(246, 196, 67, 0.15) 25px,
+        transparent 25px,
+        transparent 38px);
+    border-radius: 1px;
 }
 
-/* Train headlights */
-.train-2::before {
+/* Medium train logo (CAps) - positioned on front */
+.train-medium::before {
     content: '';
     position: absolute;
-    right: -5px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    animation: trainLocal 18s ease-in-out infinite;
+    width: 14px;
+    height: 14px;
+    background-image: url('caps-logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: brightness(1.1);
+    z-index: 2;
 }
 
-.train-3::after {
-    content: '';
-    position: absolute;
-    left: -5px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 6px;
-    height: 6px;
-    background: rgba(246, 196, 67, 0.9);
-    border-radius: 50%;
-    box-shadow: 0 0 8px rgba(246, 196, 67, 0.4);
-    animation: trainSlow 22s ease-in-out infinite;
+/* Add headlights as separate elements since ::before is used for logos */
+.train-local {
+    box-shadow: 
+        0 0 15px rgba(44, 82, 130, 0.12),
+        inset 0 2px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        -8px 0 8px -4px rgba(255, 255, 255, 0.8);
 }
 
+.train-medium {
+    box-shadow: 
+        0 0 12px rgba(246, 196, 67, 0.1),
+        inset 0 2px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        8px 0 8px -4px rgba(246, 196, 67, 0.9);
+}
+
+/* Animation keyframes */
 @keyframes trainExpress {
     0% {
         left: -400px;
@@ -237,7 +268,7 @@ header::before {
     }
 }
 
-@keyframes trainLocal {
+@keyframes trainLocalStop {
     0% {
         right: -350px;
         opacity: 0;
@@ -249,22 +280,18 @@ header::before {
     25% {
         right: 50%;
         opacity: 1;
-        filter: brightness(1.3);
     }
     45% {
         right: 50%;
         opacity: 1;
-        filter: brightness(1.3);
     }
     55% {
         right: 45%;
         opacity: 1;
-        filter: brightness(1.1);
     }
     75% {
         right: 30%;
         opacity: 1;
-        filter: brightness(1);
     }
     92% {
         opacity: 1;
@@ -275,7 +302,7 @@ header::before {
     }
 }
 
-@keyframes trainSlow {
+@keyframes trainSlowStop {
     0% {
         left: -500px;
         opacity: 0;
@@ -287,22 +314,18 @@ header::before {
     30% {
         left: 40%;
         opacity: 1;
-        filter: brightness(1.2);
     }
     55% {
         left: 40%;
         opacity: 1;
-        filter: brightness(1.2);
     }
     65% {
         left: 45%;
         opacity: 1;
-        filter: brightness(1.1);
     }
     80% {
         left: 70%;
         opacity: 1;
-        filter: brightness(1);
     }
     90% {
         opacity: 1;
@@ -313,7 +336,7 @@ header::before {
     }
 }
 
-/* Subtle texture overlay */
+/* Header texture overlay */
 .header-overlay {
     position: absolute;
     top: 0;
@@ -398,7 +421,6 @@ nav a:hover {
     pointer-events: none;
 }
 
-/* Animated floating elements */
 .hero::after {
     content: '';
     position: absolute;
@@ -434,7 +456,6 @@ nav a:hover {
     }
 }
 
-/* Floating particles animation */
 .floating-particles {
     position: absolute;
     top: 0;
@@ -938,12 +959,11 @@ section {
 <body>
     <!-- Header & Navigation -->
     <header>
-        <div class="header-glass-effect"></div>
+        <!-- Train Container with all three trains -->
         <div class="train-container">
-            <div class="train-2">
-                <div class="passenger-dots"></div>
-            </div>
-            <div class="train-3"></div>
+            <div class="train-express"></div>
+            <div class="train-local"></div>
+            <div class="train-medium"></div>
         </div>
         <div class="header-overlay"></div>
         <div class="container nav-flex">
@@ -1078,4 +1098,4 @@ section {
         </div>
     </footer>
 </body>
-</html>
+    </html>
