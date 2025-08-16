@@ -32,7 +32,7 @@ body {
 
 /* Header and Nav */
 header {
-    background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+    background: #1e3a5f;
     color: #fff;
     padding: 20px 0;
     box-shadow: 0 4px 20px rgba(30, 58, 95, 0.15);
@@ -41,138 +41,8 @@ header {
     border-bottom: 3px solid #f6c443;
 }
 
-/* Subway/Transit Map Background */
-.transit-map {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.12;
-    background-image: 
-        /* Main horizontal transit routes - like NYC subway lines */
-        linear-gradient(90deg, transparent 0%, rgba(246, 196, 67, 0.4) 10%, rgba(246, 196, 67, 0.4) 90%, transparent 100%),
-        linear-gradient(90deg, transparent 5%, rgba(44, 82, 130, 0.35) 15%, rgba(44, 82, 130, 0.35) 85%, transparent 95%),
-        linear-gradient(90deg, transparent 8%, rgba(255, 255, 255, 0.25) 18%, rgba(255, 255, 255, 0.25) 82%, transparent 92%),
-        linear-gradient(90deg, transparent 12%, rgba(246, 196, 67, 0.3) 22%, rgba(246, 196, 67, 0.3) 78%, transparent 88%),
-        linear-gradient(90deg, transparent 15%, rgba(44, 82, 130, 0.25) 25%, rgba(44, 82, 130, 0.25) 75%, transparent 85%);
-    
-    background-size: 
-        100% 2px,   /* Main lines running horizontally */
-        120% 2px,
-        110% 1px,
-        95% 1px,
-        130% 1px;
-    
-    background-position: 
-        0 20%,      /* Spread horizontal lines across different heights */
-        0 35%,
-        0 50%,
-        0 65%,
-        0 80%;
-    
-    background-repeat: no-repeat;
-}
-
-/* Transit stations/nodes */
-.transit-stations {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.15;
-}
-
-.transit-stations::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        /* Station dots along the horizontal routes */
-        radial-gradient(circle at 15% 20%, rgba(246, 196, 67, 0.7) 1.5px, transparent 2.5px),
-        radial-gradient(circle at 35% 35%, rgba(44, 82, 130, 0.6) 1.5px, transparent 2.5px),
-        radial-gradient(circle at 55% 50%, rgba(255, 255, 255, 0.5) 1px, transparent 2px),
-        radial-gradient(circle at 75% 65%, rgba(246, 196, 67, 0.5) 1px, transparent 2px),
-        radial-gradient(circle at 85% 80%, rgba(44, 82, 130, 0.4) 1px, transparent 2px),
-        radial-gradient(circle at 25% 65%, rgba(246, 196, 67, 0.4) 1px, transparent 2px),
-        radial-gradient(circle at 65% 35%, rgba(255, 255, 255, 0.4) 1px, transparent 2px),
-        radial-gradient(circle at 45% 80%, rgba(44, 82, 130, 0.3) 1px, transparent 2px);
-    background-repeat: no-repeat;
-}
-
-/* Moving data/signal lines */
-.data-flow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.1;
-}
-
-.data-flow::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: 
-        linear-gradient(90deg, 
-            transparent 0%, 
-            rgba(246, 196, 67, 0.3) 2%, 
-            transparent 4%, 
-            transparent 20%, 
-            rgba(44, 82, 130, 0.2) 22%, 
-            transparent 24%, 
-            transparent 40%, 
-            rgba(255, 255, 255, 0.15) 42%, 
-            transparent 44%, 
-            transparent 60%, 
-            rgba(246, 196, 67, 0.2) 62%, 
-            transparent 64%, 
-            transparent 80%, 
-            rgba(44, 82, 130, 0.15) 82%, 
-            transparent 84%, 
-            transparent 100%);
-    animation: dataFlow 12s linear infinite;
-    background-size: 200% 100%;
-}
-
-@keyframes dataFlow {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
-}
-
-/* Network grid overlay */
-.network-grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.08;
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 50px 30px;
-    background-position: 0 0, 0 0;
-}
-
-/* Subtle train tracks */
-.train-tracks {
+/* Beck-Style Transit Map Background */
+.beck-transit-map {
     position: absolute;
     top: 0;
     left: 0;
@@ -182,117 +52,106 @@ header {
     z-index: 0;
 }
 
-/* Track 1 - Top track for distant train (smallest) */
-.train-tracks::before {
-    content: '';
-    position: absolute;
-    top: calc(15% + 12px); /* Moved below the distant train */
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(255, 255, 255, 0.08) 10%,
-        rgba(255, 255, 255, 0.08) 90%,
-        transparent 100%);
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
-}
-
-/* Track 2 - Middle track */
-.train-tracks::after {
-    content: '';
-    position: absolute;
-    top: calc(45% + 18px); /* Moved below the medium train */
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(255, 255, 255, 0.1) 5%,
-        rgba(255, 255, 255, 0.1) 95%,
-        transparent 100%);
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
-}
-
-/* Track 3 - Bottom track for closest train (largest) */
-.track-bottom {
-    position: absolute;
-    bottom: 32px; /* Moved up to be below the largest train */
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(246, 196, 67, 0.3) 8%,
-        rgba(246, 196, 67, 0.3) 92%,
-        transparent 100%);
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
-    z-index: 0;
-}
-
-/* Track ties/sleepers for added realism */
-.track-ties {
+/* Clean Beck-style lines - only horizontal, vertical, and 45-degree angles */
+.transit-lines {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
+    opacity: 0.3;
 }
 
-.track-ties::before {
-    content: '';
+/* Blue Line - Horizontal */
+.line-blue {
     position: absolute;
-    top: calc(15% + 11px); /* Adjusted for smaller distant track */
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: repeating-linear-gradient(90deg,
-        transparent 0px,
-        transparent 25px,
-        rgba(0, 0, 0, 0.12) 25px,
-        rgba(0, 0, 0, 0.12) 27px,
-        transparent 27px,
-        transparent 35px);
+    top: 25%;
+    left: -10%;
+    width: 120%;
+    height: 6px;
+    background: #2c5282;
+    transform: rotate(-2deg);
 }
 
-.track-ties::after {
-    content: '';
+/* Yellow Line - Diagonal */
+.line-yellow {
     position: absolute;
-    top: calc(45% + 17px); /* Adjusted for medium track */
+    top: 50%;
+    left: -20%;
+    width: 140%;
+    height: 6px;
+    background: #f6c443;
+    transform: rotate(45deg);
+    transform-origin: center;
+}
+
+/* White Line - Horizontal */
+.line-white {
+    position: absolute;
+    top: 70%;
     left: 0;
-    right: 0;
+    width: 100%;
     height: 4px;
-    background: repeating-linear-gradient(90deg,
-        transparent 0px,
-        transparent 30px,
-        rgba(0, 0, 0, 0.15) 30px,
-        rgba(0, 0, 0, 0.15) 32px,
-        transparent 32px,
-        transparent 42px);
+    background: rgba(255, 255, 255, 0.4);
 }
 
-/* Third track ties for the closest track */
-.track-bottom-ties {
+/* Red Line - Vertical crossing */
+.line-red {
     position: absolute;
-    bottom: 30px; /* Just above the closest track */
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: repeating-linear-gradient(90deg,
-        transparent 0px,
-        transparent 35px,
-        rgba(0, 0, 0, 0.2) 35px,
-        rgba(0, 0, 0, 0.2) 38px,
-        transparent 38px,
-        transparent 50px);
-    z-index: 0;
-    opacity: 0.5;
+    top: -20%;
+    left: 30%;
+    width: 6px;
+    height: 140%;
+    background: #e74c3c;
+    opacity: 0.25;
 }
 
-/* Train Container - holds all trains */
+/* Green Line - Diagonal opposite */
+.line-green {
+    position: absolute;
+    top: 40%;
+    right: -30%;
+    width: 150%;
+    height: 5px;
+    background: #27ae60;
+    transform: rotate(-45deg);
+    transform-origin: center right;
+    opacity: 0.2;
+}
+
+/* Station dots at intersections */
+.stations {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.station {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border: 3px solid #1e3a5f;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.station-1 { top: 23%; left: 30%; }
+.station-2 { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.station-3 { top: 68%; left: 70%; }
+.station-4 { top: 35%; left: 85%; }
+.station-5 { top: 60%; left: 15%; }
+
+/* Interchange stations (larger) */
+.station-interchange {
+    width: 16px;
+    height: 16px;
+    border-width: 4px;
+}
+
+/* Detailed animated trains with windows and logos */
 .train-container {
     position: absolute;
     top: 0;
@@ -300,56 +159,55 @@ header {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 1;
+    z-index: 2;
 }
 
-/* Train 1 - Express (top track - furthest away, SMALLEST) */
+/* Train 1 - Express (following blue line - smallest/furthest) */
 .train-express {
     position: absolute;
-    top: 15%;
+    top: 22%;
     left: -300px;
     width: 200px;
     height: 14px;
     background: 
         linear-gradient(90deg, 
-            rgba(246, 196, 67, 0.2) 0%, 
-            rgba(246, 196, 67, 0.3) 15%, 
-            rgba(246, 196, 67, 0.3) 85%, 
-            rgba(246, 196, 67, 0.2) 100%);
+            rgba(44, 82, 130, 0.6) 0%, 
+            rgba(44, 82, 130, 0.8) 15%, 
+            rgba(44, 82, 130, 0.8) 85%, 
+            rgba(44, 82, 130, 0.6) 100%);
     border-radius: 7px;
-    border: 1px solid rgba(246, 196, 67, 0.3);
+    border: 1px solid rgba(44, 82, 130, 0.5);
     animation: trainExpress 16s linear infinite;
-    /* Smaller headlight effect for distant train */
     box-shadow: 
-        0 0 8px rgba(246, 196, 67, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 8px rgba(44, 82, 130, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
         inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-        4px 0 6px -2px rgba(246, 196, 67, 0.6);
+        4px 0 6px -2px rgba(135, 206, 235, 0.8);
 }
 
-/* Express train windows - smaller for distant train */
+/* Express train windows */
 .train-express::after {
     content: '';
     position: absolute;
     top: 30%;
     left: 0;
-    right: 20px; /* Stop windows before logo area */
+    right: 20px;
     height: 40%;
     background: repeating-linear-gradient(90deg,
         transparent 0px,
         transparent 4px,
-        rgba(30, 58, 95, 0.1) 4px,
-        rgba(30, 58, 95, 0.1) 5px,
-        rgba(135, 206, 235, 0.25) 5px,
-        rgba(135, 206, 235, 0.25) 12px,
-        rgba(30, 58, 95, 0.1) 12px,
-        rgba(30, 58, 95, 0.1) 13px,
+        rgba(30, 58, 95, 0.2) 4px,
+        rgba(30, 58, 95, 0.2) 5px,
+        rgba(135, 206, 235, 0.4) 5px,
+        rgba(135, 206, 235, 0.4) 12px,
+        rgba(30, 58, 95, 0.2) 12px,
+        rgba(30, 58, 95, 0.2) 13px,
         transparent 13px,
         transparent 18px);
     border-radius: 1px;
 }
 
-/* Express train logo - smallest for distant train */
+/* Express train logo */
 .train-express::before {
     content: '';
     position: absolute;
@@ -365,52 +223,51 @@ header {
     z-index: 2;
 }
 
-/* Train 2 - Local (bottom track - closest, LARGEST) */
+/* Train 2 - Local (following white line - largest/closest) */
 .train-local {
     position: absolute;
-    bottom: 6px;
+    top: 66%;
     right: -450px;
     width: 400px;
     height: 32px;
     background: linear-gradient(90deg, 
-        rgba(30, 58, 95, 0.4) 0%, 
-        rgba(44, 82, 130, 0.5) 10%, 
-        rgba(44, 82, 130, 0.5) 90%, 
-        rgba(30, 58, 95, 0.4) 100%);
+        rgba(246, 196, 67, 0.5) 0%, 
+        rgba(246, 196, 67, 0.7) 10%, 
+        rgba(246, 196, 67, 0.7) 90%, 
+        rgba(246, 196, 67, 0.5) 100%);
     border-radius: 10px;
-    border: 2px solid rgba(44, 82, 130, 0.4);
+    border: 2px solid rgba(246, 196, 67, 0.6);
     animation: trainLocalStop 22s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
-    /* Strongest headlight effect for closest train */
     box-shadow: 
-        0 0 30px rgba(44, 82, 130, 0.25),
-        inset 0 4px 0 rgba(255, 255, 255, 0.25),
+        0 0 30px rgba(246, 196, 67, 0.4),
+        inset 0 4px 0 rgba(255, 255, 255, 0.3),
         inset 0 -3px 0 rgba(0, 0, 0, 0.2),
-        -15px 0 20px -4px rgba(255, 255, 255, 1.2);
+        -15px 0 20px -4px rgba(255, 235, 150, 0.9);
 }
 
-/* Local train windows - largest for closest train */
+/* Local train windows */
 .train-local::after {
     content: '';
     position: absolute;
     top: 28%;
-    left: 40px; /* Start windows after logo area */
+    left: 40px;
     right: 0;
     height: 44%;
     background: repeating-linear-gradient(90deg,
         transparent 0px,
         transparent 10px,
-        rgba(30, 58, 95, 0.25) 10px,
-        rgba(30, 58, 95, 0.25) 12px,
-        rgba(135, 206, 235, 0.7) 12px,
-        rgba(135, 206, 235, 0.7) 35px,
-        rgba(30, 58, 95, 0.25) 35px,
-        rgba(30, 58, 95, 0.25) 37px,
+        rgba(30, 58, 95, 0.3) 10px,
+        rgba(30, 58, 95, 0.3) 12px,
+        rgba(135, 206, 235, 0.6) 12px,
+        rgba(135, 206, 235, 0.6) 35px,
+        rgba(30, 58, 95, 0.3) 35px,
+        rgba(30, 58, 95, 0.3) 37px,
         transparent 37px,
         transparent 50px);
     border-radius: 3px;
 }
 
-/* Local train logo - largest for closest train */
+/* Local train logo */
 .train-local::before {
     content: '';
     position: absolute;
@@ -426,58 +283,82 @@ header {
     z-index: 2;
 }
 
-/* Train 3 - Medium speed (middle track - medium distance, MEDIUM size) */
-.train-medium {
+/* Train 3 - Vertical (following red line - medium size) */
+.train-vertical {
     position: absolute;
-    top: 45%;
-    left: -450px;
-    width: 300px;
-    height: 22px;
-    background: linear-gradient(90deg, 
-        rgba(246, 196, 67, 0.3) 0%, 
-        rgba(246, 196, 67, 0.4) 10%, 
-        rgba(246, 196, 67, 0.4) 90%, 
-        rgba(246, 196, 67, 0.3) 100%);
+    left: 29%;
+    top: -350px;
+    width: 22px;
+    height: 300px;
+    background: linear-gradient(180deg, 
+        rgba(231, 76, 60, 0.4) 0%, 
+        rgba(231, 76, 60, 0.6) 10%, 
+        rgba(231, 76, 60, 0.6) 90%, 
+        rgba(231, 76, 60, 0.4) 100%);
     border-radius: 8px;
-    border: 1px solid rgba(246, 196, 67, 0.4);
-    animation: trainSlowStop 26s cubic-bezier(0.23, 1, 0.32, 1) infinite;
-    /* Medium headlight effect for middle distance train */
+    border: 1px solid rgba(231, 76, 60, 0.5);
+    animation: trainVertical 20s linear infinite;
     box-shadow: 
-        0 0 18px rgba(246, 196, 67, 0.15),
-        inset 0 2px 0 rgba(255, 255, 255, 0.2),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.15),
-        8px 0 12px -4px rgba(246, 196, 67, 0.9);
+        0 0 18px rgba(231, 76, 60, 0.3),
+        inset 2px 0 0 rgba(255, 255, 255, 0.2),
+        inset -2px 0 0 rgba(0, 0, 0, 0.15),
+        0 8px 12px -4px rgba(231, 76, 60, 0.8);
 }
 
-/* Medium train windows - medium size for middle distance */
-.train-medium::after {
+/* Vertical train windows */
+.train-vertical::after {
     content: '';
     position: absolute;
-    top: 30%;
+    left: 50%;
+    top: 10px;
+    bottom: 40px;
+    width: 2px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.2) 10%,
+        rgba(255, 255, 255, 0.2) 90%,
+        transparent 100%);
+    box-shadow: 
+        0 0 4px rgba(255, 255, 255, 0.1),
+        -4px 0 0 0 rgba(0, 0, 0, 0.1),
+        4px 0 0 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Roof vents/equipment on top of vertical train */
+.train-vertical .roof-details {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
     left: 0;
-    right: 30px; /* Stop windows before logo area */
-    height: 40%;
-    background: repeating-linear-gradient(90deg,
-        transparent 0px,
-        transparent 6px,
-        rgba(246, 196, 67, 0.2) 6px,
-        rgba(246, 196, 67, 0.2) 7px,
-        rgba(135, 206, 235, 0.45) 7px,
-        rgba(135, 206, 235, 0.45) 22px,
-        rgba(246, 196, 67, 0.2) 22px,
-        rgba(246, 196, 67, 0.2) 23px,
-        transparent 23px,
-        transparent 32px);
-    border-radius: 2px;
 }
 
-/* Medium train logo - medium size */
-.train-medium::before {
+.train-vertical .roof-details::before {
     content: '';
     position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    top: 15%;
+    width: 10px;
+    height: 10px;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    box-shadow: 
+        0 30px 0 rgba(0, 0, 0, 0.15),
+        0 60px 0 rgba(0, 0, 0, 0.15),
+        0 90px 0 rgba(0, 0, 0, 0.1),
+        0 120px 0 rgba(0, 0, 0, 0.1),
+        0 150px 0 rgba(0, 0, 0, 0.08);
+}
+
+/* Vertical train logo */
+.train-vertical::before {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 16px;
     height: 16px;
     background-image: url('apple-check.png');
@@ -539,51 +420,54 @@ header {
     }
 }
 
-@keyframes trainSlowStop {
+@keyframes trainVertical {
     0% {
-        left: -450px;
+        top: -350px;
         opacity: 0;
     }
-    20% {
-        left: 25%;
-        opacity: 1;
-    }
-    30% {
-        left: 40%;
-        opacity: 1;
-    }
-    55% {
-        left: 40%;
-        opacity: 1;
-    }
-    65% {
-        left: 45%;
-        opacity: 1;
-    }
-    80% {
-        left: 70%;
+    10% {
         opacity: 1;
     }
     90% {
         opacity: 1;
     }
     100% {
-        left: calc(100% + 200px);
+        top: calc(100% + 50px);
         opacity: 0;
     }
 }
 
-/* Header texture overlay */
-.header-overlay {
+/* Subtle grid pattern like tube map */
+.map-grid {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" patternUnits="userSpaceOnUse" width="100" height="100"><circle cx="50" cy="50" r="1" fill="white" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    width: 100%;
+    height: 100%;
+    opacity: 0.03;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px);
+    background-size: 40px 40px;
     pointer-events: none;
-    z-index: 2;
 }
+
+/* Route indicators */
+.route-indicator {
+    position: absolute;
+    padding: 2px 8px;
+    background: white;
+    color: #1e3a5f;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 10px;
+    z-index: 3;
+    opacity: 0.7;
+}
+
+.route-1 { top: 18%; left: 10%; background: #2c5282; color: white; }
+.route-2 { top: 64%; right: 10%; background: #f6c443; color: #1e3a5f; }
+.route-3 { top: 45%; left: 28%; background: #e74c3c; color: white; font-size: 8px; }
 
 .nav-flex {
     display: flex;
@@ -591,7 +475,7 @@ header {
     align-items: center;
     gap: 16px;
     position: relative;
-    z-index: 3;
+    z-index: 10;
 }
 
 .logo-title-container {
@@ -601,15 +485,14 @@ header {
 }
 
 .logo {
-    max-height: clamp(2rem, 3vw, 3.75rem); /* scales from ~32px to 60px */
+    max-height: clamp(2rem, 3vw, 3.75rem);
     width: auto;
     object-fit: contain;
-    margin-top: 2px; /* fine-tune vertical alignment */
+    margin-top: 2px;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     transition: transform 0.3s ease;
     background: transparent;
 }
-
 
 .logo:hover {
     transform: scale(1.05);
@@ -658,87 +541,6 @@ nav a:hover {
     bottom: 0;
     background: radial-gradient(circle at 30% 70%, rgba(246, 196, 67, 0.2) 0%, transparent 50%);
     pointer-events: none;
-}
-
-.hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(246, 196, 67, 0.1) 20%, 
-        rgba(255, 255, 255, 0.1) 50%, 
-        rgba(246, 196, 67, 0.1) 80%, 
-        transparent 100%);
-    animation: slideAcross 8s ease-in-out infinite;
-    pointer-events: none;
-    z-index: 0;
-}
-
-@keyframes slideAcross {
-    0% {
-        left: -100%;
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        left: 100%;
-        opacity: 0;
-    }
-}
-
-.floating-particles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: rgba(246, 196, 67, 0.6);
-    border-radius: 50%;
-    animation: float 12s linear infinite;
-}
-
-.particle:nth-child(1) { top: 20%; animation-delay: 0s; animation-duration: 15s; }
-.particle:nth-child(2) { top: 40%; animation-delay: 2s; animation-duration: 12s; }
-.particle:nth-child(3) { top: 60%; animation-delay: 4s; animation-duration: 18s; }
-.particle:nth-child(4) { top: 30%; animation-delay: 6s; animation-duration: 14s; }
-.particle:nth-child(5) { top: 70%; animation-delay: 8s; animation-duration: 16s; }
-
-@keyframes float {
-    0% {
-        left: -10px;
-        opacity: 0;
-        transform: scale(0.5);
-    }
-    10% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    90% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    100% {
-        left: calc(100% + 10px);
-        opacity: 0;
-        transform: scale(0.5);
-    }
 }
 
 .hero .container {
@@ -882,14 +684,299 @@ nav a:hover {
     border-radius: 20px;
     box-shadow: 0 8px 32px rgba(30, 58, 95, 0.1);
     border: 1px solid #e9ecef;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Living network grid background */
+.network-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Pulsing grid mesh */
+.grid-mesh {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(30, 58, 95, 0.08) 1.5px, transparent 1.5px),
+        linear-gradient(90deg, rgba(30, 58, 95, 0.08) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+    animation: meshPulse 4s ease-in-out infinite;
+}
+
+@keyframes meshPulse {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.01);
+    }
+}
+
+/* Circuit board patterns */
+.circuit-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Main circuit paths */
+.circuit-path {
+    position: absolute;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(246, 196, 67, 0.5) 50%, 
+        transparent 100%);
+    height: 3px;
+    opacity: 0;
+    animation: circuitGlow 3s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(246, 196, 67, 0.3);
+}
+
+.circuit-path-1 {
+    top: 35%;
+    left: 5%;
+    width: 35%;
+    animation-delay: 0s;
+}
+
+.circuit-path-2 {
+    top: 35%;
+    left: 40%;
+    width: 30%;
+    animation-delay: 0.5s;
+}
+
+.circuit-path-3 {
+    top: 35%;
+    right: 5%;
+    width: 25%;
+    animation-delay: 1s;
+}
+
+/* Vertical connectors */
+.circuit-vertical {
+    position: absolute;
+    background: linear-gradient(180deg, 
+        transparent 0%, 
+        rgba(44, 82, 130, 0.4) 50%, 
+        transparent 100%);
+    width: 3px;
+    opacity: 0;
+    animation: circuitGlow 3s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(44, 82, 130, 0.3);
+}
+
+.circuit-vertical-1 {
+    left: 22%;
+    top: 20%;
+    height: 30%;
+    animation-delay: 1.5s;
+}
+
+.circuit-vertical-2 {
+    left: 55%;
+    top: 35%;
+    height: 40%;
+    animation-delay: 2s;
+}
+
+.circuit-vertical-3 {
+    right: 22%;
+    top: 25%;
+    height: 35%;
+    animation-delay: 2.5s;
+}
+
+@keyframes circuitGlow {
+    0%, 100% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Data packets traveling along paths */
+.data-packet {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, rgba(246, 196, 67, 1) 0%, rgba(246, 196, 67, 0.4) 50%, transparent 70%);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(246, 196, 67, 0.8);
+}
+
+.packet-1 {
+    top: 33.5%;
+    left: 5%;
+    animation: packet1Travel 8s linear infinite;
+}
+
+.packet-2 {
+    top: 33.5%;
+    left: 40%;
+    animation: packet2Travel 10s linear infinite;
+    animation-delay: 2s;
+}
+
+.packet-3 {
+    left: 54%;
+    top: 33.5%;
+    animation: packet3Travel 7s linear infinite;
+    animation-delay: 4s;
+}
+
+@keyframes packet1Travel {
+    0% {
+        left: 5%;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    40% {
+        left: 22%;
+        opacity: 1;
+    }
+    50% {
+        left: 22%;
+        top: 33.5%;
+        opacity: 1;
+    }
+    80% {
+        left: 22%;
+        top: 50%;
+        opacity: 1;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        left: 22%;
+        top: 50%;
+        opacity: 0;
+    }
+}
+
+@keyframes packet2Travel {
+    0% {
+        left: 40%;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    45% {
+        left: 55%;
+        opacity: 1;
+    }
+    55% {
+        left: 55%;
+        top: 33.5%;
+    }
+    85% {
+        left: 55%;
+        top: 75%;
+        opacity: 1;
+    }
+    95% {
+        opacity: 0.3;
+    }
+    100% {
+        left: 55%;
+        top: 75%;
+        opacity: 0;
+    }
+}
+
+@keyframes packet3Travel {
+    0% {
+        left: 70%;
+        top: 33.5%;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    40% {
+        left: 78%;
+        top: 33.5%;
+        opacity: 1;
+    }
+    50% {
+        left: 78%;
+        top: 33.5%;
+    }
+    80% {
+        left: 78%;
+        top: 60%;
+        opacity: 1;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        left: 78%;
+        top: 60%;
+        opacity: 0;
+    }
+}
+
+/* Node points at intersections */
+.circuit-node {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, rgba(44, 82, 130, 0.8) 0%, rgba(44, 82, 130, 0.3) 50%, transparent 70%);
+    border: 2px solid rgba(44, 82, 130, 0.5);
+    border-radius: 50%;
+    animation: nodePulse 2s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(44, 82, 130, 0.5);
+}
+
+.node-1 { top: 33%; left: 21.5%; animation-delay: 0s; }
+.node-2 { top: 33%; left: 54.5%; animation-delay: 0.5s; }
+.node-3 { top: 33%; right: 21.5%; animation-delay: 1s; }
+.node-4 { top: 50%; left: 21.5%; animation-delay: 1.5s; }
+.node-5 { top: 75%; left: 54.5%; animation-delay: 2s; }
+.node-6 { top: 60%; right: 21.5%; animation-delay: 2.5s; }
+
+@keyframes nodePulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 1;
+        box-shadow: 0 0 25px rgba(44, 82, 130, 0.8);
+    }
+}
+
+/* Project section content above the background */
 .projects h2 {
     font-size: 1.8rem;
     color: #1e3a5f;
     margin-bottom: 32px;
     text-align: left;
     font-weight: 700;
+    position: relative;
+    z-index: 2;
 }
 
 .projects-grid {
@@ -897,6 +984,8 @@ nav a:hover {
     flex-wrap: wrap;
     gap: 32px;
     justify-content: flex-start;
+    position: relative;
+    z-index: 2;
 }
 
 .project-card {
@@ -1138,6 +1227,13 @@ footer {
         width: 100%;
         max-width: 320px;
     }
+    
+    /* Hide some transit elements on mobile for clarity */
+    .route-indicator,
+    .station-4,
+    .station-5 {
+        display: none;
+    }
 }
 
 /* Subtle animations */
@@ -1198,31 +1294,49 @@ section {
 <body>
     <!-- Header & Navigation -->
     <header>
-        <!-- Transit Map Background Layers -->
-        <div class="transit-map"></div>
-        <div class="transit-stations"></div>
-        <div class="data-flow"></div>
-        <div class="network-grid"></div>
-        
-        <!-- Train tracks layers -->
-        <div class="train-tracks"></div>
-        <div class="track-ties"></div>
-        <div class="track-bottom"></div>
-        <div class="track-bottom-ties"></div>
-        
-        <!-- Train Container with all three trains -->
-        <div class="train-container">
-            <div class="train-express"></div>
-            <div class="train-local"></div>
-            <div class="train-medium"></div>
+        <!-- Beck-Style Transit Map -->
+        <div class="beck-transit-map">
+            <!-- Clean transit lines -->
+            <div class="transit-lines">
+                <div class="line-blue"></div>
+                <div class="line-yellow"></div>
+                <div class="line-white"></div>
+                <div class="line-red"></div>
+                <div class="line-green"></div>
+            </div>
+            
+            <!-- Station dots -->
+            <div class="stations">
+                <div class="station station-1"></div>
+                <div class="station station-2 station-interchange"></div>
+                <div class="station station-3"></div>
+                <div class="station station-4"></div>
+                <div class="station station-5"></div>
+            </div>
+            
+            <!-- Detailed animated trains -->
+            <div class="train-container">
+                <div class="train-express"></div>
+                <div class="train-local"></div>
+                <div class="train-vertical">
+                    <div class="roof-details"></div>
+                </div>
+            </div>
+            
+            <!-- Route indicators -->
+            <div class="route-indicator route-1">A</div>
+            <div class="route-indicator route-2">B</div>
+            <div class="route-indicator route-3">C</div>
+            
+            <!-- Background grid -->
+            <div class="map-grid"></div>
         </div>
-        <div class="header-overlay"></div>
+        
         <div class="container nav-flex">
             <div class="logo-title-container">
                 <img src="logo-solo-bright.png" alt="CRTA Logo" class="logo">
                 <div class="site-title">Cert-Ready Technology Academy, LLC</div>
             </div>
-
 
             <nav>
                 <a href="#home">Home</a>
@@ -1236,13 +1350,6 @@ section {
      
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="floating-particles">
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-        </div>
         <div class="container">
             <h1>Training That Moves You Forward</h1>
             <p>Certification-first pathways for middle school, high school, and adult learners, meeting methodology with mentorship.</p>
@@ -1290,6 +1397,32 @@ section {
    <!-- Projects Section -->
    <section id="projects" class="projects">
        <div class="container">
+           <!-- Living network background -->
+           <div class="network-background">
+               <div class="grid-mesh"></div>
+               <div class="circuit-lines">
+                   <!-- Horizontal paths -->
+                   <div class="circuit-path circuit-path-1"></div>
+                   <div class="circuit-path circuit-path-2"></div>
+                   <div class="circuit-path circuit-path-3"></div>
+                   <!-- Vertical connectors -->
+                   <div class="circuit-vertical circuit-vertical-1"></div>
+                   <div class="circuit-vertical circuit-vertical-2"></div>
+                   <div class="circuit-vertical circuit-vertical-3"></div>
+                   <!-- Data packets -->
+                   <div class="data-packet packet-1"></div>
+                   <div class="data-packet packet-2"></div>
+                   <div class="data-packet packet-3"></div>
+                   <!-- Connection nodes -->
+                   <div class="circuit-node node-1"></div>
+                   <div class="circuit-node node-2"></div>
+                   <div class="circuit-node node-3"></div>
+                   <div class="circuit-node node-4"></div>
+                   <div class="circuit-node node-5"></div>
+                   <div class="circuit-node node-6"></div>
+               </div>
+           </div>
+           
            <h2>Projects</h2>
            <div class="projects-grid">
                <!-- CAps Project Card -->
@@ -1324,48 +1457,3 @@ section {
                        <h4>(& Other Ideas)</h4>
                        <p>Systems, stories, and the strange beauty of human and machine behavior.</p>
                    </div>
-               </a>
-               
-           </div>
-       </div>
-   </section>
-      
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>Partner With Us</h2>
-            <p>Ready to bring tech career pathways to your school or organization? Let's build the future together!</p>
-            <form action="https://formspree.io/f/mzzvjqgz" method="POST" class="contact-form" autocomplete="off">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
-                                
-                <label for="email">Email</label>
-                <input type="email" id="email" name="_replyto" required>
-                                
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-                                
-                <!-- Simple honeypot (invisible to humans) -->
-                <input type="text" name="_gotcha" style="display:none">
-                
-                <!-- Set recipient -->
-                <input type="hidden" name="_to" value="toshon@crta.ltd">
-                
-                <button type="submit" class="cta-btn">Send Message</button>
-            </form>
-            <div class="form-note">
-                <small>Your information will only be used to respond to your inquiry. No spam, ever.</small>
-            </div>
-        </div>
-    </section>
-     
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <img src="crta-logo.png" alt="CRTA Logo" class="logo">
-            <br>
-            &copy; 2025 Cert-Ready Technology Academy, LLC. All rights reserved.
-        </div>
-    </footer>
-</body>
-</html>
