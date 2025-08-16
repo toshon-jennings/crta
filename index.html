@@ -35,7 +35,7 @@ header {
   border-bottom: 3px solid #f6c443;
 }
 
-/* Beck-Style Transit Map Background (Header only — your original stays) */
+/* Beck-Style Transit Map Background (Header only) */
 .beck-transit-map { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .transit-lines { position: absolute; inset: 0; opacity: 0.3; }
 
@@ -47,7 +47,7 @@ header {
 .line-green { position: absolute; top: 40%; right: -30%; width: 150%; height: 5px; background: #27ae60; transform: rotate(-45deg); transform-origin: center right; opacity: 0.2; }
 
 /* Header stations/trains/labels */
-.stations { position: absolute; inset: 0; z-index: 6; }
+.stations { position: absolute; inset: 0; z-index: 1; } /* moved UNDER trains */
 .station { position: absolute; width: 12px; height: 12px; background: white; border: 3px solid #1e3a5f; border-radius: 50%; }
 .station-1 { top: 23%; left: 30%; }
 .station-2 { top: 50%; left: 50%; transform: translate(-50%,-50%); }
@@ -56,7 +56,7 @@ header {
 .station-5 { top: 60%; left: 15%; }
 .station-interchange { width: 16px; height: 16px; border-width: 4px; }
 
-/* === TRAIN LAYERS (header — unchanged) === */
+/* === TRAIN LAYERS (header) === */
 .train-container, .train-container-bottom { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
 .trains-mid { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
 .train-container-top { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
@@ -118,10 +118,10 @@ header {
   pointer-events: none;
 }
 
-/* Route indicators above trains (header) */
+/* Route indicators above trains (header) — moved UNDER trains */
 .route-indicator {
   position: absolute; padding: 2px 8px; background: #fff; color: #1e3a5f;
-  font-size: 10px; font-weight: 700; border-radius: 10px; z-index: 7; opacity: 0.7;
+  font-size: 10px; font-weight: 700; border-radius: 10px; z-index: 1; opacity: 0.7;
 }
 .route-1 { top: 18%; left: 10%; background: #2c5282; color: #fff; }
 .route-2 { top: 64%; right: 10%; background: #f6c443; color: #1e3a5f; }
@@ -495,7 +495,7 @@ footer {
 .f-train-2 { top:69%; right:-30px; background:#2c5282; animation:fTrainMove2 15s linear infinite; box-shadow:0 0 10px rgba(44,82,130,0.6); }
 .f-train-3 { left:29.5%; top:-30px; width:8px; height:24px; background:#e74c3c; animation:fTrainMove3 10s linear infinite; box-shadow:0 0 10px rgba(231,76,60,0.6); }
 
-/* Footer train keyframes (duplicated from Pen) */
+/* Footer train keyframes (Pen) */
 @keyframes fTrainMove1 {
   0% { left:-30px; opacity:0; }
   5% { opacity:1; }
@@ -536,24 +536,11 @@ footer {
   .f-route, .f-station-4, .f-station-5 { display:none; }
 }
 
-/* Reduce motion */
-@media (prefers-reduced-motion: reduce) {
-  .train-express, .train-local, .train-vertical,
-  .grid-mesh, .circuit-path, .circuit-vertical,
-  .packet-1, .packet-2, .packet-3, .packet-4, .packet-5,
-  .h-station, .hp-1, .hp-2, .hp-3, .hp-4,
-  .parallax-layer, .code-snippet,
-  .f-train-1, .f-train-2, .f-train-3 {
-    animation: none !important;
-    transform: none !important;
-  }
-}
-
 /* Subtle entrances */
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 .about, .projects, .contact { animation: fadeInUp .6s ease-out; }
 
-/* Header train animations (unchanged) */
+/* Header train animations */
 @keyframes trainExpress { 0%{left:-300px; opacity:0;} 8%{opacity:1;} 92%{opacity:1;} 100%{left:calc(100% + 100px); opacity:0;} }
 @keyframes trainLocalStop {
   0%{ right:-450px; opacity:0; }
@@ -566,6 +553,13 @@ footer {
   100%{ right:calc(100% + 150px); opacity:0; }
 }
 @keyframes trainVertical { 0%{ top:-350px; opacity:0; } 10%{ opacity:1; } 90%{ opacity:1; } 100%{ top:calc(100% + 50px); opacity:0; } }
+
+/* Hero pulses/packet keyframes */
+@keyframes heroNodePulse { 0%,100%{ transform: scale(1); opacity:.8; } 50%{ transform: scale(1.25); opacity:1; box-shadow:0 0 22px rgba(255,255,255,.55);} }
+@keyframes packetH     { 0%{ left:-12%; opacity:0;} 10%{opacity:1;} 90%{opacity:1;} 100%{ left:112%; opacity:0;} }
+@keyframes packetHrev  { 0%{ left:112%; opacity:0;} 10%{opacity:1;} 90%{opacity:1;} 100%{ left:-12%; opacity:0;} }
+@keyframes packetV     { 0%{ top:-12%;  opacity:0;} 10%{opacity:1;} 90%{opacity:1;} 100%{ top:112%;  opacity:0;} }
+@keyframes packetDpos  { 0%{ transform: translate(0,0) rotate(45deg); opacity:0; } 5%{ opacity:1; } 100%{ transform: translate(160%,-160%) rotate(45deg); opacity:0; } }
   </style>
 </head>
 <body>
@@ -633,7 +627,7 @@ footer {
       <div class="hero-grid parallax-layer" data-speed="0.12"></div>
 
       <div class="hero-lines parallax-layer" data-speed="0.22">
-        <div class="h-rail rail--blue  hero-line--1"></div>
+        <div class="h-rail rail--blue hero-line--1"></div>
         <div class="h-rail rail--white hero-line--2"></div>
         <div class="d-rail rail--yellow hero-line--3"></div>
         <div class="v-rail rail--red   hero-line--4"></div>
@@ -837,11 +831,11 @@ footer {
     </div>
   </footer>
 
-  <!-- HERO PARALLAX SCRIPT (hero-only, rAF-throttled) -->
+  <!-- Parallax scripts (hero + projects) -->
   <script>
   (function() {
     const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mqReduce.matches) return;
+    /* Full motion requested — we still run parallax regardless */
 
     const hero = document.querySelector('.hero');
     if (!hero) return;
@@ -894,7 +888,7 @@ footer {
   // PROJECTS PARALLAX SCRIPT
   (function() {
     const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mqReduce.matches) return;
+    /* Full motion requested — we still run parallax regardless */
 
     const projects = document.querySelector('#projects');
     if (!projects) return;
