@@ -39,6 +39,12 @@ header {
     position: relative;
     overflow: hidden;
     border-bottom: 3px solid #f6c443;
+    /* Add a subtle concrete/platform texture */
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(0,0,0,0.1) 1px, transparent 1px),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 1px, transparent 1px),
+        radial-gradient(circle at 40% 40%, rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 40px 40px, 60px 60px, 80px 80px;
 }
 
 /* Subtle train tracks */
@@ -52,51 +58,51 @@ header {
     z-index: 0;
 }
 
-/* Track 1 - Top track for express train */
+/* Track 1 - Top track for distant train (smallest) */
 .train-tracks::before {
     content: '';
     position: absolute;
-    top: calc(15% + 24px); /* Moved below the express train (which is 24px tall) */
+    top: calc(15% + 12px); /* Moved below the distant train */
     left: 0;
     right: 0;
     height: 1px;
     background: linear-gradient(90deg, 
         transparent 0%, 
-        rgba(255, 255, 255, 0.1) 10%,
-        rgba(255, 255, 255, 0.1) 90%,
+        rgba(255, 255, 255, 0.08) 10%,
+        rgba(255, 255, 255, 0.08) 90%,
         transparent 100%);
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
 }
 
 /* Track 2 - Middle track */
 .train-tracks::after {
     content: '';
     position: absolute;
-    top: calc(45% + 18px); /* Moved below the medium train (which is 18px tall) */
+    top: calc(45% + 18px); /* Moved below the medium train */
     left: 0;
     right: 0;
     height: 1px;
     background: linear-gradient(90deg, 
         transparent 0%, 
-        rgba(255, 255, 255, 0.08) 5%,
-        rgba(255, 255, 255, 0.08) 95%,
+        rgba(255, 255, 255, 0.1) 5%,
+        rgba(255, 255, 255, 0.1) 95%,
         transparent 100%);
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* Track 3 - Bottom track */
+/* Track 3 - Bottom track for closest train (largest) */
 .track-bottom {
     position: absolute;
-    bottom: 5px; /* Back to original - this was correct, under the local train */
+    bottom: 32px; /* Moved up to be below the largest train */
     left: 0;
     right: 0;
-    height: 1px;
+    height: 2px;
     background: linear-gradient(90deg, 
         transparent 0%, 
-        rgba(246, 196, 67, 0.2) 8%,
-        rgba(246, 196, 67, 0.2) 92%,
+        rgba(246, 196, 67, 0.3) 8%,
+        rgba(246, 196, 67, 0.3) 92%,
         transparent 100%);
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
     z-index: 0;
 }
 
@@ -109,39 +115,57 @@ header {
     height: 100%;
     pointer-events: none;
     z-index: 0;
-    opacity: 0.3;
+    opacity: 0.4;
 }
 
 .track-ties::before {
     content: '';
     position: absolute;
-    top: calc(15% + 23px); /* Adjusted to match new track position */
+    top: calc(15% + 11px); /* Adjusted for smaller distant track */
     left: 0;
     right: 0;
     height: 3px;
     background: repeating-linear-gradient(90deg,
         transparent 0px,
-        transparent 28px,
-        rgba(0, 0, 0, 0.1) 28px,
-        rgba(0, 0, 0, 0.1) 30px,
-        transparent 30px,
-        transparent 40px);
+        transparent 25px,
+        rgba(0, 0, 0, 0.12) 25px,
+        rgba(0, 0, 0, 0.12) 27px,
+        transparent 27px,
+        transparent 35px);
 }
 
 .track-ties::after {
     content: '';
     position: absolute;
-    top: calc(45% + 17px); /* Adjusted to match new track position */
+    top: calc(45% + 17px); /* Adjusted for medium track */
     left: 0;
     right: 0;
-    height: 3px;
+    height: 4px;
     background: repeating-linear-gradient(90deg,
         transparent 0px,
+        transparent 30px,
+        rgba(0, 0, 0, 0.15) 30px,
+        rgba(0, 0, 0, 0.15) 32px,
         transparent 32px,
-        rgba(0, 0, 0, 0.08) 32px,
-        rgba(0, 0, 0, 0.08) 34px,
-        transparent 34px,
-        transparent 45px);
+        transparent 42px);
+}
+
+/* Third track ties for the closest track */
+.track-bottom-ties {
+    position: absolute;
+    bottom: 30px; /* Just above the closest track */
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: repeating-linear-gradient(90deg,
+        transparent 0px,
+        transparent 35px,
+        rgba(0, 0, 0, 0.2) 35px,
+        rgba(0, 0, 0, 0.2) 38px,
+        transparent 38px,
+        transparent 50px);
+    z-index: 0;
+    opacity: 0.5;
 }
 
 /* Train Container - holds all trains */
@@ -155,32 +179,154 @@ header {
     z-index: 1;
 }
 
-/* Train 1 - Express (top track) */
+/* Train 1 - Express (top track - furthest away, SMALLEST) */
 .train-express {
     position: absolute;
     top: 15%;
-    left: -400px;
-    width: 320px;
-    height: 24px;
+    left: -300px;
+    width: 200px;
+    height: 14px;
     background: 
         linear-gradient(90deg, 
-            rgba(246, 196, 67, 0.25) 0%, 
-            rgba(246, 196, 67, 0.35) 15%, 
-            rgba(246, 196, 67, 0.35) 85%, 
-            rgba(246, 196, 67, 0.25) 100%);
-    border-radius: 12px;
-    border: 1px solid rgba(246, 196, 67, 0.4);
-    animation: trainExpress 14s linear infinite;
-    /* Added headlight effect for express train */
+            rgba(246, 196, 67, 0.2) 0%, 
+            rgba(246, 196, 67, 0.3) 15%, 
+            rgba(246, 196, 67, 0.3) 85%, 
+            rgba(246, 196, 67, 0.2) 100%);
+    border-radius: 7px;
+    border: 1px solid rgba(246, 196, 67, 0.3);
+    animation: trainExpress 16s linear infinite;
+    /* Smaller headlight effect for distant train */
     box-shadow: 
-        0 0 20px rgba(246, 196, 67, 0.15),
-        inset 0 2px 0 rgba(255, 255, 255, 0.2),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.1),
-        8px 0 12px -4px rgba(246, 196, 67, 1);
+        0 0 8px rgba(246, 196, 67, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        4px 0 6px -2px rgba(246, 196, 67, 0.6);
 }
 
-/* Express train windows - modified to not show behind logo */
+/* Express train windows - smaller for distant train */
 .train-express::after {
+    content: '';
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 20px; /* Stop windows before logo area */
+    height: 40%;
+    background: repeating-linear-gradient(90deg,
+        transparent 0px,
+        transparent 4px,
+        rgba(30, 58, 95, 0.1) 4px,
+        rgba(30, 58, 95, 0.1) 5px,
+        rgba(135, 206, 235, 0.25) 5px,
+        rgba(135, 206, 235, 0.25) 12px,
+        rgba(30, 58, 95, 0.1) 12px,
+        rgba(30, 58, 95, 0.1) 13px,
+        transparent 13px,
+        transparent 18px);
+    border-radius: 1px;
+}
+
+/* Express train logo - smallest for distant train */
+.train-express::before {
+    content: '';
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background-image: url('apple-check.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 2;
+}
+
+/* Train 2 - Local (bottom track - closest, LARGEST) */
+.train-local {
+    position: absolute;
+    bottom: 6px;
+    right: -450px;
+    width: 400px;
+    height: 32px;
+    background: linear-gradient(90deg, 
+        rgba(30, 58, 95, 0.4) 0%, 
+        rgba(44, 82, 130, 0.5) 10%, 
+        rgba(44, 82, 130, 0.5) 90%, 
+        rgba(30, 58, 95, 0.4) 100%);
+    border-radius: 10px;
+    border: 2px solid rgba(44, 82, 130, 0.4);
+    animation: trainLocalStop 22s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+    /* Strongest headlight effect for closest train */
+    box-shadow: 
+        0 0 30px rgba(44, 82, 130, 0.25),
+        inset 0 4px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -3px 0 rgba(0, 0, 0, 0.2),
+        -15px 0 20px -4px rgba(255, 255, 255, 1.2);
+}
+
+/* Local train windows - largest for closest train */
+.train-local::after {
+    content: '';
+    position: absolute;
+    top: 28%;
+    left: 40px; /* Start windows after logo area */
+    right: 0;
+    height: 44%;
+    background: repeating-linear-gradient(90deg,
+        transparent 0px,
+        transparent 10px,
+        rgba(30, 58, 95, 0.25) 10px,
+        rgba(30, 58, 95, 0.25) 12px,
+        rgba(135, 206, 235, 0.7) 12px,
+        rgba(135, 206, 235, 0.7) 35px,
+        rgba(30, 58, 95, 0.25) 35px,
+        rgba(30, 58, 95, 0.25) 37px,
+        transparent 37px,
+        transparent 50px);
+    border-radius: 3px;
+}
+
+/* Local train logo - largest for closest train */
+.train-local::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    background-image: url('apple-check.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 2;
+}
+
+/* Train 3 - Medium speed (middle track - medium distance, MEDIUM size) */
+.train-medium {
+    position: absolute;
+    top: 45%;
+    left: -450px;
+    width: 300px;
+    height: 22px;
+    background: linear-gradient(90deg, 
+        rgba(246, 196, 67, 0.3) 0%, 
+        rgba(246, 196, 67, 0.4) 10%, 
+        rgba(246, 196, 67, 0.4) 90%, 
+        rgba(246, 196, 67, 0.3) 100%);
+    border-radius: 8px;
+    border: 1px solid rgba(246, 196, 67, 0.4);
+    animation: trainSlowStop 26s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+    /* Medium headlight effect for middle distance train */
+    box-shadow: 
+        0 0 18px rgba(246, 196, 67, 0.15),
+        inset 0 2px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.15),
+        8px 0 12px -4px rgba(246, 196, 67, 0.9);
+}
+
+/* Medium train windows - medium size for middle distance */
+.train-medium::after {
     content: '';
     position: absolute;
     top: 30%;
@@ -189,20 +335,20 @@ header {
     height: 40%;
     background: repeating-linear-gradient(90deg,
         transparent 0px,
-        transparent 8px,
-        rgba(30, 58, 95, 0.2) 8px,
-        rgba(30, 58, 95, 0.2) 10px,
-        rgba(135, 206, 235, 0.4) 10px,
-        rgba(135, 206, 235, 0.4) 26px,
-        rgba(30, 58, 95, 0.2) 26px,
-        rgba(30, 58, 95, 0.2) 28px,
-        transparent 28px,
-        transparent 40px);
+        transparent 6px,
+        rgba(246, 196, 67, 0.2) 6px,
+        rgba(246, 196, 67, 0.2) 7px,
+        rgba(135, 206, 235, 0.45) 7px,
+        rgba(135, 206, 235, 0.45) 22px,
+        rgba(246, 196, 67, 0.2) 22px,
+        rgba(246, 196, 67, 0.2) 23px,
+        transparent 23px,
+        transparent 32px);
     border-radius: 2px;
 }
 
-/* Express train logo */
-.train-express::before {
+/* Medium train logo - medium size */
+.train-medium::before {
     content: '';
     position: absolute;
     right: 10px;
@@ -217,132 +363,10 @@ header {
     z-index: 2;
 }
 
-/* Train 2 - Local (bottom track) */
-.train-local {
-    position: absolute;
-    bottom: 6px;
-    right: -350px;
-    width: 280px;
-    height: 20px;
-    background: linear-gradient(90deg, 
-        rgba(30, 58, 95, 0.3) 0%, 
-        rgba(44, 82, 130, 0.4) 10%, 
-        rgba(44, 82, 130, 0.4) 90%, 
-        rgba(30, 58, 95, 0.3) 100%);
-    border-radius: 6px;
-    border: 1px solid rgba(44, 82, 130, 0.3);
-    animation: trainLocalStop 22s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
-    /* Headlight effect for local train */
-    box-shadow: 
-        0 0 15px rgba(44, 82, 130, 0.12),
-        inset 0 2px 0 rgba(255, 255, 255, 0.15),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-        -8px 0 8px -4px rgba(255, 255, 255, 0.8);
-}
-
-/* Local train windows - modified to not show behind logo */
-.train-local::after {
-    content: '';
-    position: absolute;
-    top: 35%;
-    left: 30px; /* Start windows after logo area */
-    right: 0;
-    height: 35%;
-    background: repeating-linear-gradient(90deg,
-        transparent 0px,
-        transparent 6px,
-        rgba(30, 58, 95, 0.2) 6px,
-        rgba(30, 58, 95, 0.2) 7px,
-        rgba(135, 206, 235, 0.5) 7px,
-        rgba(135, 206, 235, 0.5) 18px,
-        rgba(30, 58, 95, 0.2) 18px,
-        rgba(30, 58, 95, 0.2) 19px,
-        transparent 19px,
-        transparent 28px);
-    border-radius: 1px;
-}
-
-/* Local train logo */
-.train-local::before {
-    content: '';
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 14px;
-    height: 14px;
-    background-image: url('apple-check.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 2;
-}
-
-/* Train 3 - Medium speed (middle track) */
-.train-medium {
-    position: absolute;
-    top: 45%;
-    left: -500px;
-    width: 380px;
-    height: 18px;
-    background: linear-gradient(90deg, 
-        rgba(246, 196, 67, 0.2) 0%, 
-        rgba(246, 196, 67, 0.3) 10%, 
-        rgba(246, 196, 67, 0.3) 90%, 
-        rgba(246, 196, 67, 0.2) 100%);
-    border-radius: 6px;
-    border: 1px solid rgba(246, 196, 67, 0.3);
-    animation: trainSlowStop 26s cubic-bezier(0.23, 1, 0.32, 1) infinite;
-    /* Headlight effect for medium train */
-    box-shadow: 
-        0 0 12px rgba(246, 196, 67, 0.1),
-        inset 0 2px 0 rgba(255, 255, 255, 0.15),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-        8px 0 8px -4px rgba(246, 196, 67, 0.9);
-}
-
-/* Medium train windows - modified to not show behind logo */
-.train-medium::after {
-    content: '';
-    position: absolute;
-    top: 33%;
-    left: 0;
-    right: 30px; /* Stop windows before logo area */
-    height: 38%;
-    background: repeating-linear-gradient(90deg,
-        transparent 0px,
-        transparent 10px,
-        rgba(246, 196, 67, 0.15) 10px,
-        rgba(246, 196, 67, 0.15) 11px,
-        rgba(135, 206, 235, 0.35) 11px,
-        rgba(135, 206, 235, 0.35) 24px,
-        rgba(246, 196, 67, 0.15) 24px,
-        rgba(246, 196, 67, 0.15) 25px,
-        transparent 25px,
-        transparent 38px);
-    border-radius: 1px;
-}
-
-/* Medium train logo */
-.train-medium::before {
-    content: '';
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 14px;
-    height: 14px;
-    background-image: url('apple-check.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 2;
-}
-
 /* Animation keyframes */
 @keyframes trainExpress {
     0% {
-        left: -400px;
+        left: -300px;
         opacity: 0;
     }
     8% {
@@ -359,7 +383,7 @@ header {
 
 @keyframes trainLocalStop {
     0% {
-        right: -350px;
+        right: -450px;
         opacity: 0;
     }
     15% {
@@ -386,14 +410,14 @@ header {
         opacity: 1;
     }
     100% {
-        right: calc(100% + 100px);
+        right: calc(100% + 150px);
         opacity: 0;
     }
 }
 
 @keyframes trainSlowStop {
     0% {
-        left: -500px;
+        left: -450px;
         opacity: 0;
     }
     20% {
@@ -1054,6 +1078,7 @@ section {
         <div class="train-tracks"></div>
         <div class="track-ties"></div>
         <div class="track-bottom"></div>
+        <div class="track-bottom-ties"></div>
         <!-- Train Container with all three trains -->
         <div class="train-container">
             <div class="train-express"></div>
@@ -1100,7 +1125,7 @@ section {
             <h2>About CRTA</h2>
             <p>
                 I founded CRTA to expand access to tech careers for middle and high school students, as well as adult learners.
-                Our model is <strong>certification-first</strong>—designed to help students graduate not only with diplomas, but with industry-recognized credentials.
+                Our model is <strong>certification-first</strong>â€"designed to help students graduate not only with diplomas, but with industry-recognized credentials.
                 From CompTIA to Microsoft tracks, the goal is equity, readiness, and career acceleration. It's where mentorship meets methodology, tailored to your school's culture.
             </p>
             <p class="goal"><em>Our goal: plant the seeds of tomorrow's tech field today.</em></p>
@@ -1142,7 +1167,7 @@ section {
                        <img src="caps-logo.png" alt="CAps Logo" />
                    </div>
                    <div class="project-info">
-                       <h3>CAps™</h3>
+                       <h3>CApsâ„¢</h3>
                        <p>A background executable for keyboard perfectionists.</p>
                    </div>
                </a>
