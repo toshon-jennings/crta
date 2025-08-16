@@ -1,1504 +1,646 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cert-Ready Technology Academy, LLC</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/crta/favicon.png">
-    <link rel="shortcut icon" type="image/png" href="/crta/apple-check.png">
-    <link rel="apple-touch-icon" href="/crta/crta-logo-removebg.png">
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cert-Ready Technology Academy, LLC</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/crta/favicon.png" />
+  <link rel="shortcut icon" type="image/png" href="/crta/apple-check.png" />
+  <link rel="apple-touch-icon" href="/crta/crta-logo-removebg.png" />
+
+  <style>
 /* Reset and base styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    font-family: 'Segoe UI', 'Arial', sans-serif;
-    color: #2c3e50;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    line-height: 1.6;
+  font-family: 'Segoe UI','Arial',sans-serif;
+  color: #2c3e50;
+  background: linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%);
+  line-height: 1.6;
+  padding-top: 120px; /* Prevent content behind fixed header */
 }
 
-.container {
-    max-width: 950px;
-    margin: 0 auto;
-    padding: 32px 16px;
-}
+.container { max-width: 950px; margin: 0 auto; padding: 32px 16px; }
 
 /* Header and Nav */
 header {
-    background: #1e3a5f;
-    color: #fff;
-    padding: 20px 0;
-    box-shadow: 0 4px 20px rgba(30, 58, 95, 0.15);
-    position: relative;
-    overflow: hidden;
-    border-bottom: 3px solid #f6c443;
+  background: #1e3a5f;
+  color: #fff;
+  padding: 20px 0;
+  box-shadow: 0 4px 20px rgba(30,58,95,0.15);
+  position: fixed; top: 0; left: 0; width: 100%;
+  z-index: 1000; overflow: hidden;
+  border-bottom: 3px solid #f6c443;
 }
 
-/* Beck-Style Transit Map Background */
-.beck-transit-map {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-}
+/* Beck-Style Transit Map Background (Header only) */
+.beck-transit-map { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.transit-lines { position: absolute; inset: 0; opacity: 0.3; }
 
-/* Clean Beck-style lines - only horizontal, vertical, and 45-degree angles */
-.transit-lines {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.3;
-}
+/* Header lines */
+.line-blue  { position: absolute; top: 25%; left: -10%; width: 120%; height: 6px; background: #2c5282; transform: rotate(-2deg); }
+.line-yellow{ position: absolute; top: 50%; left: -20%; width: 140%; height: 6px; background: #f6c443; transform: rotate(45deg); transform-origin: center; }
+.line-white { position: absolute; top: 70%; left: 0; width: 100%; height: 4px; background: rgba(255,255,255,0.4); }
+.line-red   { position: absolute; top: -20%; left: 30%; width: 6px; height: 140%; background: #e74c3c; opacity: 0.25; }
+.line-green { position: absolute; top: 40%; right: -30%; width: 150%; height: 5px; background: #27ae60; transform: rotate(-45deg); transform-origin: center right; opacity: 0.2; }
 
-/* Blue Line - Horizontal */
-.line-blue {
-    position: absolute;
-    top: 25%;
-    left: -10%;
-    width: 120%;
-    height: 6px;
-    background: #2c5282;
-    transform: rotate(-2deg);
-}
-
-/* Yellow Line - Diagonal */
-.line-yellow {
-    position: absolute;
-    top: 50%;
-    left: -20%;
-    width: 140%;
-    height: 6px;
-    background: #f6c443;
-    transform: rotate(45deg);
-    transform-origin: center;
-}
-
-/* White Line - Horizontal */
-.line-white {
-    position: absolute;
-    top: 70%;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.4);
-}
-
-/* Red Line - Vertical crossing */
-.line-red {
-    position: absolute;
-    top: -20%;
-    left: 30%;
-    width: 6px;
-    height: 140%;
-    background: #e74c3c;
-    opacity: 0.25;
-}
-
-/* Green Line - Diagonal opposite */
-.line-green {
-    position: absolute;
-    top: 40%;
-    right: -30%;
-    width: 150%;
-    height: 5px;
-    background: #27ae60;
-    transform: rotate(-45deg);
-    transform-origin: center right;
-    opacity: 0.2;
-}
-
-/* Station dots at intersections */
-.stations {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.station {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background: white;
-    border: 3px solid #1e3a5f;
-    border-radius: 50%;
-    z-index: 1;
-}
-
+/* Header stations/trains/labels */
+.stations { position: absolute; inset: 0; z-index: 6; }
+.station { position: absolute; width: 12px; height: 12px; background: white; border: 3px solid #1e3a5f; border-radius: 50%; }
 .station-1 { top: 23%; left: 30%; }
-.station-2 { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.station-2 { top: 50%; left: 50%; transform: translate(-50%,-50%); }
 .station-3 { top: 68%; left: 70%; }
 .station-4 { top: 35%; left: 85%; }
 .station-5 { top: 60%; left: 15%; }
+.station-interchange { width: 16px; height: 16px; border-width: 4px; }
 
-/* Interchange stations (larger) */
-.station-interchange {
-    width: 16px;
-    height: 16px;
-    border-width: 4px;
-}
+/* === TRAIN LAYERS === */
+.train-container, .train-container-bottom { position: absolute; inset: 0; pointer-events: none; z-index: 2; } /* bottom: blue */
+.trains-mid { position: absolute; inset: 0; pointer-events: none; z-index: 3; }  /* middle: red */
+.train-container-top { position: absolute; inset: 0; pointer-events: none; z-index: 5; } /* top: yellow */
 
-/* Detailed animated trains with windows and logos */
-.train-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 2;
-}
-
-/* Train 1 - Express (following blue line - smallest/furthest) */
+/* Train 1 - Express (blue line) */
 .train-express {
-    position: absolute;
-    top: 22%;
-    left: -300px;
-    width: 200px;
-    height: 14px;
-    background: 
-        linear-gradient(90deg, 
-            rgba(44, 82, 130, 0.6) 0%, 
-            rgba(44, 82, 130, 0.8) 15%, 
-            rgba(44, 82, 130, 0.8) 85%, 
-            rgba(44, 82, 130, 0.6) 100%);
-    border-radius: 7px;
-    border: 1px solid rgba(44, 82, 130, 0.5);
-    animation: trainExpress 16s linear infinite;
-    box-shadow: 
-        0 0 8px rgba(44, 82, 130, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-        4px 0 6px -2px rgba(135, 206, 235, 0.8);
+  position: absolute; top: 22%; left: -300px; width: 200px; height: 14px;
+  background: linear-gradient(90deg, rgba(44,82,130,0.6) 0%, rgba(44,82,130,0.8) 15%, rgba(44,82,130,0.8) 85%, rgba(44,82,130,0.6) 100%);
+  border-radius: 7px; border: 1px solid rgba(44,82,130,0.5);
+  animation: trainExpress 16s linear infinite;
+  box-shadow: 0 0 8px rgba(44,82,130,0.3), inset 0 1px 0 rgba(255,255,255,0.2), inset 0 -1px 0 rgba(0,0,0,0.1), 4px 0 6px -2px rgba(135,206,235,0.8);
 }
-
-/* Express train windows */
 .train-express::after {
-    content: '';
-    position: absolute;
-    top: 30%;
-    left: 0;
-    right: 20px;
-    height: 40%;
-    background: repeating-linear-gradient(90deg,
-        transparent 0px,
-        transparent 4px,
-        rgba(30, 58, 95, 0.2) 4px,
-        rgba(30, 58, 95, 0.2) 5px,
-        rgba(135, 206, 235, 0.4) 5px,
-        rgba(135, 206, 235, 0.4) 12px,
-        rgba(30, 58, 95, 0.2) 12px,
-        rgba(30, 58, 95, 0.2) 13px,
-        transparent 13px,
-        transparent 18px);
-    border-radius: 1px;
+  content: ''; position: absolute; top: 30%; left: 0; right: 20px; height: 40%;
+  background: repeating-linear-gradient(90deg, transparent 0 4px, rgba(30,58,95,0.2) 4px 5px, rgba(135,206,235,0.4) 5px 12px, rgba(30,58,95,0.2) 12px 13px, transparent 13px 18px);
 }
+.train-express::before { content: ''; position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background: url('apple-check.png') center/contain no-repeat; z-index: 2; }
 
-/* Express train logo */
-.train-express::before {
-    content: '';
-    position: absolute;
-    right: 6px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    background-image: url('apple-check.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 2;
-}
-
-/* Train 2 - Local (following white line - largest/closest) */
+/* Train 2 - Local (yellow car) — TOP LAYER */
+/* ↓↓↓ anchored just above the bottom yellow border */
 .train-local {
-    position: absolute;
-    top: 66%;
-    right: -450px;
-    width: 400px;
-    height: 32px;
-    background: linear-gradient(90deg, 
-        rgba(246, 196, 67, 0.5) 0%, 
-        rgba(246, 196, 67, 0.7) 10%, 
-        rgba(246, 196, 67, 0.7) 90%, 
-        rgba(246, 196, 67, 0.5) 100%);
-    border-radius: 10px;
-    border: 2px solid rgba(246, 196, 67, 0.6);
-    animation: trainLocalStop 22s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
-    box-shadow: 
-        0 0 30px rgba(246, 196, 67, 0.4),
-        inset 0 4px 0 rgba(255, 255, 255, 0.3),
-        inset 0 -3px 0 rgba(0, 0, 0, 0.2),
-        -15px 0 20px -4px rgba(255, 235, 150, 0.9);
+  position: absolute; top: auto; bottom: 6px; right: -450px; width: 400px; height: 32px;
+  background: linear-gradient(90deg, rgba(246,196,67,0.5), rgba(246,196,67,0.7) 10% 90%, rgba(246,196,67,0.5));
+  border-radius: 10px; border: 2px solid rgba(246,196,67,0.6);
+  animation: trainLocalStop 22s cubic-bezier(.25,.46,.45,.94) infinite;
+  box-shadow: 0 0 30px rgba(246,196,67,0.4), inset 0 4px 0 rgba(255,255,255,0.3), inset 0 -3px 0 rgba(0,0,0,0.2), -15px 0 20px -4px rgba(255,235,150,0.9);
 }
-
-/* Local train windows */
 .train-local::after {
-    content: '';
-    position: absolute;
-    top: 28%;
-    left: 40px;
-    right: 0;
-    height: 44%;
-    background: repeating-linear-gradient(90deg,
-        transparent 0px,
-        transparent 10px,
-        rgba(30, 58, 95, 0.3) 10px,
-        rgba(30, 58, 95, 0.3) 12px,
-        rgba(135, 206, 235, 0.6) 12px,
-        rgba(135, 206, 235, 0.6) 35px,
-        rgba(30, 58, 95, 0.3) 35px,
-        rgba(30, 58, 95, 0.3) 37px,
-        transparent 37px,
-        transparent 50px);
-    border-radius: 3px;
+  content: ''; position: absolute; top: 28%; left: 40px; right: 0; height: 44%;
+  background: repeating-linear-gradient(90deg, transparent 0 10px, rgba(30,58,95,0.3) 10px 12px, rgba(135,206,235,0.6) 12px 35px, rgba(30,58,95,0.3) 35px 37px, transparent 37px 50px);
 }
+.train-local::before { content: ''; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; background: url('apple-check.png') center/contain no-repeat; z-index: 2; }
 
-/* Local train logo */
-.train-local::before {
-    content: '';
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 22px;
-    height: 22px;
-    background-image: url('apple-check.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 2;
-}
-
-/* Train 3 - Vertical (following red line - medium size) */
+/* Train 3 - Vertical (RED) — MID LAYER */
 .train-vertical {
-    position: absolute;
-    left: 29%;
-    top: -350px;
-    width: 22px;
-    height: 300px;
-    background: linear-gradient(180deg, 
-        rgba(231, 76, 60, 0.4) 0%, 
-        rgba(231, 76, 60, 0.6) 10%, 
-        rgba(231, 76, 60, 0.6) 90%, 
-        rgba(231, 76, 60, 0.4) 100%);
-    border-radius: 8px;
-    border: 1px solid rgba(231, 76, 60, 0.5);
-    animation: trainVertical 20s linear infinite;
-    box-shadow: 
-        0 0 18px rgba(231, 76, 60, 0.3),
-        inset 2px 0 0 rgba(255, 255, 255, 0.2),
-        inset -2px 0 0 rgba(0, 0, 0, 0.15),
-        0 8px 12px -4px rgba(231, 76, 60, 0.8);
+  position: absolute; left: 29%; top: -350px; width: 22px; height: 300px;
+  background: linear-gradient(180deg, rgba(231,76,60,0.4), rgba(231,76,60,0.6) 10% 90%, rgba(231,76,60,0.4));
+  border-radius: 8px; border: 1px solid rgba(231,76,60,0.5);
+  animation: trainVertical 20s linear infinite;
+  box-shadow: 0 0 18px rgba(231,76,60,0.3), inset 2px 0 0 rgba(255,255,255,0.2), inset -2px 0 0 rgba(0,0,0,0.15), 0 8px 12px -4px rgba(231,76,60,0.8);
 }
-
-/* Vertical train windows */
 .train-vertical::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 10px;
-    bottom: 40px;
-    width: 2px;
-    transform: translateX(-50%);
-    background: linear-gradient(180deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.2) 10%,
-        rgba(255, 255, 255, 0.2) 90%,
-        transparent 100%);
-    box-shadow: 
-        0 0 4px rgba(255, 255, 255, 0.1),
-        -4px 0 0 0 rgba(0, 0, 0, 0.1),
-        4px 0 0 0 rgba(0, 0, 0, 0.1);
+  content: ''; position: absolute; left: 50%; top: 10px; bottom: 40px; width: 2px; transform: translateX(-50%);
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.2) 10% 90%, transparent);
+  box-shadow: 0 0 4px rgba(255,255,255,0.1), -4px 0 0 0 rgba(0,0,0,0.1), 4px 0 0 0 rgba(0,0,0,0.1);
 }
-
-/* Roof vents/equipment on top of vertical train */
-.train-vertical .roof-details {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-
+.train-vertical .roof-details { position: absolute; inset: 0; }
 .train-vertical .roof-details::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 15%;
-    width: 10px;
-    height: 10px;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
-    box-shadow: 
-        0 30px 0 rgba(0, 0, 0, 0.15),
-        0 60px 0 rgba(0, 0, 0, 0.15),
-        0 90px 0 rgba(0, 0, 0, 0.1),
-        0 120px 0 rgba(0, 0, 0, 0.1),
-        0 150px 0 rgba(0, 0, 0, 0.08);
+  content: ''; position: absolute; left: 50%; top: 15%; width: 10px; height: 10px; transform: translateX(-50%);
+  background: rgba(0,0,0,0.2); border-radius: 2px;
+  box-shadow: 0 30px 0 rgba(0,0,0,0.15), 0 60px 0 rgba(0,0,0,0.15), 0 90px 0 rgba(0,0,0,0.1), 0 120px 0 rgba(0,0,0,0.1), 0 150px 0 rgba(0,0,0,0.08);
 }
 
-/* Vertical train logo */
-.train-vertical::before {
-    content: '';
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 16px;
-    height: 16px;
-    background-image: url('apple-check.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 2;
-}
-
-/* Animation keyframes */
-@keyframes trainExpress {
-    0% {
-        left: -300px;
-        opacity: 0;
-    }
-    8% {
-        opacity: 1;
-    }
-    92% {
-        opacity: 1;
-    }
-    100% {
-        left: calc(100% + 100px);
-        opacity: 0;
-    }
-}
-
-@keyframes trainLocalStop {
-    0% {
-        right: -450px;
-        opacity: 0;
-    }
-    15% {
-        right: 60%;
-        opacity: 1;
-    }
-    25% {
-        right: 50%;
-        opacity: 1;
-    }
-    45% {
-        right: 50%;
-        opacity: 1;
-    }
-    55% {
-        right: 45%;
-        opacity: 1;
-    }
-    75% {
-        right: 30%;
-        opacity: 1;
-    }
-    92% {
-        opacity: 1;
-    }
-    100% {
-        right: calc(100% + 150px);
-        opacity: 0;
-    }
-}
-
-@keyframes trainVertical {
-    0% {
-        top: -350px;
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        top: calc(100% + 50px);
-        opacity: 0;
-    }
-}
-
-/* Subtle grid pattern like tube map */
+/* Background grid (header) */
 .map-grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.03;
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
+  position: absolute; inset: 0; opacity: 0.03;
+  background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
 }
 
-/* Route indicators */
+/* Route indicators above trains */
 .route-indicator {
-    position: absolute;
-    padding: 2px 8px;
-    background: white;
-    color: #1e3a5f;
-    font-size: 10px;
-    font-weight: bold;
-    border-radius: 10px;
-    z-index: 3;
-    opacity: 0.7;
+  position: absolute; padding: 2px 8px; background: #fff; color: #1e3a5f;
+  font-size: 10px; font-weight: 700; border-radius: 10px; z-index: 7; opacity: 0.7;
 }
-
-.route-1 { top: 18%; left: 10%; background: #2c5282; color: white; }
+.route-1 { top: 18%; left: 10%; background: #2c5282; color: #fff; }
 .route-2 { top: 64%; right: 10%; background: #f6c443; color: #1e3a5f; }
-.route-3 { top: 45%; left: 28%; background: #e74c3c; color: white; font-size: 8px; }
+.route-3 { top: 45%; left: 28%; background: #e74c3c; color: #fff; font-size: 8px; }
 
-.nav-flex {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    position: relative;
-    z-index: 10;
-}
+.nav-flex { display: flex; flex-direction: column; align-items: center; gap: 16px; position: relative; z-index: 10; }
+.logo-title-container { display: flex; align-items: center; gap: 16px; }
+.logo { max-height: clamp(2rem,3vw,3.75rem); width: auto; object-fit: contain; margin-top: 2px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); transition: transform .3s ease; background: transparent; }
+.logo:hover { transform: scale(1.05); }
+.site-title { font-size: 1.5rem; font-weight: 700; letter-spacing: .5px; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+nav a { color: #fff; margin-left: 28px; text-decoration: none; font-weight: 500; transition: .3s ease; padding: 8px 12px; border-radius: 6px; position: relative; }
+nav a:hover { color: #f6c443; background: rgba(246,196,67,0.1); transform: translateY(-1px); }
 
-.logo-title-container {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.logo {
-    max-height: clamp(2rem, 3vw, 3.75rem);
-    width: auto;
-    object-fit: contain;
-    margin-top: 2px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-    transition: transform 0.3s ease;
-    background: transparent;
-}
-
-.logo:hover {
-    transform: scale(1.05);
-}
-
-.site-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-nav a {
-    color: #fff;
-    margin-left: 28px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    padding: 8px 12px;
-    border-radius: 6px;
-    position: relative;
-}
-
-nav a:hover {
-    color: #f6c443;
-    background: rgba(246, 196, 67, 0.1);
-    transform: translateY(-1px);
-}
-
-/* Hero Section */
+/* ===========================
+   HERO SECTION + PARALLAX
+   =========================== */
 .hero {
-    background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 50%, #f6c443 100%);
-    color: #fff;
-    text-align: center;
-    padding: 100px 0 80px 0;
-    position: relative;
-    overflow: hidden;
+  background:
+    radial-gradient(1200px 600px at 15% 80%, rgba(22,47,78,0.9) 0%, rgba(22,47,78,0.85) 35%, transparent 60%),
+    linear-gradient(135deg, #1a3556 0%, #1e3a5f 45%, #2c5282 75%, #f6c443 130%);
+  color: #fff;
+  text-align: center;
+  padding: 100px 0 80px;
+  position: relative;
+  overflow: hidden;
 }
-
 .hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 30% 70%, rgba(246, 196, 67, 0.2) 0%, transparent 50%);
-    pointer-events: none;
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 30% 70%, rgba(246,196,67,0.08) 0%, transparent 50%);
+  pointer-events: none;
 }
 
-.hero .container {
-    position: relative;
-    z-index: 1;
-}
+/* Hero overlay layers */
+.hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; filter: brightness(.82) contrast(1.03) saturate(.96); }
+.hero-grid    { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 48px 48px; opacity: 0.06; }
+.hero-lines   { position: absolute; inset: 0; }
+.hero-stations{ position: absolute; inset: 0; }
+.hero-packets { position: absolute; inset: 0; }
 
-.hero h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 24px;
-    letter-spacing: 1px;
-    text-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    line-height: 1.2;
-}
+/* Parallax optimization */
+.parallax-layer { will-change: transform; transform: translate3d(0,0,0); }
 
-.hero p {
-    font-size: 1.3rem;
-    margin-bottom: 40px;
-    opacity: 0.95;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
+/* Base rail styles for hero */
+.h-rail,.v-rail,.d-rail { position: absolute; background: currentColor; filter: drop-shadow(0 0 4px rgba(255,255,255,0.12)); opacity: 0.22; }
+.h-rail { height: 6px; width: 120%; left: -10%; }
+.v-rail { width: 6px; height: 120%; top: -10%; }
+.d-rail { height: 6px; width: 160%; left: -30%; transform-origin: center; }
+.rail--blue{ color:#2c5282; } .rail--yellow{ color:#f6c443; } .rail--white{ color:rgba(255,255,255,0.7); } .rail--red{ color:#e74c3c; } .rail--green{ color:#27ae60; }
 
+.hero-line--1 { top: 28%; }
+.hero-line--2 { top: 72%; }
+.hero-line--3 { top: 56%; transform: rotate(45deg); }
+.hero-line--4 { left: 32%; }
+.hero-line--5 { top: 34%; right: -20%; transform: rotate(-45deg); }
+
+/* Hero stations */
+.h-station {
+  position: absolute; width: 14px; height: 14px; border-radius: 50%;
+  background: rgba(255,255,255,0.72);
+  border: 3px solid #0f2742;
+  z-index: 1; opacity: .9;
+  box-shadow: 0 0 8px rgba(255,255,255,0.18);
+  animation: heroNodePulse 2.2s ease-in-out infinite;
+}
+.h-station--x { width: 18px; height: 18px; border-width: 4px; }
+.hs-1 { top: 26%; left: 32%; animation-delay: 0s; }
+.hs-2 { top: 56%; left: 50%; transform: translate(-50%,-50%); animation-delay: .4s; }
+.hs-3 { top: 72%; left: 68%; animation-delay: .8s; }
+.hs-4 { top: 36%; left: 84%; animation-delay: 1s; }
+.hs-5 { top: 58%; left: 18%; animation-delay: 1.2s; }
+.hs-6 { top: 72%; left: 32%; animation-delay: 1.6s; }
+.hs-7 { top: 28%; left: 50%; transform: translateX(-50%); animation-delay: 1.8s; }
+
+/* Hero packets */
+.h-packet {
+  position: absolute; width: 12px; height: 12px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(246,196,67,1) 0%, rgba(246,196,67,0.5) 55%, transparent 70%);
+  box-shadow: 0 0 16px rgba(246,196,67,0.85), 0 0 4px rgba(246,196,67,0.6) inset;
+  opacity: 0.9;
+}
+.hp-1 { top: calc(28% - 3px); left: -12%; animation: packetH 12s linear infinite; }
+.hp-2 { top: calc(56% - 3px); left: -30%; animation: packetDpos 14s linear infinite 1.2s; }
+.hp-3 { left: calc(32% - 3px); top: -12%;  animation: packetV 16s linear infinite .6s; }
+.hp-4 { top: calc(72% - 3px); left: 110%;  animation: packetHrev 10s linear infinite .8s; }
+
+/* Hero text above parallax */
+.hero .container { position: relative; z-index: 1; }
+.hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 24px; letter-spacing: 1px; text-shadow: 0 4px 8px rgba(0,0,0,0.35); line-height: 1.2; }
+.hero p  { font-size: 1.3rem; margin-bottom: 40px; opacity: .95; max-width: 600px; margin-inline: auto; }
+
+/* CTA */
 .cta-btn {
-    display: inline-block;
-    background: linear-gradient(135deg, #f6c443 0%, #e2b039 100%);
-    color: #1e3a5f;
-    font-size: 1.1rem;
-    font-weight: 700;
-    padding: 16px 40px;
-    border-radius: 50px;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(246, 196, 67, 0.3);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  display:inline-block; background: linear-gradient(135deg,#f6c443 0%,#e2b039 100%); color:#1e3a5f;
+  font-size:1.1rem; font-weight:700; padding:16px 40px; border-radius:50px; text-decoration:none; border:none; cursor:pointer; transition:.3s ease;
+  box-shadow:0 6px 20px rgba(246,196,67,0.3); text-transform:uppercase; letter-spacing:.5px;
 }
-
-.cta-btn:hover {
-    background: linear-gradient(135deg, #e2b039 0%, #d4a332 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(246, 196, 67, 0.4);
-}
+.cta-btn:hover { background: linear-gradient(135deg,#e2b039 0%,#d4a332 100%); transform: translateY(-2px); box-shadow:0 8px 25px rgba(246,196,67,0.4); }
 
 /* About Section */
 .about {
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(30, 58, 95, 0.1);
-    margin: 60px 0;
-    padding: 50px 40px 40px 40px;
-    text-align: left;
-    position: relative;
-    border: 1px solid #e9ecef;
+  background:#fff; border-radius:20px; box-shadow:0 8px 32px rgba(30,58,95,0.1);
+  margin:60px 0; padding:50px 40px 40px; text-align:left; position:relative; border:1px solid #e9ecef;
 }
-
-.about::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #1e3a5f 0%, #f6c443 100%);
-    border-radius: 20px 20px 0 0;
-}
-
-.about h2 {
-    color: #1e3a5f;
-    font-size: 2.2rem;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-.about p {
-    font-size: 1.1rem;
-    color: #4a5568;
-    margin-bottom: 20px;
-}
-
-.about .goal {
-    margin-top: 24px;
-    font-size: 1.2rem;
-    color: #2c5282;
-    font-weight: 600;
-    padding: 20px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-radius: 12px;
-    border-left: 4px solid #f6c443;
-}
+.about::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#1e3a5f 0%,#f6c443 100%); border-radius:20px 20px 0 0; }
+.about h2 { color:#1e3a5f; font-size:2.2rem; margin-bottom:20px; font-weight:700; }
+.about p { font-size:1.1rem; color:#4a5568; margin-bottom:20px; }
+.about .goal { margin-top:24px; font-size:1.2rem; color:#2c5282; font-weight:600; padding:20px; background:linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%); border-radius:12px; border-left:4px solid #f6c443; }
 
 /* Flipbook Section */
-.flipbook {
-    margin: 60px 0;
-}
-
-.flipbook h2 {
-    color: #1e3a5f;
-    font-size: 1.8rem;
-    margin-bottom: 24px;
-    font-weight: 700;
-}
-
-.flipbook-embed {
-    margin: 0 0 20px 0;
-    box-shadow: 0 12px 40px rgba(30, 58, 95, 0.15);
-    border-radius: 16px;
-    overflow: hidden;
-    border: 2px solid #e9ecef;
-}
-
-.flipbook p {
-    margin-top: 16px;
-    text-align: center;
-}
-
-.flipbook a {
-    color: #2c5282;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-.flipbook a:hover {
-    color: #f6c443;
-    background: rgba(30, 58, 95, 0.05);
-}
+.flipbook { margin:60px 0; }
+.flipbook h2 { color:#1e3a5f; font-size:1.8rem; margin-bottom:24px; font-weight:700; }
+.flipbook-embed { margin:0 0 20px; box-shadow:0 12px 40px rgba(30,58,95,0.15); border-radius:16px; overflow:hidden; border:2px solid #e9ecef; }
+.flipbook p { margin-top:16px; text-align:center; }
+.flipbook a { color:#2c5282; text-decoration:none; font-weight:600; padding:8px 16px; border-radius:8px; transition:.3s ease; display:inline-block; }
+.flipbook a:hover { color:#f6c443; background: rgba(30,58,95,0.05); }
 
 /* Projects Section */
 .projects {
-    margin: 60px 0;
-    padding: 50px 40px;
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(30, 58, 95, 0.1);
-    border: 1px solid #e9ecef;
-    position: relative;
-    overflow: hidden;
+  margin:60px 0; padding:50px 40px;
+  background:linear-gradient(135deg,#fff 0%,#f8f9fa 100%);
+  border-radius:20px; box-shadow:0 8px 32px rgba(30,58,95,0.1); border:1px solid #e9ecef;
+  position:relative; overflow:hidden;
 }
-
-/* Living network grid background */
-.network-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* Pulsing grid mesh */
+.network-background { position:absolute; inset:0; pointer-events:none; z-index:0; }
 .grid-mesh {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        linear-gradient(rgba(30, 58, 95, 0.08) 1.5px, transparent 1.5px),
-        linear-gradient(90deg, rgba(30, 58, 95, 0.08) 1.5px, transparent 1.5px);
-    background-size: 30px 30px;
-    animation: meshPulse 4s ease-in-out infinite;
+  position:absolute; inset:0;
+  background-image: linear-gradient(rgba(30,58,95,0.08) 1.5px, transparent 1.5px),
+                    linear-gradient(90deg, rgba(30,58,95,0.08) 1.5px, transparent 1.5px);
+  background-size:30px 30px; animation: meshPulse 4s ease-in-out infinite;
 }
-
-@keyframes meshPulse {
-    0%, 100% {
-        opacity: 0.6;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.01);
-    }
-}
-
-/* Circuit board patterns */
-.circuit-lines {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-/* Main circuit paths */
+@keyframes meshPulse { 0%,100%{opacity:.6; transform:scale(1);} 50%{opacity:1; transform:scale(1.01);} }
+.circuit-lines { position:absolute; inset:0; z-index:1; }
 .circuit-path {
-    position: absolute;
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(246, 196, 67, 0.5) 50%, 
-        transparent 100%);
-    height: 3px;
-    opacity: 0;
-    animation: circuitGlow 3s ease-in-out infinite;
-    box-shadow: 0 0 8px rgba(246, 196, 67, 0.3);
+  position:absolute; height:3px; opacity:0;
+  background:linear-gradient(90deg,transparent 0%, rgba(246,196,67,0.5) 50%, transparent 100%);
+  animation: circuitGlow 3s ease-in-out infinite; box-shadow:0 0 8px rgba(246,196,67,0.3);
 }
-
-.circuit-path-1 {
-    top: 35%;
-    left: 5%;
-    width: 35%;
-    animation-delay: 0s;
+.circuit-path-1{ top:35%; left:5%;  width:35%; animation-delay:0s;   }
+.circuit-path-2{ top:35%; left:40%; width:30%; animation-delay:.5s;  }
+.circuit-path-3{ top:35%; right:5%; width:25%; animation-delay:1s;   }
+.circuit-vertical{
+  position:absolute; width:3px; opacity:0;
+  background:linear-gradient(180deg,transparent 0%, rgba(44,82,130,0.4) 50%, transparent 100%);
+  animation:circuitGlow 3s ease-in-out infinite; box-shadow:0 0 8px rgba(44,82,130,0.3);
 }
-
-.circuit-path-2 {
-    top: 35%;
-    left: 40%;
-    width: 30%;
-    animation-delay: 0.5s;
-}
-
-.circuit-path-3 {
-    top: 35%;
-    right: 5%;
-    width: 25%;
-    animation-delay: 1s;
-}
-
-/* Vertical connectors */
-.circuit-vertical {
-    position: absolute;
-    background: linear-gradient(180deg, 
-        transparent 0%, 
-        rgba(44, 82, 130, 0.4) 50%, 
-        transparent 100%);
-    width: 3px;
-    opacity: 0;
-    animation: circuitGlow 3s ease-in-out infinite;
-    box-shadow: 0 0 8px rgba(44, 82, 130, 0.3);
-}
-
-.circuit-vertical-1 {
-    left: 22%;
-    top: 20%;
-    height: 30%;
-    animation-delay: 1.5s;
-}
-
-.circuit-vertical-2 {
-    left: 55%;
-    top: 35%;
-    height: 40%;
-    animation-delay: 2s;
-}
-
-.circuit-vertical-3 {
-    right: 22%;
-    top: 25%;
-    height: 35%;
-    animation-delay: 2.5s;
-}
-
-@keyframes circuitGlow {
-    0%, 100% {
-        opacity: 0.2;
-    }
-    50% {
-        opacity: 1;
-    }
-}
-
-/* Data packets traveling along paths */
+.circuit-vertical-1{ left:22%; top:20%; height:30%; animation-delay:1.5s; }
+.circuit-vertical-2{ left:55%; top:35%; height:40%; animation-delay:2s;   }
+.circuit-vertical-3{ right:22%; top:25%; height:35%; animation-delay:2.5s; }
+@keyframes circuitGlow { 0%,100%{opacity:.2;} 50%{opacity:1;} }
 .data-packet {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: radial-gradient(circle, rgba(246, 196, 67, 1) 0%, rgba(246, 196, 67, 0.4) 50%, transparent 70%);
-    border-radius: 50%;
-    box-shadow: 0 0 20px rgba(246, 196, 67, 0.8);
+  position:absolute; width:10px; height:10px; border-radius:50%;
+  background: radial-gradient(circle, rgba(246,196,67,1) 0%, rgba(246,196,67,0.4) 50%, transparent 70%);
+  box-shadow: 0 0 20px rgba(246,196,67,0.8);
 }
+.packet-1{ top:33.5%; left:5%;  animation: packet1Travel 8s linear infinite; }
+.packet-2{ top:33.5%; left:40%; animation: packet2Travel 10s linear infinite; animation-delay:2s; }
+.packet-3{ left:54%;  top:33.5%; animation: packet3Travel 7s linear infinite;  animation-delay:4s; }
+@keyframes packet1Travel { 0%{left:5%; opacity:0;} 10%{opacity:1;} 40%{left:22%;} 50%{left:22%; top:33.5%;} 80%{left:22%; top:50%;} 90%{opacity:.3;} 100%{left:22%; top:50%; opacity:0;} }
+@keyframes packet2Travel { 0%{left:40%; opacity:0;} 10%{opacity:1;} 45%{left:55%;} 55%{left:55%; top:33.5%;} 85%{left:55%; top:75%;} 95%{opacity:.3;} 100%{left:55%; top:75%; opacity:0;} }
+@keyframes packet3Travel { 0%{left:70%; top:33.5%; opacity:0;} 10%{opacity:1;} 40%{left:78%; top:33.5%;} 50%{left:78%; top:33.5%;} 80%{left:78%; top:60%;} 90%{opacity:.3;} 100%{left:78%; top:60%; opacity:0;} }
 
-.packet-1 {
-    top: 33.5%;
-    left: 5%;
-    animation: packet1Travel 8s linear infinite;
-}
-
-.packet-2 {
-    top: 33.5%;
-    left: 40%;
-    animation: packet2Travel 10s linear infinite;
-    animation-delay: 2s;
-}
-
-.packet-3 {
-    left: 54%;
-    top: 33.5%;
-    animation: packet3Travel 7s linear infinite;
-    animation-delay: 4s;
-}
-
-@keyframes packet1Travel {
-    0% {
-        left: 5%;
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    40% {
-        left: 22%;
-        opacity: 1;
-    }
-    50% {
-        left: 22%;
-        top: 33.5%;
-        opacity: 1;
-    }
-    80% {
-        left: 22%;
-        top: 50%;
-        opacity: 1;
-    }
-    90% {
-        opacity: 0.3;
-    }
-    100% {
-        left: 22%;
-        top: 50%;
-        opacity: 0;
-    }
-}
-
-@keyframes packet2Travel {
-    0% {
-        left: 40%;
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    45% {
-        left: 55%;
-        opacity: 1;
-    }
-    55% {
-        left: 55%;
-        top: 33.5%;
-    }
-    85% {
-        left: 55%;
-        top: 75%;
-        opacity: 1;
-    }
-    95% {
-        opacity: 0.3;
-    }
-    100% {
-        left: 55%;
-        top: 75%;
-        opacity: 0;
-    }
-}
-
-@keyframes packet3Travel {
-    0% {
-        left: 70%;
-        top: 33.5%;
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    40% {
-        left: 78%;
-        top: 33.5%;
-        opacity: 1;
-    }
-    50% {
-        left: 78%;
-        top: 33.5%;
-    }
-    80% {
-        left: 78%;
-        top: 60%;
-        opacity: 1;
-    }
-    90% {
-        opacity: 0.3;
-    }
-    100% {
-        left: 78%;
-        top: 60%;
-        opacity: 0;
-    }
-}
-
-/* Node points at intersections */
-.circuit-node {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background: radial-gradient(circle, rgba(44, 82, 130, 0.8) 0%, rgba(44, 82, 130, 0.3) 50%, transparent 70%);
-    border: 2px solid rgba(44, 82, 130, 0.5);
-    border-radius: 50%;
-    animation: nodePulse 2s ease-in-out infinite;
-    box-shadow: 0 0 15px rgba(44, 82, 130, 0.5);
-}
-
-.node-1 { top: 33%; left: 21.5%; animation-delay: 0s; }
-.node-2 { top: 33%; left: 54.5%; animation-delay: 0.5s; }
-.node-3 { top: 33%; right: 21.5%; animation-delay: 1s; }
-.node-4 { top: 50%; left: 21.5%; animation-delay: 1.5s; }
-.node-5 { top: 75%; left: 54.5%; animation-delay: 2s; }
-.node-6 { top: 60%; right: 21.5%; animation-delay: 2.5s; }
-
-@keyframes nodePulse {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 0.7;
-    }
-    50% {
-        transform: scale(1.3);
-        opacity: 1;
-        box-shadow: 0 0 25px rgba(44, 82, 130, 0.8);
-    }
-}
-
-/* Project section content above the background */
-.projects h2 {
-    font-size: 1.8rem;
-    color: #1e3a5f;
-    margin-bottom: 32px;
-    text-align: left;
-    font-weight: 700;
-    position: relative;
-    z-index: 2;
-}
-
-.projects-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 32px;
-    justify-content: flex-start;
-    position: relative;
-    z-index: 2;
-}
-
+/* Project cards */
+.projects h2 { font-size:1.8rem; color:#1e3a5f; margin-bottom:32px; text-align:left; font-weight:700; position:relative; z-index:2; }
+.projects-grid { display:flex; flex-wrap:wrap; gap:32px; justify-content:flex-start; position:relative; z-index:2; }
 .project-card {
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 6px 24px rgba(30, 58, 95, 0.1);
-    padding: 32px 24px 24px 24px;
-    text-align: center;
-    text-decoration: none;
-    color: inherit;
-    width: 240px;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 2px solid transparent;
-    position: relative;
-    overflow: hidden;
+  background:#fff; border-radius:16px; box-shadow:0 6px 24px rgba(30,58,95,0.1);
+  padding:32px 24px 24px; text-align:center; text-decoration:none; color:inherit; width:240px;
+  transition:.3s ease; display:flex; flex-direction:column; align-items:center; border:2px solid transparent; position:relative; overflow:hidden;
 }
-
-.project-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #1e3a5f 0%, #f6c443 100%);
-}
-
-.project-card:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 12px 40px rgba(30, 58, 95, 0.2);
-    border-color: #f6c443;
-}
-
-.project-logo img {
-    width: 64px;
-    height: 64px;
-    object-fit: contain;
-    margin-bottom: 16px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-}
-
-.project-info h3 {
-    margin: 0 0 8px 0;
-    font-size: 1.2rem;
-    color: #1e3a5f;
-    font-weight: 700;
-}
-
-.project-info p {
-    font-size: 1rem;
-    color: #4a5568;
-    margin: 0;
-    line-height: 1.5;
-}
+.project-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg,#1e3a5f 0%,#f6c443 100%); }
+.project-card:hover { transform: translateY(-6px) scale(1.02); box-shadow:0 12px 40px rgba(30,58,95,0.2); border-color:#f6c443; }
+.project-logo img { width:64px; height:64px; object-fit:contain; margin-bottom:16px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+.project-info h3 { margin:0 0 8px; font-size:1.2rem; color:#1e3a5f; font-weight:700; }
+.project-info p  { font-size:1rem; color:#4a5568; margin:0; line-height:1.5; }
 
 /* Contact Section */
 .contact {
-    background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
-    border-radius: 20px;
-    margin: 60px 0;
-    padding: 50px 40px 40px 40px;
-    color: #ffffff;
-    position: relative;
-    overflow: hidden;
+  background: linear-gradient(135deg,#1e3a5f 0%,#2c5282 100%);
+  border-radius:20px; margin:60px 0; padding:50px 40px 40px; color:#fff; position:relative; overflow:hidden;
 }
-
-.contact::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(246, 196, 67, 0.1) 0%, transparent 70%);
-    border-radius: 50%;
-    transform: translate(50%, -50%);
+.contact::before { content:''; position:absolute; top:0; right:0; width:200px; height:200px; background: radial-gradient(circle, rgba(246,196,67,0.1) 0%, transparent 70%); border-radius:50%; transform: translate(50%,-50%); }
+.contact h2 { font-size:1.8rem; margin-bottom:16px; font-weight:700; position:relative; z-index:1; }
+.contact > p { margin-bottom:32px; font-size:1.1rem; opacity:.9; position:relative; z-index:1; }
+.contact-form { max-width:500px; margin:0 auto; display:flex; flex-direction:column; position:relative; z-index:1; }
+.contact-form label { font-weight:600; margin-top:16px; color:#f6c443; font-size:.95rem; text-transform:uppercase; letter-spacing:.5px; }
+.contact-form input,.contact-form textarea {
+  margin-top:8px; margin-bottom:20px; padding:14px 16px; border:2px solid rgba(255,255,255,0.2); border-radius:10px; font-size:1rem;
+  background:rgba(255,255,255,0.1); color:#fff; transition:.3s ease;
 }
-
-.contact h2 {
-    font-size: 1.8rem;
-    color: #ffffff;
-    margin-bottom: 16px;
-    font-weight: 700;
-    position: relative;
-    z-index: 1;
-}
-
-.contact > p {
-    margin-bottom: 32px;
-    font-size: 1.1rem;
-    opacity: 0.9;
-    position: relative;
-    z-index: 1;
-}
-
-.contact-form {
-    max-width: 500px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    z-index: 1;
-}
-
-.contact-form label {
-    font-weight: 600;
-    margin-top: 16px;
-    color: #f6c443;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.contact-form input,
-.contact-form textarea {
-    margin-top: 8px;
-    margin-bottom: 20px;
-    padding: 14px 16px;
-    border: 2px solid rgba(255,255,255,0.2);
-    border-radius: 10px;
-    font-size: 1rem;
-    background: rgba(255,255,255,0.1);
-    color: #ffffff;
-    transition: all 0.3s ease;
-}
-
-.contact-form input::placeholder,
-.contact-form textarea::placeholder {
-    color: rgba(255,255,255,0.6);
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-    outline: none;
-    border-color: #f6c443;
-    background: rgba(255,255,255,0.15);
-    box-shadow: 0 0 0 3px rgba(246, 196, 67, 0.2);
-}
-
-.contact-form textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-.contact-form button {
-    align-self: center;
-    margin-top: 16px;
-}
-
-.form-note {
-    margin-top: 20px;
-    text-align: center;
-    color: rgba(255,255,255,0.7);
-    font-size: 0.9rem;
-    position: relative;
-    z-index: 1;
-}
+.contact-form input::placeholder,.contact-form textarea::placeholder { color: rgba(255,255,255,0.6); }
+.contact-form input:focus,.contact-form textarea:focus { outline:none; border-color:#f6c443; background:rgba(255,255,255,0.15); box-shadow:0 0 0 3px rgba(246,196,67,0.2); }
+.contact-form textarea { min-height:120px; resize:vertical; }
+.contact-form button { align-self:center; margin-top:16px; }
+.form-note { margin-top:20px; text-align:center; color:rgba(255,255,255,0.7); font-size:.9rem; position:relative; z-index:1; }
 
 /* Footer */
 footer {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
-    color: #e2e8f0;
-    text-align: center;
-    padding: 24px 0;
-    margin-top: 80px;
-    font-size: 1rem;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+  background: linear-gradient(135deg,#1a1a1a 0%,#2d3748 100%);
+  color:#e2e8f0; text-align:center; padding:24px 0; margin-top:80px; font-size:1rem;
+  border-top-left-radius:20px; border-top-right-radius:20px; box-shadow:0 -4px 20px rgba(0,0,0,0.1);
 }
 
 /* Responsive */
 @media (max-width: 700px) {
-    .nav-flex {
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-    }
-    
-    .logo-title-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 12px;
-    }
-    
-    .logo {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .site-title {
-        font-size: 1.2rem;
-    }
-    
-    nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        justify-content: center;
-        width: 100%;
-    }
-    
-    nav a {
-        margin-left: 0;
-        margin-right: 0;
-        font-size: 0.9rem;
-    }
-    
-    .hero h1 {
-        font-size: 2.2rem;
-    }
-    
-    .hero p {
-        font-size: 1.1rem;
-    }
-    
-    .container {
-        padding: 24px 12px;
-    }
-    
-    .about,
-    .projects,
-    .contact {
-        padding: 32px 24px;
-        margin: 40px 0;
-    }
-    
-    .projects-grid {
-        flex-direction: column;
-        gap: 24px;
-        align-items: center;
-    }
-    
-    .project-card {
-        width: 100%;
-        max-width: 320px;
-    }
-    
-    /* Hide some transit elements on mobile for clarity */
-    .route-indicator,
-    .station-4,
-    .station-5 {
-        display: none;
-    }
+  body { padding-top: 100px; }
+  .nav-flex { flex-direction: column; align-items: center; gap: 16px; }
+  .logo-title-container { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+  .logo { width: 50px; height: 50px; }
+  .site-title { font-size: 1.2rem; }
+  nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; width: 100%; }
+  nav a { margin-left: 0; margin-right: 0; font-size: 0.9rem; }
+
+  .hero h1 { font-size: 2.2rem; }
+  .hero p  { font-size: 1.1rem; }
+  .container { padding: 24px 12px; }
+  .about, .projects, .contact { padding: 32px 24px; margin: 40px 0; }
+  .projects-grid { flex-direction: column; gap: 24px; align-items: center; }
+  .project-card { width: 100%; max-width: 320px; }
+
+  /* Calm hero background a touch more on small screens */
+  .hero-bg { filter: brightness(.78) contrast(1.02) saturate(.95); }
 }
 
-/* Subtle animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .train-express, .train-local, .train-vertical,
+  .grid-mesh, .circuit-path, .circuit-vertical,
+  .packet-1, .packet-2, .packet-3,
+  .h-station, .hp-1, .hp-2, .hp-3, .hp-4,
+  .parallax-layer {
+    animation: none !important;
+    transform: none !important;
+  }
 }
 
-.about,
-.projects,
-.contact {
-    animation: fadeInUp 0.6s ease-out;
-}
+/* Subtle entrances */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.about, .projects, .contact { animation: fadeInUp .6s ease-out; }
 
-/* Hover effects for interactivity */
-.project-card,
-.cta-btn,
-nav a {
-    cursor: pointer;
-}
+/* Hero pulses/packet keyframes */
+@keyframes heroNodePulse { 0%,100%{ transform: scale(1); opacity:.8; } 50%{ transform: scale(1.25); opacity:1; box-shadow:0 0 22px rgba(255,255,255,.55);} }
+@keyframes packetH     { 0%{ left:-12%; opacity:0;} 10%{opacity:1;} 90%{opacity:1;} 100%{ left:112%; opacity:0;} }
+@keyframes packetHrev  { 0%{ left:112%; opacity:0;} 10%{opacity:1;} 90%{opacity:1;} 100%{ left:-12%; opacity:0;} }
+@keyframes packetV     { 0%{ top:-12%;  opacity:0;} 10%{opacity:1;} 90%{opacity:1;} 100%{ top:112%;  opacity:0;} }
+@keyframes packetDpos  { 0%{ transform: translate(0,0) rotate(45deg); opacity:0; } 5%{ opacity:1; } 100%{ transform: translate(160%,-160%) rotate(45deg); opacity:0; } }
 
-/* Enhanced visual hierarchy */
-h1, h2, h3 {
-    line-height: 1.3;
+/* Header train animations */
+@keyframes trainExpress { 0%{left:-300px; opacity:0;} 8%{opacity:1;} 92%{opacity:1;} 100%{left:calc(100% + 100px); opacity:0;} }
+@keyframes trainLocalStop {
+  0%{ right:-450px; opacity:0; }
+  15%{ right:60%; opacity:1; } 25%{ right:50%; } 45%{ right:50%; }
+  55%{ right:45%; } 75%{ right:30%; } 92%{ opacity:1; }
+  100%{ right:calc(100% + 150px); opacity:0; }
 }
-
-/* Improved spacing */
-section {
-    scroll-margin-top: 80px;
-}
-
-/* Add subtle texture to main sections */
-.about,
-.projects {
-    position: relative;
-}
-
-.about::after,
-.projects::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="0.5" fill="rgba(30,58,95,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
-    pointer-events: none;
-    border-radius: 20px;
-}
-    </style>
+@keyframes trainVertical { 0%{ top:-350px; opacity:0; } 10%{ opacity:1; } 90%{ opacity:1; } 100%{ top:calc(100% + 50px); opacity:0; } }
+  </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <!-- Beck-Style Transit Map -->
-        <div class="beck-transit-map">
-            <!-- Clean transit lines -->
-            <div class="transit-lines">
-                <div class="line-blue"></div>
-                <div class="line-yellow"></div>
-                <div class="line-white"></div>
-                <div class="line-red"></div>
-                <div class="line-green"></div>
-            </div>
-            
-            <!-- Station dots -->
-            <div class="stations">
-                <div class="station station-1"></div>
-                <div class="station station-2 station-interchange"></div>
-                <div class="station station-3"></div>
-                <div class="station station-4"></div>
-                <div class="station station-5"></div>
-            </div>
-            
-            <!-- Detailed animated trains -->
-            <div class="train-container">
-                <div class="train-express"></div>
-                <div class="train-local"></div>
-                <div class="train-vertical">
-                    <div class="roof-details"></div>
-                </div>
-            </div>
-            
-            <!-- Route indicators -->
-            <div class="route-indicator route-1">A</div>
-            <div class="route-indicator route-2">B</div>
-            <div class="route-indicator route-3">C</div>
-            
-            <!-- Background grid -->
-            <div class="map-grid"></div>
-        </div>
-        
-        <div class="container nav-flex">
-            <div class="logo-title-container">
-                <img src="logo-solo-bright.png" alt="CRTA Logo" class="logo">
-                <div class="site-title">Cert-Ready Technology Academy, LLC</div>
-            </div>
+  <!-- Header & Navigation -->
+  <header>
+    <div class="beck-transit-map">
+      <div class="transit-lines">
+        <div class="line-blue"></div>
+        <div class="line-yellow"></div>
+        <div class="line-white"></div>
+        <div class="line-red"></div>
+        <div class="line-green"></div>
+      </div>
 
-            <nav>
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#flipbook">Flipbook</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Partner With Us</a>
-            </nav>
-        </div>
-    </header>
-     
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <h1>Training That Moves You Forward</h1>
-            <p>Certification-first pathways for middle school, high school, and adult learners, meeting methodology with mentorship.</p>
-            <a href="#contact" class="cta-btn">Partner With Us</a>
-        </div>
-    </section>
-     
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2>About CRTA</h2>
-            <p>
-                I founded CRTA to expand access to tech careers for middle and high school students, as well as adult learners.
-                Our model is <strong>certification-first</strong> pathways designed to help students graduate not only with diplomas, but with industry-recognized credentials.
-                From CompTIA to Microsoft tracks, the goal is equity, readiness, and career acceleration. It's where mentorship meets methodology, tailored to your school's culture.
-            </p>
-            <p class="goal"><em>Our goal: plant the seeds of tomorrow's tech field today.</em></p>
-        </div>
-    </section>
-     
-    <!-- Flipbook Section -->
-    <section id="flipbook" class="flipbook">
-        <div class="container">
-           <div style="display: flex; justify-content: center;">
-              <img src="crta-logo.png" alt="CRTA Logo" style="width: clamp(80px, 8vw, 120px); height: auto; display: block; margin: 0 auto;">
-           </div>
-            <h2 style="text-align: center">Interactive Flipbook: FutureReady@TCS Proposal</h2>
-            <div class="flipbook-embed">
-                <iframe src="https://toshon-jennings.github.io/caps-cortex/FutureReady@TCS.html"
-                        title="FutureReady@TCS Flipbook"
-                        width="100%"
-                        height="600"
-                        style="border:1px solid #ccc; border-radius:8px;"
-                        allowfullscreen
-                        loading="lazy"></iframe>
-            </div>
-            <p>
-                <a href="https://toshon-jennings.github.io/caps-cortex/FutureReady@TCS.html" target="_blank" rel="noopener">
-                    Open the flipbook in a new tab
-                </a>
-            </p>
-        </div>
-    </section>
-   
-   <!-- Projects Section -->
-   <section id="projects" class="projects">
-       <div class="container">
-           <!-- Living network background -->
-           <div class="network-background">
-               <div class="grid-mesh"></div>
-               <div class="circuit-lines">
-                   <!-- Horizontal paths -->
-                   <div class="circuit-path circuit-path-1"></div>
-                   <div class="circuit-path circuit-path-2"></div>
-                   <div class="circuit-path circuit-path-3"></div>
-                   <!-- Vertical connectors -->
-                   <div class="circuit-vertical circuit-vertical-1"></div>
-                   <div class="circuit-vertical circuit-vertical-2"></div>
-                   <div class="circuit-vertical circuit-vertical-3"></div>
-                   <!-- Data packets -->
-                   <div class="data-packet packet-1"></div>
-                   <div class="data-packet packet-2"></div>
-                   <div class="data-packet packet-3"></div>
-                   <!-- Connection nodes -->
-                   <div class="circuit-node node-1"></div>
-                   <div class="circuit-node node-2"></div>
-                   <div class="circuit-node node-3"></div>
-                   <div class="circuit-node node-4"></div>
-                   <div class="circuit-node node-5"></div>
-                   <div class="circuit-node node-6"></div>
-               </div>
-           </div>
-           
-           <h2>Projects</h2>
-           <div class="projects-grid">
-               <!-- CAps Project Card -->
-               <a class="project-card" href="https://toshon-jennings.github.io/DoubleCapsCorrect/" target="_blank" rel="noopener">
-                   <div class="project-logo">
-                       <img src="caps-logo.png" alt="CAps Logo" />
-                   </div>
-                   <div class="project-info">
-                       <h3>CAps™</h3>
-                       <p>A background executable for keyboard perfectionists.</p>
-                   </div>
-               </a>
-               
-               <!-- City Lights Junior Tech Academy Project Card -->
-               <a class="project-card" href="https://toshon-jennings.github.io/city-lights-jr-TA/" target="_blank" rel="noopener">
-                   <div class="project-logo">
-                       <img src="city-lights-logo.png" alt="City Lights Junior Tech Academy Logo" />
-                   </div>
-                   <div class="project-info">
-                       <h3>City Lights Junior Tech Academy</h3>
-                       <p>Creating digitally literate citizens, one child at a time.</p>
-                   </div>
-               </a>
+      <!-- BOTTOM: blue express -->
+      <div class="train-container-bottom">
+        <div class="train-express"></div>
+      </div>
 
-               <!-- Blog Card -->
-               <a class="project-card" href="https://github.com/toshon-jennings/DoubleCapsCorrect/wiki/%F0%9F%92%BB-Hills-To-Die-On-%28%26-Other-Ideas%29" target="_blank" rel="noopener">
-                   <div class="project-logo">
-                       <img src="github-logo.png" alt="GitHub Logo" />
-                   </div>
-                   <div class="project-info">
-                       <h3>Hills To Die On</h3>
-                       <h4>(& Other Ideas)</h4>
-                       <p>Systems, stories, and the strange beauty of human and machine behavior.</p>
-                 </div>
-                 </a>
-               
-           </div>
-       </div>
-   </section>
-      
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>Partner With Us</h2>
-            <p>Ready to bring tech career pathways to your school or organization? Let's build the future together!</p>
-            <form action="https://formspree.io/f/mzzvjqgz" method="POST" class="contact-form" autocomplete="off">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
-                                
-                <label for="email">Email</label>
-                <input type="email" id="email" name="_replyto" required>
-                                
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-                                
-                <!-- Simple honeypot (invisible to humans) -->
-                <input type="text" name="_gotcha" style="display:none">
-                
-                <!-- Set recipient -->
-                <input type="hidden" name="_to" value="toshon@crta.ltd">
-                
-                <button type="submit" class="cta-btn">Send Message</button>
-            </form>
-            <div class="form-note">
-                <small>Your information will only be used to respond to your inquiry. No spam, ever.</small>
-            </div>
+      <!-- MIDDLE: red vertical -->
+      <div class="trains-mid">
+        <div class="train-vertical"><div class="roof-details"></div></div>
+      </div>
+
+      <!-- TOP: yellow local, anchored near bottom border -->
+      <div class="train-container-top">
+        <div class="train-local"></div>
+      </div>
+
+      <div class="stations">
+        <div class="station station-1"></div>
+        <div class="station station-2 station-interchange"></div>
+        <div class="station station-3"></div>
+        <div class="station station-4"></div>
+        <div class="station station-5"></div>
+      </div>
+
+      <div class="route-indicator route-1">A</div>
+      <div class="route-indicator route-2">B</div>
+      <div class="route-indicator route-3">C</div>
+
+      <div class="map-grid"></div>
+    </div>
+
+    <div class="container nav-flex">
+      <div class="logo-title-container">
+        <img src="logo-solo-bright.png" alt="CRTA Logo" class="logo" />
+        <div class="site-title">Cert-Ready Technology Academy, LLC</div>
+      </div>
+
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#flipbook">Flipbook</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Partner With Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <!-- HERO-ONLY network background -->
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-grid parallax-layer" data-speed="0.12"></div>
+
+      <div class="hero-lines parallax-layer" data-speed="0.22">
+        <div class="h-rail rail--blue  hero-line--1"></div>
+        <div class="h-rail rail--white hero-line--2"></div>
+        <div class="d-rail rail--yellow hero-line--3"></div>
+        <div class="v-rail rail--red   hero-line--4"></div>
+        <div class="d-rail rail--green hero-line--5"></div>
+      </div>
+
+      <div class="hero-stations parallax-layer" data-speed="0.36">
+        <div class="h-station hs-1 h-station--x"></div>
+        <div class="h-station hs-2 h-station--x"></div>
+        <div class="h-station hs-3"></div>
+        <div class="h-station hs-4"></div>
+        <div class="h-station hs-5"></div>
+        <div class="h-station hs-6"></div>
+        <div class="h-station hs-7"></div>
+      </div>
+
+      <div class="hero-packets parallax-layer" data-speed="0.50">
+        <div class="h-packet hp-1"></div>
+        <div class="h-packet hp-2"></div>
+        <div class="h-packet hp-3"></div>
+        <div class="h-packet hp-4"></div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h1>Training That Moves You Forward</h1>
+      <p>Certification-first pathways for middle school, high school, and adult learners, meeting methodology with mentorship.</p>
+      <a href="#contact" class="cta-btn">Partner With Us</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="about">
+    <div class="container">
+      <h2>About CRTA</h2>
+      <p>
+        I founded CRTA to expand access to tech careers for middle and high school students, as well as adult learners.
+        Our model is <strong>certification-first</strong> pathways designed to help students graduate not only with diplomas, but with industry-recognized credentials.
+        From CompTIA to Microsoft tracks, the goal is equity, readiness, and career acceleration. It's where mentorship meets methodology, tailored to your school's culture.
+      </p>
+      <p class="goal"><em>Our goal: plant the seeds of tomorrow's tech field today.</em></p>
+    </div>
+  </section>
+
+  <!-- Flipbook -->
+  <section id="flipbook" class="flipbook">
+    <div class="container">
+      <div style="display:flex; justify-content:center;">
+        <img src="crta-logo.png" alt="CRTA Logo" style="width:clamp(80px,8vw,120px); height:auto; display:block; margin:0 auto;">
+      </div>
+      <h2 style="text-align:center">Interactive Flipbook: FutureReady@TCS Proposal</h2>
+      <div class="flipbook-embed">
+        <iframe src="https://toshon-jennings.github.io/caps-cortex/FutureReady@TCS.html"
+                title="FutureReady@TCS Flipbook"
+                width="100%" height="600"
+                style="border:1px solid #ccc; border-radius:8px;"
+                allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p><a href="https://toshon-jennings.github.io/caps-cortex/FutureReady@TCS.html" target="_blank" rel="noopener">Open the flipbook in a new tab</a></p>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="projects">
+    <div class="container">
+      <div class="network-background">
+        <div class="grid-mesh"></div>
+        <div class="circuit-lines">
+          <div class="circuit-path circuit-path-1"></div>
+          <div class="circuit-path circuit-path-2"></div>
+          <div class="circuit-path circuit-path-3"></div>
+          <div class="circuit-vertical circuit-vertical-1"></div>
+          <div class="circuit-vertical circuit-vertical-2"></div>
+          <div class="circuit-vertical circuit-vertical-3"></div>
+          <div class="data-packet packet-1"></div>
+          <div class="data-packet packet-2"></div>
+          <div class="data-packet packet-3"></div>
+          <div class="circuit-node node-1"></div>
+          <div class="circuit-node node-2"></div>
+          <div class="circuit-node node-3"></div>
+          <div class="circuit-node node-4"></div>
+          <div class="circuit-node node-5"></div>
+          <div class="circuit-node node-6"></div>
         </div>
-    </section>
-     
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <img src="crta-logo.png" alt="CRTA Logo" class="logo">
-            <br>
-            &copy; 2025 Cert-Ready Technology Academy, LLC. All rights reserved.
-        </div>
-    </footer>
+      </div>
+
+      <h2>Projects</h2>
+      <div class="projects-grid">
+        <a class="project-card" href="https://toshon-jennings.github.io/DoubleCapsCorrect/" target="_blank" rel="noopener">
+          <div class="project-logo"><img src="caps-logo.png" alt="CAps Logo" /></div>
+          <div class="project-info">
+            <h3>CAps™</h3>
+            <p>A background executable for keyboard perfectionists.</p>
+          </div>
+        </a>
+
+        <a class="project-card" href="https://toshon-jennings.github.io/city-lights-jr-TA/" target="_blank" rel="noopener">
+          <div class="project-logo"><img src="city-lights-logo.png" alt="City Lights Junior Tech Academy Logo" /></div>
+          <div class="project-info">
+            <h3>City Lights Junior Tech Academy</h3>
+            <p>Creating digitally literate citizens, one child at a time.</p>
+          </div>
+        </a>
+
+        <a class="project-card" href="https://github.com/toshon-jennings/DoubleCapsCorrect/wiki/%F0%9F%92%BB-Hills-To-Die-On-%28%26-Other-Ideas%29" target="_blank" rel="noopener">
+          <div class="project-logo"><img src="github-logo.png" alt="GitHub Logo" /></div>
+          <div class="project-info">
+            <h3>Hills To Die On</h3>
+            <h4>(& Other Ideas)</h4>
+            <p>Systems, stories, and the strange beauty of human and machine behavior.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2>Partner With Us</h2>
+      <p>Ready to bring tech career pathways to your school or organization? Let's build the future together!</p>
+      <form action="https://formspree.io/f/mzzvjqgz" method="POST" class="contact-form" autocomplete="off">
+        <label for="name">Name</label><input type="text" id="name" name="name" required />
+        <label for="email">Email</label><input type="email" id="email" name="_replyto" required />
+        <label for="message">Message</label><textarea id="message" name="message" rows="5" required></textarea>
+        <input type="text" name="_gotcha" style="display:none" />
+        <input type="hidden" name="_to" value="toshon@crta.ltd" />
+        <button type="submit" class="cta-btn">Send Message</button>
+      </form>
+      <div class="form-note"><small>Your information will only be used to respond to your inquiry. No spam, ever.</small></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <img src="crta-logo.png" alt="CRTA Logo" class="logo" /><br/>
+      &copy; 2025 Cert-Ready Technology Academy, LLC. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- HERO PARALLAX SCRIPT (hero-only, rAF-throttled) -->
+  <script>
+  (function() {
+    const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mqReduce.matches) return;
+
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    const layers = Array.from(hero.querySelectorAll('.parallax-layer'));
+    if (!layers.length) return;
+
+    let heroTop = 0, heroBottom = 0, ticking = false;
+
+    function measure() {
+      const rect = hero.getBoundingClientRect();
+      const scrollY = window.scrollY || window.pageYOffset;
+      heroTop = rect.top + scrollY;
+      heroBottom = heroTop + rect.height;
+    }
+
+    function update() {
+      ticking = false;
+      const scrollY = window.scrollY || window.pageYOffset;
+      const inView = (scrollY + window.innerHeight) > heroTop && scrollY < heroBottom;
+      if (!inView) return;
+
+      for (const el of layers) {
+        const speed = parseFloat(el.dataset.speed || '0.2');
+        const y = - (scrollY - heroTop) * speed;
+        el.style.transform = 'translate3d(0,' + y.toFixed(2) + 'px,0)';
+      }
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+
+    function onResize() {
+      measure();
+      onScroll();
+    }
+
+    measure();
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+    window.addEventListener('orientationchange', onResize);
+    setTimeout(onResize, 300);
+  })();
+  </script>
 </body>
-                </html>
+</html>
