@@ -303,28 +303,21 @@ header {
     z-index: 1;
 }
 
-/* Train 1 - Express (top track - furthest away, SMALLEST) */
+/* FIX 1: Make top train more visible - increase opacity and contrast */
 .train-express {
-    position: absolute;
-    top: 15%;
-    left: -300px;
-    width: 200px;
-    height: 14px;
     background: 
         linear-gradient(90deg, 
-            rgba(246, 196, 67, 0.2) 0%, 
-            rgba(246, 196, 67, 0.3) 15%, 
-            rgba(246, 196, 67, 0.3) 85%, 
-            rgba(246, 196, 67, 0.2) 100%);
-    border-radius: 7px;
-    border: 1px solid rgba(246, 196, 67, 0.3);
-    animation: trainExpress 16s linear infinite;
-    /* Smaller headlight effect for distant train */
+            rgba(246, 196, 67, 0.35) 0%,  /* was 0.2 */
+            rgba(246, 196, 67, 0.45) 15%,  /* was 0.3 */
+            rgba(246, 196, 67, 0.45) 85%,  /* was 0.3 */
+            rgba(246, 196, 67, 0.35) 100%); /* was 0.2 */
+    border: 1px solid rgba(246, 196, 67, 0.5); /* was 0.3 */
+    /* Fix headlight to point forward (left-moving train needs negative x) */
     box-shadow: 
         0 0 8px rgba(246, 196, 67, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.1),
         inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-        4px 0 6px -2px rgba(246, 196, 67, 0.6);
+        -6px 0 8px -2px rgba(246, 196, 67, 0.8); /* was 4px, now -6px */
 }
 
 /* Express train windows - smaller for distant train */
@@ -366,28 +359,15 @@ header {
 }
 
 /* Train 2 - Local (bottom track - closest, LARGEST) */
+/* FIX 3: Fix bottom train headlight direction */
 .train-local {
-    position: absolute;
-    bottom: 6px;
-    right: -450px;
-    width: 400px;
-    height: 32px;
-    background: linear-gradient(90deg, 
-        rgba(30, 58, 95, 0.4) 0%, 
-        rgba(44, 82, 130, 0.5) 10%, 
-        rgba(44, 82, 130, 0.5) 90%, 
-        rgba(30, 58, 95, 0.4) 100%);
-    border-radius: 10px;
-    border: 2px solid rgba(44, 82, 130, 0.4);
-    animation: trainLocalStop 22s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
-    /* Strongest headlight effect for closest train */
+    /* Fix headlight to point forward (right-moving train needs positive x) */
     box-shadow: 
         0 0 30px rgba(44, 82, 130, 0.25),
         inset 0 4px 0 rgba(255, 255, 255, 0.25),
         inset 0 -3px 0 rgba(0, 0, 0, 0.2),
-        -15px 0 20px -4px rgba(255, 255, 255, 1.2);
+        18px 0 25px -4px rgba(255, 255, 255, 1.3); /* was -15px, now 18px */
 }
-
 /* Local train windows - largest for closest train */
 .train-local::after {
     content: '';
@@ -426,27 +406,14 @@ header {
     z-index: 2;
 }
 
-/* Train 3 - Medium speed (middle track - medium distance, MEDIUM size) */
+/* FIX 2: Fix middle train headlight direction */
 .train-medium {
-    position: absolute;
-    top: 45%;
-    left: -450px;
-    width: 300px;
-    height: 22px;
-    background: linear-gradient(90deg, 
-        rgba(246, 196, 67, 0.3) 0%, 
-        rgba(246, 196, 67, 0.4) 10%, 
-        rgba(246, 196, 67, 0.4) 90%, 
-        rgba(246, 196, 67, 0.3) 100%);
-    border-radius: 8px;
-    border: 1px solid rgba(246, 196, 67, 0.4);
-    animation: trainSlowStop 26s cubic-bezier(0.23, 1, 0.32, 1) infinite;
-    /* Medium headlight effect for middle distance train */
+    /* Fix headlight to point forward (left-moving train needs negative x) */
     box-shadow: 
         0 0 18px rgba(246, 196, 67, 0.15),
         inset 0 2px 0 rgba(255, 255, 255, 0.2),
         inset 0 -2px 0 rgba(0, 0, 0, 0.15),
-        8px 0 12px -4px rgba(246, 196, 67, 0.9);
+        -10px 0 15px -3px rgba(246, 196, 67, 1.0); /* was 8px, now -10px */
 }
 
 /* Medium train windows - medium size for middle distance */
