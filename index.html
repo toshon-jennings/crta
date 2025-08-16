@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -35,7 +35,7 @@ header {
   border-bottom: 3px solid #f6c443;
 }
 
-/* Beck-Style Transit Map Background (Header only) */
+/* Beck-Style Transit Map Background (Header only — your original stays) */
 .beck-transit-map { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .transit-lines { position: absolute; inset: 0; opacity: 0.3; }
 
@@ -56,10 +56,10 @@ header {
 .station-5 { top: 60%; left: 15%; }
 .station-interchange { width: 16px; height: 16px; border-width: 4px; }
 
-/* === TRAIN LAYERS === */
-.train-container, .train-container-bottom { position: absolute; inset: 0; pointer-events: none; z-index: 2; } /* bottom: blue */
-.trains-mid { position: absolute; inset: 0; pointer-events: none; z-index: 3; }  /* middle: red */
-.train-container-top { position: absolute; inset: 0; pointer-events: none; z-index: 5; } /* top: yellow */
+/* === TRAIN LAYERS (header — unchanged) === */
+.train-container, .train-container-bottom { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.trains-mid { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.train-container-top { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
 
 /* Train 1 - Express (blue line) */
 .train-express {
@@ -76,7 +76,6 @@ header {
 .train-express::before { content: ''; position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background: url('apple-check.png') center/contain no-repeat; z-index: 2; }
 
 /* Train 2 - Local (yellow car) — TOP LAYER */
-/* ↓↓↓ anchored just above the bottom yellow border */
 .train-local {
   position: absolute; top: auto; bottom: 6px; right: -450px; width: 400px; height: 32px;
   background: linear-gradient(90deg, rgba(246,196,67,0.5), rgba(246,196,67,0.7) 10% 90%, rgba(246,196,67,0.5));
@@ -92,7 +91,7 @@ header {
 
 /* Train 3 - Vertical (RED) — MID LAYER */
 .train-vertical {
-  position: absolute; left: 29%; top: -350px; width: 22px; height: 300px;
+  position: absolute; left: 70%; top: -350px; width: 22px; height: 300px;
   background: linear-gradient(180deg, rgba(231,76,60,0.4), rgba(231,76,60,0.6) 10% 90%, rgba(231,76,60,0.4));
   border-radius: 8px; border: 1px solid rgba(231,76,60,0.5);
   animation: trainVertical 20s linear infinite;
@@ -119,7 +118,7 @@ header {
   pointer-events: none;
 }
 
-/* Route indicators above trains */
+/* Route indicators above trains (header) */
 .route-indicator {
   position: absolute; padding: 2px 8px; background: #fff; color: #1e3a5f;
   font-size: 10px; font-weight: 700; border-radius: 10px; z-index: 7; opacity: 0.7;
@@ -171,7 +170,11 @@ nav a:hover { color: #f6c443; background: rgba(246,196,67,0.1); transform: trans
 .h-rail { height: 6px; width: 120%; left: -10%; }
 .v-rail { width: 6px; height: 120%; top: -10%; }
 .d-rail { height: 6px; width: 160%; left: -30%; transform-origin: center; }
-.rail--blue{ color:#2c5282; } .rail--yellow{ color:#f6c443; } .rail--white{ color:rgba(255,255,255,0.7); } .rail--red{ color:#e74c3c; } .rail--green{ color:#27ae60; }
+.rail--blue{ color:#2c5282; }
+.rail--yellow{ color:#f6c443; }
+.rail--white{ color:rgba(255,255,255,0.7); }
+.rail--red{ color:#e74c3c; }
+.rail--green{ color:#27ae60; }
 
 .hero-line--1 { top: 28%; }
 .hero-line--2 { top: 72%; }
@@ -247,7 +250,41 @@ nav a:hover { color: #f6c443; background: rgba(246,196,67,0.1); transform: trans
   border-radius:20px; box-shadow:0 8px 32px rgba(30,58,95,0.1); border:1px solid #e9ecef;
   position:relative; overflow:hidden;
 }
+
+/* Parallax Network Background - 3 Layers */
 .network-background { position:absolute; inset:0; pointer-events:none; z-index:0; }
+
+/* BACKGROUND LAYER: Large Network Topology */
+.topology-layer { position:absolute; inset:0; z-index:1; }
+.topology-grid {
+  position:absolute; inset:0;
+  background-image: linear-gradient(rgba(30,58,95,0.06) 2px, transparent 2px),
+                    linear-gradient(90deg, rgba(30,58,95,0.06) 2px, transparent 2px);
+  background-size:80px 80px;
+}
+.topology-nodes { position:absolute; inset:0; }
+.topo-node {
+  position:absolute; width:20px; height:20px; border-radius:50%;
+  background: radial-gradient(circle, rgba(44,82,130,0.15) 0%, rgba(44,82,130,0.08) 50%, transparent 70%);
+  border: 2px solid rgba(44,82,130,0.2);
+}
+.topo-node-1 { top:15%; left:20%; }
+.topo-node-2 { top:15%; right:25%; }
+.topo-node-3 { top:75%; left:15%; }
+.topo-node-4 { top:75%; right:20%; }
+.topo-node-5 { top:45%; left:50%; transform:translateX(-50%); }
+.topology-connections { position:absolute; inset:0; }
+.topo-connection {
+  position:absolute; height:2px;
+  background:linear-gradient(90deg, transparent 0%, rgba(44,82,130,0.12) 20%, rgba(44,82,130,0.12) 80%, transparent 100%);
+}
+.topo-conn-1 { top:16.5%; left:22%; width:50%; }
+.topo-conn-2 { top:76.5%; left:17%; width:60%; }
+.topo-conn-3 { left:21%; top:17%; width:2px; height:56%; background:linear-gradient(180deg, transparent 0%, rgba(44,82,130,0.12) 20%, rgba(44,82,130,0.12) 80%, transparent 100%); }
+.topo-conn-4 { right:26%; top:17%; width:2px; height:56%; background:linear-gradient(180deg, transparent 0%, rgba(44,82,130,0.12) 20%, rgba(44,82,130,0.12) 80%, transparent 100%); }
+
+/* MIDDLE LAYER: Enhanced Circuit Lines */
+.circuit-layer { position:absolute; inset:0; z-index:2; }
 .grid-mesh {
   position:absolute; inset:0;
   background-image: linear-gradient(rgba(30,58,95,0.08) 1.5px, transparent 1.5px),
@@ -255,24 +292,39 @@ nav a:hover { color: #f6c443; background: rgba(246,196,67,0.1); transform: trans
   background-size:30px 30px; animation: meshPulse 4s ease-in-out infinite;
 }
 @keyframes meshPulse { 0%,100%{opacity:.6; transform:scale(1);} 50%{opacity:1; transform:scale(1.01);} }
-.circuit-lines { position:absolute; inset:0; z-index:1; }
+.circuit-lines { position:absolute; inset:0; }
 .circuit-path {
   position:absolute; height:3px; opacity:0;
   background:linear-gradient(90deg,transparent 0%, rgba(246,196,67,0.5) 50%, transparent 100%);
   animation: circuitGlow 3s ease-in-out infinite; box-shadow:0 0 8px rgba(246,196,67,0.3);
+  transition: all 0.3s ease;
 }
-.circuit-path-1{ top:35%; left:5%;  width:35%; animation-delay:0s;   }
-.circuit-path-2{ top:35%; left:40%; width:30%; animation-delay:.5s;  }
-.circuit-path-3{ top:35%; right:5%; width:25%; animation-delay:1s;   }
+.circuit-path-1{ top:35%; left:5%;  width:35%; animation-delay:0s; }
+.circuit-path-2{ top:35%; left:40%; width:30%; animation-delay:.5s; }
+.circuit-path-3{ top:35%; right:5%; width:25%; animation-delay:1s; }
 .circuit-vertical{
   position:absolute; width:3px; opacity:0;
   background:linear-gradient(180deg,transparent 0%, rgba(44,82,130,0.4) 50%, transparent 100%);
   animation:circuitGlow 3s ease-in-out infinite; box-shadow:0 0 8px rgba(44,82,130,0.3);
+  transition: all 0.3s ease;
 }
 .circuit-vertical-1{ left:22%; top:20%; height:30%; animation-delay:1.5s; }
-.circuit-vertical-2{ left:55%; top:35%; height:40%; animation-delay:2s;   }
+.circuit-vertical-2{ left:55%; top:35%; height:40%; animation-delay:2s; }
 .circuit-vertical-3{ right:22%; top:25%; height:35%; animation-delay:2.5s; }
 @keyframes circuitGlow { 0%,100%{opacity:.2;} 50%{opacity:1;} }
+
+/* Enhanced circuit branches */
+.circuit-branch {
+  position:absolute; height:2px; opacity:0;
+  background:linear-gradient(90deg,transparent 0%, rgba(246,196,67,0.3) 50%, transparent 100%);
+  animation: circuitGlow 4s ease-in-out infinite;
+}
+.branch-1 { top:30%; left:20%; width:15%; transform:rotate(45deg); animation-delay:0.8s; }
+.branch-2 { top:40%; left:45%; width:12%; transform:rotate(-30deg); animation-delay:1.3s; }
+.branch-3 { top:50%; right:15%; width:18%; transform:rotate(60deg); animation-delay:1.8s; }
+
+/* FOREGROUND LAYER: Active Data Flows */
+.dataflow-layer { position:absolute; inset:0; z-index:3; }
 .data-packet {
   position:absolute; width:10px; height:10px; border-radius:50%;
   background: radial-gradient(circle, rgba(246,196,67,1) 0%, rgba(246,196,67,0.4) 50%, transparent 70%);
@@ -281,13 +333,38 @@ nav a:hover { color: #f6c443; background: rgba(246,196,67,0.1); transform: trans
 .packet-1{ top:33.5%; left:5%;  animation: packet1Travel 8s linear infinite; }
 .packet-2{ top:33.5%; left:40%; animation: packet2Travel 10s linear infinite; animation-delay:2s; }
 .packet-3{ left:54%;  top:33.5%; animation: packet3Travel 7s linear infinite;  animation-delay:4s; }
+.packet-4{ top:28.5%; left:0%; animation: packet4Curve 12s ease-in-out infinite; animation-delay:1s; }
+.packet-5{ top:48.5%; left:30%; animation: packet5Zigzag 14s linear infinite; animation-delay:3s; }
+
 @keyframes packet1Travel { 0%{left:5%; opacity:0;} 10%{opacity:1;} 40%{left:22%;} 50%{left:22%; top:33.5%;} 80%{left:22%; top:50%;} 90%{opacity:.3;} 100%{left:22%; top:50%; opacity:0;} }
 @keyframes packet2Travel { 0%{left:40%; opacity:0;} 10%{opacity:1;} 45%{left:55%;} 55%{left:55%; top:33.5%;} 85%{left:55%; top:75%;} 95%{opacity:.3;} 100%{left:55%; top:75%; opacity:0;} }
 @keyframes packet3Travel { 0%{left:70%; top:33.5%; opacity:0;} 10%{opacity:1;} 40%{left:78%; top:33.5%;} 50%{left:78%; top:33.5%;} 80%{left:78%; top:60%;} 90%{opacity:.3;} 100%{left:78%; top:60%; opacity:0;} }
+@keyframes packet4Curve { 0%{left:0%; top:28.5%; opacity:0;} 5%{opacity:1;} 25%{left:25%; top:15%;} 50%{left:50%; top:28.5%;} 75%{left:75%; top:42%;} 95%{opacity:1;} 100%{left:100%; top:55%; opacity:0;} }
+@keyframes packet5Zigzag { 0%{left:30%; top:48.5%; opacity:0;} 5%{opacity:1;} 20%{left:40%; top:35%;} 40%{left:60%; top:60%;} 60%{left:80%; top:45%;} 80%{left:90%; top:70%;} 95%{opacity:1;} 100%{left:105%; top:55%; opacity:0;} }
+
+/* Floating Code Snippets */
+.code-layer { position:absolute; inset:0; z-index:4; pointer-events:none; }
+.code-snippet {
+  position:absolute; padding:8px 12px; background:rgba(30,58,95,0.08);
+  border:1px solid rgba(30,58,95,0.15); border-radius:6px;
+  font-family:'Courier New',monospace; font-size:10px; color:rgba(30,58,95,0.7);
+  backdrop-filter:blur(2px); opacity:0; white-space:nowrap;
+}
+.code-python { top:12%; left:-200px; animation: codeFloat1 20s linear infinite; }
+.code-powershell { top:65%; right:-250px; animation: codeFloat2 25s linear infinite; animation-delay:3s; }
+.code-cpp { top:40%; left:-180px; animation: codeFloat3 22s linear infinite; animation-delay:6s; }
+.code-javascript { top:25%; right:-220px; animation: codeFloat4 18s linear infinite; animation-delay:9s; }
+.code-css { top:55%; left:-160px; animation: codeFloat5 24s linear infinite; animation-delay:12s; }
+
+@keyframes codeFloat1 { 0%{left:-200px; opacity:0;} 10%{opacity:0.6;} 90%{opacity:0.6;} 100%{left:calc(100% + 50px); opacity:0;} }
+@keyframes codeFloat2 { 0%{right:-250px; opacity:0;} 8%{opacity:0.5;} 92%{opacity:0.5;} 100%{right:calc(100% + 50px); opacity:0;} }
+@keyframes codeFloat3 { 0%{left:-180px; opacity:0;} 12%{opacity:0.7;} 88%{opacity:0.7;} 100%{left:calc(100% + 50px); opacity:0;} }
+@keyframes codeFloat4 { 0%{right:-220px; opacity:0;} 15%{opacity:0.6;} 85%{opacity:0.6;} 100%{right:calc(100% + 50px); opacity:0;} }
+@keyframes codeFloat5 { 0%{left:-160px; opacity:0;} 8%{opacity:0.5;} 92%{opacity:0.5;} 100%{left:calc(100% + 50px); opacity:0;} }
 
 /* Project cards */
-.projects h2 { font-size:1.8rem; color:#1e3a5f; margin-bottom:32px; text-align:left; font-weight:700; position:relative; z-index:2; }
-.projects-grid { display:flex; flex-wrap:wrap; gap:32px; justify-content:flex-start; position:relative; z-index:2; }
+.projects h2 { font-size:1.8rem; color:#1e3a5f; margin-bottom:32px; text-align:left; font-weight:700; position:relative; z-index:6; }
+.projects-grid { display:flex; flex-wrap:wrap; gap:32px; justify-content:flex-start; position:relative; z-index:6; }
 .project-card {
   background:#fff; border-radius:16px; box-shadow:0 6px 24px rgba(30,58,95,0.1);
   padding:32px 24px 24px; text-align:center; text-decoration:none; color:inherit; width:240px;
@@ -295,6 +372,46 @@ nav a:hover { color: #f6c443; background: rgba(246,196,67,0.1); transform: trans
 }
 .project-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg,#1e3a5f 0%,#f6c443 100%); }
 .project-card:hover { transform: translateY(-6px) scale(1.02); box-shadow:0 12px 40px rgba(30,58,95,0.2); border-color:#f6c443; }
+
+/* Interactive hover effects for circuit paths */
+.project-card:first-child:hover ~ .network-background .circuit-path-1,
+.project-card:first-child:hover ~ .network-background .circuit-vertical-1 {
+  opacity: 1 !important;
+  box-shadow: 0 0 20px rgba(246,196,67,0.8) !important;
+  animation-duration: 1s !important;
+}
+.project-card:nth-child(2):hover ~ .network-background .circuit-path-2,
+.project-card:nth-child(2):hover ~ .network-background .circuit-vertical-2 {
+  opacity: 1 !important;
+  box-shadow: 0 0 20px rgba(246,196,67,0.8) !important;
+  animation-duration: 1s !important;
+}
+.project-card:nth-child(3):hover ~ .network-background .circuit-path-3,
+.project-card:nth-child(3):hover ~ .network-background .circuit-vertical-3 {
+  opacity: 1 !important;
+  box-shadow: 0 0 20px rgba(246,196,67,0.8) !important;
+  animation-duration: 1s !important;
+}
+
+/* Data burst effect on hover */
+.project-card:hover::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(246,196,67,0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: dataBurst 0.8s ease-out;
+  pointer-events: none;
+  z-index: 10;
+}
+@keyframes dataBurst {
+  0% { width: 0; height: 0; opacity: 1; transform: translate(-50%, -50%); }
+  100% { width: 200px; height: 200px; opacity: 0; transform: translate(-50%, -50%); }
+}
+
 .project-logo img { width:64px; height:64px; object-fit:contain; margin-bottom:16px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
 .project-info h3 { margin:0 0 8px; font-size:1.2rem; color:#1e3a5f; font-weight:700; }
 .project-info p  { font-size:1rem; color:#4a5568; margin:0; line-height:1.5; }
@@ -319,11 +436,83 @@ nav a:hover { color: #f6c443; background: rgba(246,196,67,0.1); transform: trans
 .contact-form button { align-self:center; margin-top:16px; }
 .form-note { margin-top:20px; text-align:center; color:rgba(255,255,255,0.7); font-size:.9rem; position:relative; z-index:1; }
 
-/* Footer */
+/* Footer base */
 footer {
   background: linear-gradient(135deg,#1a1a1a 0%,#2d3748 100%);
   color:#e2e8f0; text-align:center; padding:24px 0; margin-top:80px; font-size:1rem;
   border-top-left-radius:20px; border-top-right-radius:20px; box-shadow:0 -4px 20px rgba(0,0,0,0.1);
+  position: relative; overflow: hidden; border-top: 3px solid #f6c443;
+}
+
+/* ========= FOOTER TRANSIT MAP — cloned from the Pen header (minimal) ========= */
+.footer-foreground { position: relative; z-index: 10; }
+.footer-transit-map { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+
+/* Clean lines */
+.f-transit-lines { position:absolute; inset:0; opacity:0.30; }
+.f-line-blue  { position:absolute; top:25%; left:-10%; width:120%; height:6px;  background:#2c5282; transform:rotate(-2deg); }
+.f-line-yellow{ position:absolute; top:50%; left:-20%; width:140%; height:6px;  background:#f6c443; transform:rotate(45deg); transform-origin:center; }
+.f-line-white { position:absolute; top:70%; left:0;   width:100%; height:4px;   background:rgba(255,255,255,0.4); }
+.f-line-red   { position:absolute; top:-20%; left:30%; width:6px;  height:140%; background:#e74c3c; opacity:.25; }
+.f-line-green { position:absolute; top:40%; right:-30%; width:150%; height:5px; background:#27ae60; transform:rotate(-45deg); transform-origin:center right; opacity:.20; }
+
+/* Stations */
+.f-stations { position:absolute; inset:0; }
+.f-station {
+  position:absolute; width:12px; height:12px; background:#fff;
+  border:3px solid #1e3a5f; border-radius:50%; z-index:2;
+}
+.f-station-1 { top:23%; left:30%; }
+.f-station-2 { top:50%; left:50%; transform:translate(-50%,-50%); }
+.f-station-3 { top:68%; left:70%; }
+.f-station-4 { top:35%; left:85%; }
+.f-station-5 { top:60%; left:15%; }
+.f-station-x { width:16px; height:16px; border-width:4px; }
+
+/* Route chips */
+.f-route { position:absolute; padding:2px 8px; background:#fff; color:#1e3a5f; font-size:10px; font-weight:700; border-radius:10px; z-index:3; opacity:.7; }
+.f-route-1 { top:18%; left:10%; background:#2c5282; color:#fff; }
+.f-route-2 { top:64%; right:10%; background:#f6c443; color:#1e3a5f; }
+.f-route-3 { top:45%; left:28%; background:#e74c3c; color:#fff; font-size:8px; }
+
+/* Subtle grid */
+.f-map-grid {
+  position:absolute; inset:0; opacity:.03;
+  background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+  background-size:40px 40px;
+}
+
+/* Minimalist trains (Pen style) */
+.f-train {
+  position:absolute; z-index:2;
+  width:24px; height:8px; border-radius:4px;
+  box-shadow: 0 0 10px rgba(255,255,255,0.35);
+}
+
+/* Train placements + colors */
+.f-train-1 { top:24%; left:-30px; background:#f6c443;  animation:fTrainMove1 12s linear infinite; box-shadow:0 0 10px rgba(246,196,67,0.6); }
+.f-train-2 { top:69%; right:-30px; background:#2c5282; animation:fTrainMove2 15s linear infinite; box-shadow:0 0 10px rgba(44,82,130,0.6); }
+.f-train-3 { left:29.5%; top:-30px; width:8px; height:24px; background:#e74c3c; animation:fTrainMove3 10s linear infinite; box-shadow:0 0 10px rgba(231,76,60,0.6); }
+
+/* Footer train keyframes (duplicated from Pen) */
+@keyframes fTrainMove1 {
+  0% { left:-30px; opacity:0; }
+  5% { opacity:1; }
+  95% { opacity:1; }
+  100% { left:calc(100% + 30px); opacity:0; }
+}
+@keyframes fTrainMove2 {
+  0% { right:-30px; opacity:0; }
+  5% { opacity:1; }
+  95% { opacity:1; }
+  100% { right:calc(100% + 30px); opacity:0; }
+}
+@keyframes fTrainMove3 {
+  0% { top:-30px; opacity:0; }
+  5% { opacity:1; }
+  95% { opacity:1; }
+  100% { top:calc(100% + 30px); opacity:0; }
 }
 
 /* Responsive */
@@ -343,17 +532,18 @@ footer {
   .projects-grid { flex-direction: column; gap: 24px; align-items: center; }
   .project-card { width: 100%; max-width: 320px; }
 
-  /* Calm hero background a touch more on small screens */
-  .hero-bg { filter: brightness(.78) contrast(1.02) saturate(.95); }
+  /* De-clutter footer on mobile */
+  .f-route, .f-station-4, .f-station-5 { display:none; }
 }
 
 /* Reduce motion */
 @media (prefers-reduced-motion: reduce) {
   .train-express, .train-local, .train-vertical,
   .grid-mesh, .circuit-path, .circuit-vertical,
-  .packet-1, .packet-2, .packet-3,
+  .packet-1, .packet-2, .packet-3, .packet-4, .packet-5,
   .h-station, .hp-1, .hp-2, .hp-3, .hp-4,
-  .parallax-layer {
+  .parallax-layer, .code-snippet,
+  .f-train-1, .f-train-2, .f-train-3 {
     animation: none !important;
     transform: none !important;
   }
@@ -363,19 +553,16 @@ footer {
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 .about, .projects, .contact { animation: fadeInUp .6s ease-out; }
 
-/* Hero pulses/packet keyframes */
-@keyframes heroNodePulse { 0%,100%{ transform: scale(1); opacity:.8; } 50%{ transform: scale(1.25); opacity:1; box-shadow:0 0 22px rgba(255,255,255,.55);} }
-@keyframes packetH     { 0%{ left:-12%; opacity:0;} 10%{opacity:1;} 90%{opacity:1;} 100%{ left:112%; opacity:0;} }
-@keyframes packetHrev  { 0%{ left:112%; opacity:0;} 10%{opacity:1;} 90%{opacity:1;} 100%{ left:-12%; opacity:0;} }
-@keyframes packetV     { 0%{ top:-12%;  opacity:0;} 10%{opacity:1;} 90%{opacity:1;} 100%{ top:112%;  opacity:0;} }
-@keyframes packetDpos  { 0%{ transform: translate(0,0) rotate(45deg); opacity:0; } 5%{ opacity:1; } 100%{ transform: translate(160%,-160%) rotate(45deg); opacity:0; } }
-
-/* Header train animations */
+/* Header train animations (unchanged) */
 @keyframes trainExpress { 0%{left:-300px; opacity:0;} 8%{opacity:1;} 92%{opacity:1;} 100%{left:calc(100% + 100px); opacity:0;} }
 @keyframes trainLocalStop {
   0%{ right:-450px; opacity:0; }
-  15%{ right:60%; opacity:1; } 25%{ right:50%; } 45%{ right:50%; }
-  55%{ right:45%; } 75%{ right:30%; } 92%{ opacity:1; }
+  15%{ right:60%; opacity:1; }
+  25%{ right:50%; }
+  45%{ right:50%; }
+  55%{ right:45%; }
+  75%{ right:30%; }
+  92%{ opacity:1; }
   100%{ right:calc(100% + 150px); opacity:0; }
 }
 @keyframes trainVertical { 0%{ top:-350px; opacity:0; } 10%{ opacity:1; } 90%{ opacity:1; } 100%{ top:calc(100% + 50px); opacity:0; } }
@@ -513,23 +700,56 @@ footer {
   <section id="projects" class="projects">
     <div class="container">
       <div class="network-background">
-        <div class="grid-mesh"></div>
-        <div class="circuit-lines">
-          <div class="circuit-path circuit-path-1"></div>
-          <div class="circuit-path circuit-path-2"></div>
-          <div class="circuit-path circuit-path-3"></div>
-          <div class="circuit-vertical circuit-vertical-1"></div>
-          <div class="circuit-vertical circuit-vertical-2"></div>
-          <div class="circuit-vertical circuit-vertical-3"></div>
+        <!-- BACKGROUND LAYER: Large Network Topology -->
+        <div class="topology-layer parallax-layer" data-speed="0.1">
+          <div class="topology-grid"></div>
+          <div class="topology-nodes">
+            <div class="topo-node topo-node-1"></div>
+            <div class="topo-node topo-node-2"></div>
+            <div class="topo-node topo-node-3"></div>
+            <div class="topo-node topo-node-4"></div>
+            <div class="topo-node topo-node-5"></div>
+          </div>
+          <div class="topology-connections">
+            <div class="topo-connection topo-conn-1"></div>
+            <div class="topo-connection topo-conn-2"></div>
+            <div class="topo-connection topo-conn-3"></div>
+            <div class="topo-connection topo-conn-4"></div>
+          </div>
+        </div>
+
+        <!-- MIDDLE LAYER: Enhanced Circuit Lines -->
+        <div class="circuit-layer parallax-layer" data-speed="0.25">
+          <div class="grid-mesh"></div>
+          <div class="circuit-lines">
+            <div class="circuit-path circuit-path-1"></div>
+            <div class="circuit-path circuit-path-2"></div>
+            <div class="circuit-path circuit-path-3"></div>
+            <div class="circuit-vertical circuit-vertical-1"></div>
+            <div class="circuit-vertical circuit-vertical-2"></div>
+            <div class="circuit-vertical circuit-vertical-3"></div>
+            <div class="circuit-branch branch-1"></div>
+            <div class="circuit-branch branch-2"></div>
+            <div class="circuit-branch branch-3"></div>
+          </div>
+        </div>
+
+        <!-- FOREGROUND LAYER: Active Data Flows -->
+        <div class="dataflow-layer parallax-layer" data-speed="0.4">
           <div class="data-packet packet-1"></div>
           <div class="data-packet packet-2"></div>
           <div class="data-packet packet-3"></div>
-          <div class="circuit-node node-1"></div>
-          <div class="circuit-node node-2"></div>
-          <div class="circuit-node node-3"></div>
-          <div class="circuit-node node-4"></div>
-          <div class="circuit-node node-5"></div>
-          <div class="circuit-node node-6"></div>
+          <div class="data-packet packet-4"></div>
+          <div class="data-packet packet-5"></div>
+        </div>
+
+        <!-- CODE SNIPPETS LAYER -->
+        <div class="code-layer parallax-layer" data-speed="0.15">
+          <div class="code-snippet code-python">import career_path<br>student.learn()</div>
+          <div class="code-snippet code-powershell">Get-Skills | Where-Object {$_.Ready}<br>Deploy-Career</div>
+          <div class="code-snippet code-cpp">class Student {<br>&nbsp;&nbsp;bool graduate();</div>
+          <div class="code-snippet code-javascript">const skills = await learn();<br>deploy(skills);</div>
+          <div class="code-snippet code-css">.future-ready {<br>&nbsp;&nbsp;career: success;</div>
         </div>
       </div>
 
@@ -580,9 +800,38 @@ footer {
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer (Pen-style minimalist transit in footer only) -->
   <footer>
-    <div class="container">
+    <div class="footer-transit-map" aria-hidden="true">
+      <div class="f-transit-lines">
+        <div class="f-line-blue"></div>
+        <div class="f-line-yellow"></div>
+        <div class="f-line-white"></div>
+        <div class="f-line-red"></div>
+        <div class="f-line-green"></div>
+      </div>
+
+      <div class="f-stations">
+        <div class="f-station f-station-1"></div>
+        <div class="f-station f-station-2 f-station-x"></div>
+        <div class="f-station f-station-3"></div>
+        <div class="f-station f-station-4"></div>
+        <div class="f-station f-station-5"></div>
+      </div>
+
+      <div class="f-route f-route-1">A</div>
+      <div class="f-route f-route-2">B</div>
+      <div class="f-route f-route-3">C</div>
+
+      <div class="f-map-grid"></div>
+
+      <!-- Minimalist trains -->
+      <div class="f-train f-train-1"></div>
+      <div class="f-train f-train-2"></div>
+      <div class="f-train f-train-3"></div>
+    </div>
+
+    <div class="container footer-foreground">
       <img src="crta-logo.png" alt="CRTA Logo" class="logo" /><br/>
       &copy; 2025 Cert-Ready Technology Academy, LLC. All rights reserved.
     </div>
@@ -618,6 +867,59 @@ footer {
       for (const el of layers) {
         const speed = parseFloat(el.dataset.speed || '0.2');
         const y = - (scrollY - heroTop) * speed;
+        el.style.transform = 'translate3d(0,' + y.toFixed(2) + 'px,0)';
+      }
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+
+    function onResize() {
+      measure();
+      onScroll();
+    }
+
+    measure();
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+    window.addEventListener('orientationchange', onResize);
+    setTimeout(onResize, 300);
+  })();
+
+  // PROJECTS PARALLAX SCRIPT
+  (function() {
+    const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mqReduce.matches) return;
+
+    const projects = document.querySelector('#projects');
+    if (!projects) return;
+
+    const layers = Array.from(projects.querySelectorAll('.parallax-layer'));
+    if (!layers.length) return;
+
+    let projectsTop = 0, projectsBottom = 0, ticking = false;
+
+    function measure() {
+      const rect = projects.getBoundingClientRect();
+      const scrollY = window.scrollY || window.pageYOffset;
+      projectsTop = rect.top + scrollY;
+      projectsBottom = projectsTop + rect.height;
+    }
+
+    function update() {
+      ticking = false;
+      const scrollY = window.scrollY || window.pageYOffset;
+      const inView = (scrollY + window.innerHeight) > projectsTop && scrollY < projectsBottom;
+      if (!inView) return;
+
+      for (const el of layers) {
+        const speed = parseFloat(el.dataset.speed || '0.2');
+        const y = - (scrollY - projectsTop) * speed;
         el.style.transform = 'translate3d(0,' + y.toFixed(2) + 'px,0)';
       }
     }
