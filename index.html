@@ -303,21 +303,28 @@ header {
     z-index: 1;
 }
 
-/* FIX 1: Make top train more visible - increase opacity and contrast */
+/* Train 1 - Express (top track - furthest away, SMALLEST) */
 .train-express {
+    position: absolute;
+    top: 15%;
+    left: -300px;
+    width: 200px;
+    height: 14px;
     background: 
         linear-gradient(90deg, 
-            rgba(246, 196, 67, 0.35) 0%,  /* was 0.2 */
-            rgba(246, 196, 67, 0.45) 15%,  /* was 0.3 */
-            rgba(246, 196, 67, 0.45) 85%,  /* was 0.3 */
-            rgba(246, 196, 67, 0.35) 100%); /* was 0.2 */
-    border: 1px solid rgba(246, 196, 67, 0.5); /* was 0.3 */
-    /* Fix headlight to point forward (left-moving train needs negative x) */
+            rgba(246, 196, 67, 0.2) 0%, 
+            rgba(246, 196, 67, 0.3) 15%, 
+            rgba(246, 196, 67, 0.3) 85%, 
+            rgba(246, 196, 67, 0.2) 100%);
+    border-radius: 7px;
+    border: 1px solid rgba(246, 196, 67, 0.3);
+    animation: trainExpress 16s linear infinite;
+    /* Smaller headlight effect for distant train */
     box-shadow: 
         0 0 8px rgba(246, 196, 67, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.1),
         inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-        -6px 0 8px -2px rgba(246, 196, 67, 0.8); /* was 4px, now -6px */
+        4px 0 6px -2px rgba(246, 196, 67, 0.6);
 }
 
 /* Express train windows - smaller for distant train */
@@ -359,15 +366,28 @@ header {
 }
 
 /* Train 2 - Local (bottom track - closest, LARGEST) */
-/* FIX 3: Fix bottom train headlight direction */
 .train-local {
-    /* Fix headlight to point forward (right-moving train needs positive x) */
+    position: absolute;
+    bottom: 6px;
+    right: -450px;
+    width: 400px;
+    height: 32px;
+    background: linear-gradient(90deg, 
+        rgba(30, 58, 95, 0.4) 0%, 
+        rgba(44, 82, 130, 0.5) 10%, 
+        rgba(44, 82, 130, 0.5) 90%, 
+        rgba(30, 58, 95, 0.4) 100%);
+    border-radius: 10px;
+    border: 2px solid rgba(44, 82, 130, 0.4);
+    animation: trainLocalStop 22s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+    /* Strongest headlight effect for closest train */
     box-shadow: 
         0 0 30px rgba(44, 82, 130, 0.25),
         inset 0 4px 0 rgba(255, 255, 255, 0.25),
         inset 0 -3px 0 rgba(0, 0, 0, 0.2),
-        18px 0 25px -4px rgba(255, 255, 255, 1.3); /* was -15px, now 18px */
+        -15px 0 20px -4px rgba(255, 255, 255, 1.2);
 }
+
 /* Local train windows - largest for closest train */
 .train-local::after {
     content: '';
@@ -406,14 +426,27 @@ header {
     z-index: 2;
 }
 
-/* FIX 2: Fix middle train headlight direction */
+/* Train 3 - Medium speed (middle track - medium distance, MEDIUM size) */
 .train-medium {
-    /* Fix headlight to point forward (left-moving train needs negative x) */
+    position: absolute;
+    top: 45%;
+    left: -450px;
+    width: 300px;
+    height: 22px;
+    background: linear-gradient(90deg, 
+        rgba(246, 196, 67, 0.3) 0%, 
+        rgba(246, 196, 67, 0.4) 10%, 
+        rgba(246, 196, 67, 0.4) 90%, 
+        rgba(246, 196, 67, 0.3) 100%);
+    border-radius: 8px;
+    border: 1px solid rgba(246, 196, 67, 0.4);
+    animation: trainSlowStop 26s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+    /* Medium headlight effect for middle distance train */
     box-shadow: 
         0 0 18px rgba(246, 196, 67, 0.15),
         inset 0 2px 0 rgba(255, 255, 255, 0.2),
         inset 0 -2px 0 rgba(0, 0, 0, 0.15),
-        -10px 0 15px -3px rgba(246, 196, 67, 1.0); /* was 8px, now -10px */
+        8px 0 12px -4px rgba(246, 196, 67, 0.9);
 }
 
 /* Medium train windows - medium size for middle distance */
@@ -1223,7 +1256,7 @@ section {
             <h2>About CRTA</h2>
             <p>
                 I founded CRTA to expand access to tech careers for middle and high school students, as well as adult learners.
-                Our model is <strong>certification-first</strong>â€"designed to help students graduate not only with diplomas, but with industry-recognized credentials.
+                Our model is <strong>certification-first</strong>Ã¢â‚¬"designed to help students graduate not only with diplomas, but with industry-recognized credentials.
                 From CompTIA to Microsoft tracks, the goal is equity, readiness, and career acceleration. It's where mentorship meets methodology, tailored to your school's culture.
             </p>
             <p class="goal"><em>Our goal: plant the seeds of tomorrow's tech field today.</em></p>
@@ -1236,8 +1269,7 @@ section {
            <div style="display: flex; justify-content: center;">
               <img src="crta-logo.png" alt="CRTA Logo" style="width: clamp(80px, 8vw, 120px); height: auto; display: block; margin: 0 auto;">
            </div>
-            <br>
-            <h2 style="text-align: center">Interactive Flipbook: FutureReady@TCS Proposal</h2>
+            <h2>Interactive Flipbook: FutureReady@TCS Proposal</h2>
             <div class="flipbook-embed">
                 <iframe src="https://toshon-jennings.github.io/caps-cortex/FutureReady@TCS.html"
                         title="FutureReady@TCS Flipbook"
@@ -1266,7 +1298,7 @@ section {
                        <img src="caps-logo.png" alt="CAps Logo" />
                    </div>
                    <div class="project-info">
-                       <h3>CAps™</h3>
+                       <h3>CApsÃ¢â€žÂ¢</h3>
                        <p>A background executable for keyboard perfectionists.</p>
                    </div>
                </a>
@@ -1288,8 +1320,7 @@ section {
                        <img src="github-logo.png" alt="GitHub Logo" />
                    </div>
                    <div class="project-info">
-                       <h3>Hills To Die On</h3>
-                       <h4>(& Other Ideas)</h4>
+                       <h3>Hills To Die On (& Other Ideas)</h3>
                        <p>Systems, stories, and the strange beauty of human and machine behavior.</p>
                    </div>
                </a>
