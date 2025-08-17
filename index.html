@@ -583,8 +583,11 @@ footer {
   100%{ right:calc(100% + 150px); opacity:0; }
 }
 @keyframes trainVertical { 0%{ top:-350px; opacity:0; } 10%{ opacity:1; } 90%{ opacity:1; } 100%{ top:calc(100% + 50px); opacity:0; } }
-  </style>
-</head>
+    /* --- Footer z-index fix: trains above route chips --- */
+.f-train { z-index: 5 !important; }   /* blue/yellow/red mini-trains on top */
+.f-route { z-index: 2 !important; }   /* A/B/C chips below trains */
+</style>
+  </head>
 <body>
   <!-- Header & Navigation -->
   <header>
