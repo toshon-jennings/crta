@@ -525,6 +525,133 @@ footer {
   100% { top:calc(100% + 30px); opacity:0; }
 }
 
+/* ============================
+   DARK MODE IMPROVEMENTS
+   ============================ */
+@media (prefers-color-scheme: dark) {
+  /* Body background for dark mode */
+  body {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+    color: #e2e8f0;
+  }
+
+  /* About Section - Dark Mode */
+  .about {
+    background: linear-gradient(135deg, #2d3748 0%, #374151 100%);
+    border: 1px solid #4a5568;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    color: #e2e8f0;
+  }
+  
+  .about h2 {
+    color: #7dd3fc;
+  }
+  
+  .about p {
+    color: #cbd5e1;
+  }
+  
+  .about .goal {
+    background: linear-gradient(135deg, #374151 0%, #4a5568 100%);
+    color: #7dd3fc;
+    border-left: 4px solid #f6c443;
+  }
+
+  /* Flipbook Section - Dark Mode */
+  .flipbook {
+    color: #e2e8f0;
+  }
+  
+  .flipbook h2 {
+    color: #7dd3fc;
+  }
+  
+  .flipbook-embed {
+    border: 2px solid #4a5568;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+  
+  .flipbook a {
+    color: #7dd3fc;
+  }
+  
+  .flipbook a:hover {
+    color: #f6c443;
+    background: rgba(124, 211, 252, 0.1);
+  }
+
+  /* Projects Section - Dark Mode */
+  .projects {
+    background: linear-gradient(135deg, #2d3748 0%, #374151 100%);
+    border: 1px solid #4a5568;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  
+  .projects h2 {
+    color: #7dd3fc;
+  }
+
+  /* Project Cards - Dark Mode */
+  .project-card {
+    background: linear-gradient(135deg, #374151 0%, #4a5568 100%);
+    color: #e2e8f0;
+    border: 2px solid #6b7280;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+  }
+  
+  .project-card:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    border-color: #f6c443;
+    background: linear-gradient(135deg, #4a5568 0%, #6b7280 100%);
+  }
+  
+  .project-info h3 {
+    color: #7dd3fc;
+  }
+  
+  .project-info p {
+    color: #cbd5e1;
+  }
+
+  /* Network background adjustments for dark mode */
+  .topology-grid {
+    background-image: linear-gradient(rgba(124,211,252,0.08) 2px, transparent 2px),
+                      linear-gradient(90deg, rgba(124,211,252,0.08) 2px, transparent 2px);
+  }
+  
+  .topo-node {
+    background: radial-gradient(circle, rgba(124,211,252,0.2) 0%, rgba(124,211,252,0.1) 50%, transparent 70%);
+    border: 2px solid rgba(124,211,252,0.3);
+  }
+  
+  .topo-connection {
+    background: linear-gradient(90deg, transparent 0%, rgba(124,211,252,0.15) 20%, rgba(124,211,252,0.15) 80%, transparent 100%);
+  }
+  
+  .topo-conn-3,
+  .topo-conn-4 {
+    background: linear-gradient(180deg, transparent 0%, rgba(124,211,252,0.15) 20%, rgba(124,211,252,0.15) 80%, transparent 100%);
+  }
+  
+  .grid-mesh {
+    background-image: linear-gradient(rgba(124,211,252,0.1) 1.5px, transparent 1.5px),
+                      linear-gradient(90deg, rgba(124,211,252,0.1) 1.5px, transparent 1.5px);
+  }
+  
+  .circuit-vertical {
+    background: linear-gradient(180deg, transparent 0%, rgba(124,211,252,0.4) 50%, transparent 100%);
+    box-shadow: 0 0 8px rgba(124,211,252,0.3);
+  }
+
+  /* Code snippets - Dark Mode */
+  .code-snippet {
+    background: rgba(55, 65, 81, 0.9);
+    border: 1px solid rgba(124,211,252,0.2);
+    color: rgba(124,211,252,0.8);
+    backdrop-filter: blur(3px);
+  }
+}
+
 /* Responsive */
 @media (max-width: 700px) {
   body { padding-top: 100px; }
@@ -583,7 +710,8 @@ footer {
   100%{ right:calc(100% + 150px); opacity:0; }
 }
 @keyframes trainVertical { 0%{ top:-350px; opacity:0; } 10%{ opacity:1; } 90%{ opacity:1; } 100%{ top:calc(100% + 50px); opacity:0; } }
-    /* --- Footer z-index fix: trains above route chips --- */
+
+/* Footer z-index fix: trains above route chips */
 .f-train { z-index: 5 !important; }   /* blue/yellow/red mini-trains on top */
 .f-route { z-index: 2 !important; }   /* A/B/C chips below trains */
 </style>
