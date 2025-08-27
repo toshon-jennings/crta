@@ -171,6 +171,11 @@ header, main, footer, section {
   top: 0;
 }
 
+/* Scroll offset for fixed header - THIS FIXES THE NAVIGATION JUMP ISSUE */
+section[id] {
+  scroll-margin-top: 120px;
+}
+
 .container { 
   max-width: 950px; 
   margin: 0 auto; 
@@ -1395,6 +1400,11 @@ footer {
 @media (max-width: 700px) {
   body { padding-top: 100px; }
   
+  /* Adjust scroll margin for mobile */
+  section[id] {
+    scroll-margin-top: 100px;
+  }
+  
   .nav-flex { 
     flex-direction: column; 
     align-items: center; 
@@ -2058,4 +2068,4 @@ footer {
   });
   </script>
 </body>
-</html>
+          </html>
