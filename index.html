@@ -36,20 +36,22 @@
       --shadow-lg: 0 12px 40px rgba(30, 58, 95, 0.15);
 
       /* Gemini 3 / Deep Space Theme Variables */
-      --gem-bg-deep: #0a0e17;
-      --gem-bg-surface: rgba(255, 255, 255, 0.03);
-      --gem-bg-surface-hover: rgba(255, 255, 255, 0.07);
-      --gem-primary: #3b82f6;
-      /* Electric Blue */
-      --gem-secondary: #8b5cf6;
-      /* Electric Purple */
-      --gem-accent: #10b981;
-      /* Neon Green */
+      --gem-bg-deep: #1a1a1a;
+      --gem-bg-surface: rgba(44, 82, 130, 0.15);
+      /* Navy tint transparent */
+      --gem-bg-surface-hover: rgba(44, 82, 130, 0.25);
+      --gem-primary: #f6c443;
+      /* CRTA Gold */
+      --gem-secondary: #2c5282;
+      /* CRTA Accent Blue */
+      --gem-accent: #27ae60;
+      /* CRTA Green */
       --gem-text-main: #f1f5f9;
-      --gem-text-muted: #94a3b8;
-      --gem-glow-blue: 0 0 20px rgba(59, 130, 246, 0.5);
-      --gem-glow-purple: 0 0 20px rgba(139, 92, 246, 0.5);
-      --gem-glass-border: 1px solid rgba(255, 255, 255, 0.1);
+      --gem-text-muted: #cbd5e1;
+      --gem-glow-blue: 0 0 20px rgba(44, 82, 130, 0.5);
+      --gem-glow-gold: 0 0 20px rgba(246, 196, 67, 0.5);
+      --gem-glass-border: 1px solid rgba(246, 196, 67, 0.15);
+      /* Subtle gold border */
       --gem-font-heading: 'Inter', system-ui, -apple-system, sans-serif;
       --gem-font-body: 'Inter', system-ui, -apple-system, sans-serif;
     }
@@ -231,7 +233,7 @@
 
     /* Header and Nav */
     header {
-      background: var(--primary-blue);
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
       color: #fff;
       padding: 20px 0;
       box-shadow: var(--shadow-sm);
@@ -2727,8 +2729,8 @@
       padding: 160px 20px 100px;
       /* Account for fixed header */
       text-align: center;
-      background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 70%),
-        radial-gradient(circle at 80% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+      background: radial-gradient(circle at 50% 0%, rgba(44, 82, 130, 0.2) 0%, transparent 70%),
+        radial-gradient(circle at 80% 30%, rgba(246, 196, 67, 0.1) 0%, transparent 50%);
       overflow: hidden;
     }
 
@@ -2762,11 +2764,11 @@
       font-weight: 800;
       margin-bottom: 24px;
       line-height: 1.1;
-      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.3));
+      filter: drop-shadow(0 0 30px rgba(44, 82, 130, 0.4));
     }
 
     .gemini-subtitle {
@@ -2780,22 +2782,22 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      background: linear-gradient(135deg, var(--gem-primary), var(--gem-secondary));
-      color: white;
+      background: linear-gradient(135deg, var(--gem-primary), #e2b039);
+      color: var(--primary-blue);
       padding: 16px 36px;
       border-radius: 9999px;
       font-weight: 600;
       text-decoration: none;
       font-size: 1.1rem;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+      box-shadow: 0 0 20px rgba(246, 196, 67, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .gemini-cta:hover {
       transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
-      background: linear-gradient(135deg, var(--gem-secondary), var(--gem-primary));
+      box-shadow: 0 0 40px rgba(246, 196, 67, 0.5);
+      background: linear-gradient(135deg, #e2b039, var(--gem-primary));
     }
 
     /* Animations */
