@@ -2839,6 +2839,24 @@
       border-color: rgba(255, 255, 255, 0.2);
       box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
     }
+
+    /* Rive Background Styling */
+    .gemini-rive-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    #rive-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
   </style>
 </head>
 
@@ -2901,6 +2919,9 @@
   <main id="main-content">
     <!-- Hero Section -->
     <section id="home" class="gemini-hero" role="banner">
+      <div class="gemini-rive-container">
+        <canvas id="rive-canvas"></canvas>
+      </div>
       <div class="gemini-hero-content">
         <h1 class="gemini-title">Graduate with a Diploma, Business, and Certification</h1>
         <p class="gemini-subtitle">Future-ready pathways for middle school, high school, and adult learners.
@@ -3115,6 +3136,24 @@
       const main = document.getElementById('main-content');
       main.setAttribute('tabindex', '-1');
       main.focus();
+    });
+  </script>
+
+  <!-- Rive Runtime -->
+  <script src="https://unpkg.com/@rive-app/canvas@latest"></script>
+  <script>
+    const r = new rive.Rive({
+      // Using a placeholder tech-themed Rive file (abstract blueprint vibe)
+      src: 'https://public.rive.app/community/runtime-files/2191-4327-pixel-star.riv',
+      canvas: document.getElementById('rive-canvas'),
+      autoplay: true,
+      layout: new rive.Layout({
+        fit: rive.Fit.Cover,
+        alignment: rive.Alignment.Center
+      }),
+      onLoad: () => {
+        r.resizeDrawingSurfaceToCanvas();
+      },
     });
   </script>
 </body>
