@@ -2840,7 +2840,8 @@
       box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
     }
 
-    /* Rive Background Styling */
+
+    /* Rive/Canvas Background Styling */
     .gemini-rive-container {
       position: absolute;
       top: 0;
@@ -2849,7 +2850,10 @@
       height: 100%;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.6;
+      opacity: 0.8;
+      /* Increased opacity for visibility */
+      background: radial-gradient(circle at 50% 50%, rgba(10, 14, 23, 0) 0%, rgba(10, 14, 23, 0.8) 100%);
+      /* Vignette edges */
     }
 
     #rive-canvas {
@@ -3139,22 +3143,110 @@
     });
   </script>
 
-  <!-- Rive Runtime -->
-  <script src="https://unpkg.com/@rive-app/canvas@latest"></script>
+
+  <!-- Custom Digital Blueprint Animation (Canvas) -->
   <script>
-    const r = new rive.Rive({
-      // Using a placeholder tech-themed Rive file (abstract blueprint vibe)
-      src: 'https://public.rive.app/community/runtime-files/2191-4327-pixel-star.riv',
-      canvas: document.getElementById('rive-canvas'),
-      autoplay: true,
-      layout: new rive.Layout({
-        fit: rive.Fit.Cover,
-        alignment: rive.Alignment.Center
-      }),
-      onLoad: () => {
-        r.resizeDrawingSurfaceToCanvas();
-      },
-    });
+    (function () {
+      const canvas = document.getElementById('rive-canvas');
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      let width, height;
+
+      // Brand Colors
+      const colorBlue = 'rgba(59, 130, 246, 0.15)'; // Grid lines
+      const colorGold = 'rgba(246, 196, 67, 0.6)';  // Nodes
+      const colorGoldLine = 'rgba(246, 196, 67, 0.15)'; // Connections
+
+      let points = [];
+      const numPoints = 60; // Number of floating nodes
+
+      // Resize handling
+      function resize() {
+        width = canvas.parentElement.offsetWidth;
+        height = canvas.parentElement.offsetHeight;
+        canvas.width = width;
+        canvas.height = height;
+        initPoints();
+      }
+
+      function initPoints() {
+        points = [];
+        for (let i = 0; i < numPoints; i++) {
+          points.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            size: Math.random() * 2 + 1
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Draw Blueprint Grid
+        const gridSize = 50;
+        ctx.strokeStyle = colorBlue;
+        ctx.lineWidth = 1;
+
+        // Vertical lines
+        for (let x = 0; x <= width; x += gridSize) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, height);
+          ctx.stroke();
+        }
+
+        // Horizontal lines
+        for (let y = 0; y <= height; y += gridSize) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(width, y);
+          ctx.stroke();
+        }
+
+        // Update and draw points
+        points.forEach((p, i) => {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          // Bounce off edges
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+
+          // Draw Node
+          ctx.fillStyle = colorGold;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Draw Connections
+          for (let j = i + 1; j < points.length; j++) {
+            const p2 = points[j];
+            const dx = p.x - p2.x;
+            const dy = p.y - p2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 150) {
+              ctx.strokeStyle = colorGoldLine;
+              ctx.lineWidth = 1 - (dist / 150);
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
+          }
+        });
+
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+      requestAnimationFrame(draw);
+    })();
   </script>
 </body>
 
