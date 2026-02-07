@@ -196,16 +196,19 @@
       z-index: 1;
     }
 
-    /* Skip Navigation Link for Accessibility */
+    /* Skip Navigation Link for Accessibility - Enhanced */
     .skip-nav {
-      position: absolute;
-      top: -40px;
+      position: fixed;
+      top: -60px;
       left: 0;
-      background: var(--primary-blue);
-      color: white;
-      padding: 8px;
+      background: var(--primary-yellow);
+      color: var(--primary-blue);
+      padding: 12px 20px;
       text-decoration: none;
       z-index: 10001;
+      font-weight: 700;
+      transition: top 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .skip-nav:focus {
@@ -274,6 +277,43 @@
       transform: scale(1.1);
       background: var(--primary-yellow);
       color: var(--primary-blue);
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 20px;
+      z-index: 999;
+      background: var(--primary-blue);
+      color: white;
+      border: 2px solid var(--primary-yellow);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-3px) scale(1.1);
+      background: var(--primary-yellow);
+      color: var(--primary-blue);
+      box-shadow: var(--shadow-lg);
     }
 
     /* Beck-Style Transit Map Background */
@@ -756,6 +796,56 @@
       outline-offset: 2px;
     }
 
+    nav a.active {
+      color: var(--primary-yellow);
+      background: rgba(246, 196, 67, 0.15);
+      position: relative;
+    }
+
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 3px;
+      background: var(--primary-yellow);
+      border-radius: 2px;
+    }
+
+    /* Mobile Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      padding: 10px;
+      z-index: 1002;
+      background: transparent;
+      border: none;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
     /* Hero Section with Optimized Parallax */
     .hero {
       background: radial-gradient(1200px 600px at 15% 80%, rgba(22, 47, 78, 0.9) 0%, rgba(22, 47, 78, 0.85) 35%, transparent 60%),
@@ -1211,6 +1301,30 @@
       outline-offset: 2px;
     }
 
+    /* Scroll-triggered animations */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .animate-on-scroll.animated {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .animate-on-scroll.delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .animate-on-scroll.delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .animate-on-scroll.delay-3 {
+      transition-delay: 0.3s;
+    }
+
     /* About Section with Dark Mode Support */
     .about {
       background: #fff;
@@ -1318,6 +1432,29 @@
 
     [data-theme="dark"] .flipbook a:hover {
       background: rgba(124, 211, 252, 0.1);
+    }
+
+    /* Flipbook Loading Skeleton */
+    .flipbook-skeleton {
+      position: relative;
+      height: 600px;
+      background: linear-gradient(90deg, rgba(30, 58, 95, 0.05) 25%, rgba(30, 58, 95, 0.1) 50%, rgba(30, 58, 95, 0.05) 75%);
+      background-size: 200% 100%;
+      border-radius: 12px;
+      animation: skeletonLoading 1.5s ease-in-out infinite;
+    }
+
+    @keyframes skeletonLoading {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+
+    .flipbook-skeleton.loaded {
+      display: none;
     }
 
     /* Projects Section with Interactive Elements */
@@ -1648,6 +1785,44 @@
       background: linear-gradient(135deg, #4a5568 0%, #6b7280 100%);
     }
 
+    /* External link indicator */
+    .external-link-indicator {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 24px;
+      height: 24px;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+    }
+
+    .gemini-card:hover .external-link-indicator {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Improved contrast for accessibility */
+    .gemini-title,
+    .gemini-subtitle,
+    .gemini-card h2,
+    .gemini-card h3,
+    .gemini-card p,
+    .gemini-card label {
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      background: rgba(0, 0, 0, 0.3) !important;
+      border-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      background: rgba(0, 0, 0, 0.4) !important;
+    }
+
     /* Data burst effect on hover */
     @media (prefers-reduced-motion: no-preference) {
       .project-card:hover::after {
@@ -1774,6 +1949,41 @@
       box-shadow: 0 0 0 3px rgba(246, 196, 67, 0.2);
     }
 
+    /* Form validation styling */
+    .contact-form input:invalid:not(:placeholder-shown),
+    .contact-form textarea:invalid:not(:placeholder-shown) {
+      border-color: #e74c3c;
+    }
+
+    .contact-form input:valid:not(:placeholder-shown),
+    .contact-form textarea:valid:not(:placeholder-shown) {
+      border-color: #27ae60;
+    }
+
+    /* Form submission feedback */
+    .form-feedback {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 500;
+      display: none;
+    }
+
+    .form-feedback.success {
+      display: block;
+      background: rgba(39, 174, 96, 0.2);
+      border: 1px solid #27ae60;
+      color: #27ae60;
+    }
+
+    .form-feedback.error {
+      display: block;
+      background: rgba(231, 76, 60, 0.2);
+      border: 1px solid #e74c3c;
+      color: #e74c3c;
+    }
+
     .contact-form textarea {
       min-height: 120px;
       resize: vertical;
@@ -1791,6 +2001,149 @@
       font-size: .9rem;
       position: relative;
       z-index: 1;
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+      padding: 60px 20px;
+    }
+
+    .testimonials .container {
+      max-width: 900px;
+    }
+
+    .testimonials h2 {
+      text-align: center;
+      color: var(--gem-primary);
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: var(--gem-bg-surface);
+      border: var(--gem-glass-border);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      font-size: 60px;
+      color: var(--gem-primary);
+      opacity: 0.3;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .testimonial-text {
+      color: var(--gem-text-main);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-author {
+      color: var(--gem-primary);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .testimonial-role {
+      color: var(--gem-text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Program Details Section */
+    .program-details {
+      padding: 60px 20px;
+      background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.05));
+    }
+
+    .program-details .container {
+      max-width: 900px;
+    }
+
+    .program-details h2 {
+      text-align: center;
+      color: var(--gem-primary);
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+    }
+
+    .program-track {
+      background: var(--gem-bg-surface);
+      border: var(--gem-glass-border);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 32px;
+    }
+
+    .program-track h3 {
+      color: var(--gem-primary);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .program-track ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .program-track li {
+      padding: 12px 0;
+      padding-left: 32px;
+      position: relative;
+      color: var(--gem-text-muted);
+      line-height: 1.6;
+    }
+
+    .program-track li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--gem-accent);
+      font-weight: bold;
+    }
+
+    .program-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .program-feature {
+      text-align: center;
+      padding: 24px;
+    }
+
+    .program-feature-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .program-feature h4 {
+      color: var(--gem-primary);
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .program-feature p {
+      color: var(--gem-text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
 
     /* Footer with optimized animations */
@@ -2023,10 +2376,19 @@
         scroll-margin-top: 100px;
       }
 
+      .hamburger {
+        display: flex;
+        position: fixed;
+        top: 85px;
+        right: 20px;
+        z-index: 1002;
+      }
+
       .nav-flex {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        gap: 16px;
+        justify-content: space-between;
+        padding: 0 20px;
       }
 
       .logo-title-container {
@@ -2046,17 +2408,42 @@
       }
 
       nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        justify-content: center;
-        width: 100%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+        flex-direction: column;
+        gap: 0;
+        justify-content: flex-start;
+        padding-top: 100px;
+        transition: right 0.3s ease;
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+        overflow-y: auto;
+      }
+
+      nav.active {
+        right: 0;
       }
 
       nav a {
         margin-left: 0;
         margin-right: 0;
-        font-size: 0.9rem;
+        font-size: 1.1rem;
+        padding: 18px 24px;
+        width: 100%;
+        text-align: left;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      nav a.active::after {
+        left: 20px;
+        width: 4px;
+        height: 70%;
+        top: 50%;
+        transform: translateY(-50%);
       }
 
       .hero h1 {
@@ -2870,6 +3257,11 @@
 
   <!-- Header & Navigation -->
   <header>
+    <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
     <div class="beck-transit-map animation-container">
       <div class="transit-lines">
         <div class="line-blue"></div>
@@ -2906,14 +3298,16 @@
     </div>
     <div class="container nav-flex">
       <div class="logo-title-container">
-        <img src="logo-solo-bright.png" alt="CRTA Logo" class="logo" />
+        <img src="logo-solo-bright.png" alt="CRTA Logo" class="logo" loading="eager" />
         <div class="site-title">Cert-Ready Technology Academy, LLC</div>
       </div>
       <nav role="navigation" aria-label="Main navigation">
         <a href="#home">Home</a>
         <a href="#about">About</a>
-        <a href="#flipbook">Flipbook</a>
+        <a href="#programs">Programs</a>
+        <a href="#testimonials">Testimonials</a>
         <a href="#projects">Projects</a>
+        <a href="#flipbook">Flipbook</a>
         <a href="#contact">Partner With Us</a>
       </nav>
     </div>
@@ -2966,17 +3360,18 @@
       </div>
     </section>
 
-    <!-- Flipbook -->
-    <section id="flipbook" style="padding: 60px 20px;">
-      <div class="container" style="max-width: 900px;">
-        <div class="gemini-card" style="text-align: center;">
-          <img src="crta-logo.png" alt="CRTA Logo" style="width: 80px; margin-bottom: 20px;">
-          <h2 id="flipbook-heading" style="color: var(--gem-primary); margin-bottom: 24px;">Interactive Flipbook:
-            FutureReady@TCS Proposal</h2>
-          <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 0 30px rgba(0,0,0,0.3);">
-            <iframe src="https://online.fliphtml5.com/City-Lights/ynot/" title="Flipbook" width="100%" height="600"
-              style="border:none;" allowfullscreen loading="lazy"></iframe>
-          </div>
+     <!-- Flipbook -->
+     <section id="flipbook" style="padding: 60px 20px;">
+       <div class="container" style="max-width: 900px;">
+         <div class="gemini-card" style="text-align: center;">
+           <img src="crta-logo.png" alt="CRTA Logo" loading="lazy" style="width: 80px; margin-bottom: 20px;">
+           <h2 id="flipbook-heading" style="color: var(--gem-primary); margin-bottom: 24px;">Interactive Flipbook:
+             FutureReady@TCS Proposal</h2>
+           <div class="flipbook-skeleton" aria-hidden="true"></div>
+           <div id="flipbook-wrapper" style="border-radius: 12px; overflow: hidden; box-shadow: 0 0 30px rgba(0,0,0,0.3);">
+             <iframe src="https://online.fliphtml5.com/City-Lights/ynot/" title="Flipbook" width="100%" height="600"
+               style="border:none; display: none;" allowfullscreen loading="lazy"></iframe>
+           </div>
           <p style="margin-top: 24px;">
             <a href="https://toshon-jennings.github.io/caps-cortex/FutureReady@TCS.html" target="_blank" rel="noopener"
               style="color: var(--gem-secondary); text-decoration: none; font-weight: 500;">Open flipbook in new tab
@@ -2994,38 +3389,47 @@
         <p style="text-align: center; color: var(--gem-text-muted); margin-bottom: 40px;">Innovations powering the
           academy</p>
 
-        <div class="gemini-grid">
-          <!-- Card 1 -->
-          <a href="https://toshon-jennings.github.io/DoubleCapsCorrect/" target="_blank" rel="noopener"
-            class="gemini-card"
-            style="text-decoration: none; display: flex; flex-direction: column; align-items: center; text-align: center;">
-            <img src="caps-logo.png" alt="CAps Logo"
-              style="width: 64px; height: 64px; object-fit: contain; margin-bottom: 20px;">
-            <h3 style="color: var(--gem-text-main); margin-bottom: 12px;">CAps™</h3>
-            <p style="color: var(--gem-text-muted);">A background executable for keyboard perfectionists.</p>
-          </a>
+         <div class="gemini-grid">
+           <!-- Card 1 -->
+           <a href="https://toshon-jennings.github.io/DoubleCapsCorrect/" target="_blank" rel="noopener"
+             class="gemini-card"
+             style="text-decoration: none; display: flex; flex-direction: column; align-items: center; text-align: center;">
+             <svg class="external-link-indicator" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="var(--gem-primary)">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+             </svg>
+             <img src="caps-logo.png" alt="CAps Logo" loading="lazy"
+               style="width: 64px; height: 64px; object-fit: contain; margin-bottom: 20px;">
+             <h3 style="color: var(--gem-text-main); margin-bottom: 12px;">CAps™</h3>
+             <p style="color: var(--gem-text-muted);">A background executable for keyboard perfectionists.</p>
+           </a>
 
-          <!-- Card 2 -->
-          <a href="https://toshon-jennings.github.io/city-lights-jr-TA/" target="_blank" rel="noopener"
-            class="gemini-card"
-            style="text-decoration: none; display: flex; flex-direction: column; align-items: center; text-align: center;">
-            <img src="city-lights-logo.png" alt="Logo"
-              style="width: 64px; height: 64px; object-fit: contain; margin-bottom: 20px;">
-            <h3 style="color: var(--gem-text-main); margin-bottom: 12px;">City Lights Jr. Tech Academy</h3>
-            <p style="color: var(--gem-text-muted);">Creating digitally literate citizens, one child at a time.</p>
-          </a>
+           <!-- Card 2 -->
+           <a href="https://toshon-jennings.github.io/city-lights-jr-TA/" target="_blank" rel="noopener"
+             class="gemini-card"
+             style="text-decoration: none; display: flex; flex-direction: column; align-items: center; text-align: center;">
+             <svg class="external-link-indicator" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="var(--gem-primary)">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+             </svg>
+             <img src="city-lights-logo.png" alt="Logo" loading="lazy"
+               style="width: 64px; height: 64px; object-fit: contain; margin-bottom: 20px;">
+             <h3 style="color: var(--gem-text-main); margin-bottom: 12px;">City Lights Jr. Tech Academy</h3>
+             <p style="color: var(--gem-text-muted);">Creating digitally literate citizens, one child at a time.</p>
+           </a>
 
-          <!-- Card 3 -->
-          <a href="https://github.com/toshon-jennings/samo-wiki/wiki/%F0%9F%92%BB-Hills-To-Die-On-%28%26-Other-Ideas%29"
-            target="_blank" rel="noopener" class="gemini-card"
-            style="text-decoration: none; display: flex; flex-direction: column; align-items: center; text-align: center;">
-            <img src="github-logo.png" alt="GitHub Logo"
-              style="width: 64px; height: 64px; object-fit: contain; margin-bottom: 20px; filter: invert(1);">
-            <h3 style="color: var(--gem-text-main); margin-bottom: 12px;">Hills To Die On</h3>
-            <p style="color: var(--gem-text-muted);">Systems, stories, and the strange beauty of human and machine
-              behavior.</p>
-          </a>
-        </div>
+           <!-- Card 3 -->
+           <a href="https://github.com/toshon-jennings/samo-wiki/wiki/%F0%9F%92%BB-Hills-To-Die-On-%28%26-Other-Ideas%29"
+             target="_blank" rel="noopener" class="gemini-card"
+             style="text-decoration: none; display: flex; flex-direction: column; align-items: center; text-align: center;">
+             <svg class="external-link-indicator" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="var(--gem-primary)">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+             </svg>
+             <img src="github-logo.png" alt="GitHub Logo" loading="lazy"
+               style="width: 64px; height: 64px; object-fit: contain; margin-bottom: 20px; filter: invert(1);">
+             <h3 style="color: var(--gem-text-main); margin-bottom: 12px;">Hills To Die On</h3>
+             <p style="color: var(--gem-text-muted);">Systems, stories, and a strange beauty of human and machine
+               behavior.</p>
+           </a>
+         </div>
       </div>
     </section>
 
@@ -3063,14 +3467,97 @@
             <input type="hidden" name="_to" value="toshon@crta.ltd">
 
             <button type="submit" class="gemini-cta"
-              style="justify-content: center; width: 100%; cursor: pointer; border: none;">Send Message</button>
-          </form>
-          <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--gem-text-muted);">Your
-            information is safe with us.</p>
+               style="justify-content: center; width: 100%; cursor: pointer; border: none;">Send Message</button>
+           </form>
+           <div id="form-feedback" class="form-feedback"></div>
+           <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--gem-text-muted);">Your
+             information is safe with us.</p>
+         </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+      <div class="container">
+        <h2>What Our Students Say</h2>
+        <div class="testimonial-grid">
+          <div class="testimonial-card animate-on-scroll">
+            <p class="testimonial-text">CRTA changed my perspective on technology. I not only earned my CompTIA Network+ certification but also launched my own IT consulting business while still in high school.</p>
+            <p class="testimonial-author">Jordan M.</p>
+            <p class="testimonial-role">High School Senior, Class of 2024</p>
+          </div>
+          <div class="testimonial-card animate-on-scroll delay-1">
+            <p class="testimonial-text">The 3-year mentorship program gave me the confidence and skills to transition from healthcare to cybersecurity. I'm now working as a junior security analyst.</p>
+            <p class="testimonial-author">Alex R.</p>
+            <p class="testimonial-role">Adult Learner, Career Transitioner</p>
+          </div>
+          <div class="testimonial-card animate-on-scroll delay-2">
+            <p class="testimonial-text">My daughter discovered her passion for coding through the City Lights Jr. program. She's now building her own apps and dreams of starting a tech company.</p>
+            <p class="testimonial-author">Maria S.</p>
+            <p class="testimonial-role">Parent of Middle Schooler</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Program Details Section -->
+    <section id="programs" class="program-details">
+      <div class="container">
+        <h2>Our Programs</h2>
+        <div class="program-track animate-on-scroll">
+          <h3>🚀 High School Track</h3>
+          <ul>
+            <li>Industry-recognized certifications (CompTIA A+, Network+, Security+)</li>
+            <li>Business development and entrepreneurship training</li>
+            <li>Real-world project experience</li>
+            <li>Career mentorship and networking</li>
+          </ul>
+        </div>
+        <div class="program-track animate-on-scroll delay-1">
+          <h3>💡 Middle School Track</h3>
+          <ul>
+            <li>Digital literacy foundations</li>
+            <li>Introductory programming concepts</li>
+            <li>Creative problem-solving</li>
+            <li>STEM-focused projects</li>
+          </ul>
+        </div>
+        <div class="program-track animate-on-scroll delay-2">
+          <h3>🔄 Adult Learner Track</h3>
+          <ul>
+            <li>Flexible scheduling for working professionals</li>
+            <li>Career transition support</li>
+            <li>Accelerated certification pathways</li>
+            <li>Business launch guidance</li>
+          </ul>
+        </div>
+        <div class="program-features">
+          <div class="program-feature animate-on-scroll">
+            <div class="program-feature-icon">📚</div>
+            <h4>3-Year Commitment</h4>
+            <p>Sustained support ensures deep learning and lasting success</p>
+          </div>
+          <div class="program-feature animate-on-scroll delay-1">
+            <div class="program-feature-icon">🏆</div>
+            <h4>Certification-First</h4>
+            <p>Industry-recognized credentials that employers value</p>
+          </div>
+          <div class="program-feature animate-on-scroll delay-2">
+            <div class="program-feature-icon">💼</div>
+            <h4>Business Launch</h4>
+            <p>Graduate with a ready-to-operate business</p>
+          </div>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" aria-label="Back to top">
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
 
   <!-- Footer -->
   <footer role="contentinfo">
@@ -3098,10 +3585,10 @@
       <div class="f-train f-train-2"></div>
       <div class="f-train f-train-3"></div>
     </div>
-    <div class="container footer-foreground">
-      <img src="crta-logo.png" alt="CRTA Logo" class="logo" /><br />
-      &copy; 2025 Cert-Ready Technology Academy, LLC. All rights reserved.
-    </div>
+     <div class="container footer-foreground">
+       <img src="crta-logo.png" alt="CRTA Logo" class="logo" loading="lazy" /><br />
+       &copy; 2025 Cert-Ready Technology Academy, LLC. All rights reserved.
+     </div>
   </footer>
 
   <!-- Enhanced Scripts -->
@@ -3141,6 +3628,133 @@
       main.setAttribute('tabindex', '-1');
       main.focus();
     });
+
+    // Mobile hamburger menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      nav.classList.toggle('active');
+      hamburger.setAttribute('aria-expanded', nav.classList.contains('active'));
+    });
+
+    // Close nav when clicking a link
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        nav.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Active section highlighting
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = nav.querySelectorAll('a');
+
+    function highlightActiveSection() {
+      let current = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+
+        if (scrollY >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', highlightActiveSection);
+    highlightActiveSection();
+
+    // Back to top button
+    const backToTop = document.querySelector('.back-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Scroll-triggered animations
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+        }
+      });
+    }, observerOptions);
+
+    animatedElements.forEach(el => observer.observe(el));
+
+    // Form submission feedback
+    const contactForm = document.querySelector('.contact-form');
+    const formFeedback = document.getElementById('form-feedback');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(contactForm);
+      const data = Object.fromEntries(formData.entries());
+
+      fetch(contactForm.action, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          formFeedback.classList.remove('error');
+          formFeedback.classList.add('success');
+          formFeedback.textContent = 'Thank you for your message! We will get back to you soon.';
+          contactForm.reset();
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      })
+      .catch(error => {
+        formFeedback.classList.remove('success');
+        formFeedback.classList.add('error');
+        formFeedback.textContent = 'There was an error sending your message. Please try again.';
+      });
+    });
+
+    // Flipbook loading state
+    const flipbookIframe = document.querySelector('#flipbook-wrapper iframe');
+    const flipbookSkeleton = document.querySelector('.flipbook-skeleton');
+
+    if (flipbookIframe && flipbookSkeleton) {
+      flipbookIframe.addEventListener('load', () => {
+        flipbookSkeleton.classList.add('loaded');
+        flipbookIframe.style.display = 'block';
+      });
+    }
   </script>
 
 
@@ -3153,13 +3767,16 @@
       const ctx = canvas.getContext('2d');
       let width, height;
 
+      // Check for reduced motion preference
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
       // Brand Colors
       const colorBlue = 'rgba(59, 130, 246, 0.15)'; // Grid lines
       const colorGold = 'rgba(246, 196, 67, 0.6)';  // Nodes
       const colorGoldLine = 'rgba(246, 196, 67, 0.15)'; // Connections
 
       let points = [];
-      const numPoints = 60; // Number of floating nodes
+      const numPoints = prefersReducedMotion ? 20 : 60; // Fewer points for reduced motion
 
       // Resize handling
       function resize() {
@@ -3176,8 +3793,8 @@
           points.push({
             x: Math.random() * width,
             y: Math.random() * height,
-            vx: (Math.random() - 0.5) * 0.5,
-            vy: (Math.random() - 0.5) * 0.5,
+            vx: prefersReducedMotion ? 0 : (Math.random() - 0.5) * 0.5,
+            vy: prefersReducedMotion ? 0 : (Math.random() - 0.5) * 0.5,
             size: Math.random() * 2 + 1
           });
         }
@@ -3209,12 +3826,14 @@
 
         // Update and draw points
         points.forEach((p, i) => {
-          p.x += p.vx;
-          p.y += p.vy;
+          if (!prefersReducedMotion) {
+            p.x += p.vx;
+            p.y += p.vy;
 
-          // Bounce off edges
-          if (p.x < 0 || p.x > width) p.vx *= -1;
-          if (p.y < 0 || p.y > height) p.vy *= -1;
+            // Bounce off edges
+            if (p.x < 0 || p.x > width) p.vx *= -1;
+            if (p.y < 0 || p.y > height) p.vy *= -1;
+          }
 
           // Draw Node
           ctx.fillStyle = colorGold;
@@ -3240,12 +3859,20 @@
           }
         });
 
-        requestAnimationFrame(draw);
+        if (!prefersReducedMotion) {
+          requestAnimationFrame(draw);
+        }
       }
 
       window.addEventListener('resize', resize);
-      resize();
-      requestAnimationFrame(draw);
+
+      if (!prefersReducedMotion) {
+        resize();
+        requestAnimationFrame(draw);
+      } else {
+        resize();
+        draw();
+      }
     })();
   </script>
 </body>
